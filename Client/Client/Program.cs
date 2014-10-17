@@ -10,7 +10,7 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Boom Bitch, get out my way!");
+            Console.WriteLine("Hallloooo");
             Console.ReadLine();
         }
     }
