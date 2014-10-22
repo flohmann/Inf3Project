@@ -111,7 +111,7 @@ namespace ContractTest
         public void storeChallenge(Challenge c){
             Contract.Requires(c!=null);     //Precondition
 
-            Contract.Ensures(.Contains(p)); //Postcondition
+            Contract.Ensures(challenges.Contains(c)); //Postcondition
             
         }
 
