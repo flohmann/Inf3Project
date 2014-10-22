@@ -17,7 +17,7 @@ namespace ContractTest
     class Program
     {
         private String ip;
-        private String port;
+        private int port;
         private Boolean isConnected = false;
         private ArrayList buffer = new ArrayList();
         private ArrayList players = new ArrayList();
@@ -29,12 +29,11 @@ namespace ContractTest
 
         // CONNECTOR 
 
-        public Boolean connect(String ip, String port){
-            Contract.Requires(port != null || port == "666");
-            Contract.Requires(ip != null);    
+        public void connect(String ip, int port){
+            Contract.Requires(port >= 0 && port <= 65535);
+            Contract.Requires(ip != null && ip.Length > 6 && ip.Length < 16);    
 
             Contract.Ensures(isConnected == true);
-            return isConnected;
         }
 
 
@@ -50,6 +49,7 @@ namespace ContractTest
         }
 
        public void sendMessageToServer(String message){
+           Contract.Requires(isConnected == true);
            Contract.Requires(message != null);
 
            Contract.Ensures(message=="INVALID");   // noch nicht fertig!!
@@ -65,9 +65,15 @@ namespace ContractTest
         }
 
 
+        public void transferMethod(){
 
+        }
 
         //BUFFER
+
+        public void addToBuffer(String message){
+
+        }
 
         //BACKEND
 
