@@ -34,7 +34,7 @@ namespace ContractTest
             Contract.Requires(port >= 0 && port <= 65535);
             Contract.Requires(ip != null && ip.Length > 6 && ip.Length < 16);    
 
-            Contract.Ensures(isConnected == true);
+           
         }
 
 
