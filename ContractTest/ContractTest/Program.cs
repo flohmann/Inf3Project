@@ -20,7 +20,10 @@ namespace ContractTest
         private String port;
         private Boolean isConnected = false;
         private ArrayList buffer = new ArrayList();
-
+        private ArrayList players = new ArrayList();
+        private ArrayList dragons = new ArrayList();
+        private ArrayList mapcells = new ArrayList();
+        private ArrayList challenges = new ArrayList();
 
         // CONNECTOR 
 
@@ -65,6 +68,54 @@ namespace ContractTest
         //BUFFER
 
         //BACKEND
+
+        public void sendCommandToConnector(String command){
+            Contract.Requires(command!=null); 
+            //Hier wird sendMessageToServer  in Connector aufgerufen
+            // Es gibt kein Postcondition. 
+        }
+
+        public void storePlayer(String p){
+            Contract.Requires(p!=null);     //Precondition
+
+            Contract.Ensures(players.Contains(p)); //Postcondition
+            
+        }
+
+         public void deletPlayer(String p){
+            Contract.Requires(p!=null);     //Precondition
+
+            Contract.Ensures(!players.Contains(p)); //Postcondition
+            
+        }
+
+         public void storeDragon(String d){
+            Contract.Requires(d!=null);     //Precondition
+
+            Contract.Ensures(dragons.Contains(d)); //Postcondition
+            
+        }
+
+        public void deleteDragon(String d){
+            Contract.Requires(d!=null);     //Precondition
+
+            Contract.Ensures(!dragons.Contains(d)); //Postcondition
+            
+        }
+
+        public void setMap(String [][] m){
+            Contract.Requires(m!=null);     //Precondition
+
+            Contract.Ensures(mapcells.Contains(m)); //Postcondition Nicht fertig !!!
+            
+        }
+
+        public void storeChallenge(String c){
+            Contract.Requires(c!=null);     //Precondition
+
+            Contract.Ensures(challenges.Contains(c)); //Postcondition
+            
+        }
 
         //FRONTEND
     
