@@ -81,7 +81,7 @@ namespace ContractTest
             // Es gibt kein Postcondition. 
         }
 
-        public void storePlayer(String p){
+        public void storePlayer(Player p){
             Contract.Requires(p!=null);     //Precondition
 
             Contract.Ensures(players.Contains(p)); //Postcondition
@@ -121,6 +121,13 @@ namespace ContractTest
 
             Contract.Ensures(challenges.Contains(c)); //Postcondition
             
+        }
+
+        //Unit-Test
+
+        public void sendCommandToConnectorTest(String command){
+
+
         }
 
         //FRONTEND
