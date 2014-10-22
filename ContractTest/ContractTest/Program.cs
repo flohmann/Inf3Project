@@ -22,7 +22,9 @@ namespace ContractTest
         private ArrayList buffer = new ArrayList();
         private ArrayList players = new ArrayList();
         private ArrayList dragons = new ArrayList();
-      
+        private ArrayList mapcells = new ArrayList();
+        private ArrayList challenges = new ArrayList();
+
         // CONNECTOR 
 
         public Boolean isConnect(String ip, String port){
@@ -73,42 +75,42 @@ namespace ContractTest
             // Es gibt kein Postcondition. 
         }
 
-        public void storePlayer(Player p){
+        public void storePlayer(String p){
             Contract.Requires(p!=null);     //Precondition
 
             Contract.Ensures(players.Contains(p)); //Postcondition
             
         }
 
-         public void deletPlayer(Player p){
+         public void deletPlayer(String p){
             Contract.Requires(p!=null);     //Precondition
 
             Contract.Ensures(!players.Contains(p)); //Postcondition
             
         }
 
-         public void storeDragon(Dragon d){
+         public void storeDragon(String d){
             Contract.Requires(d!=null);     //Precondition
 
             Contract.Ensures(dragons.Contains(d)); //Postcondition
             
         }
 
-        public void deleteDragon(Dragon d){
+        public void deleteDragon(String d){
             Contract.Requires(d!=null);     //Precondition
 
             Contract.Ensures(!dragons.Contains(d)); //Postcondition
             
         }
 
-        public void setMap(Mapcell [][] m){
+        public void setMap(String [][] m){
             Contract.Requires(m!=null);     //Precondition
 
             Contract.Ensures(mapcells.Contains(m)); //Postcondition Nicht fertig !!!
             
         }
 
-        public void storeChallenge(Challenge c){
+        public void storeChallenge(String c){
             Contract.Requires(c!=null);     //Precondition
 
             Contract.Ensures(challenges.Contains(c)); //Postcondition
