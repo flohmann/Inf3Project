@@ -19,6 +19,7 @@ namespace ContractTest
         private String ip;
         private int port;
         private Boolean isConnected = false;
+        private Boolean isEmpty = false;
         private ArrayList buffer = new ArrayList();
         private ArrayList players = new ArrayList();
         private ArrayList dragons = new ArrayList();
@@ -44,7 +45,7 @@ namespace ContractTest
             
 
             Contract.Ensures(buffer.Contains(message));
-            Contract.Ensures(buffer.Count > 0);
+            Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) + 1));
 
         }
 
@@ -52,7 +53,6 @@ namespace ContractTest
            Contract.Requires(isConnected == true);
            Contract.Requires(message != null);
 
-           Contract.Ensures(message=="INVALID");   // noch nicht fertig!!
        }     
 
 
@@ -61,7 +61,14 @@ namespace ContractTest
         public void readBuffer(ArrayList buffer){
             Contract.Requires(buffer.Count>0);
 
-            Contract.Ensures(buffer.Count==0);
+            Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
+        }
+
+
+        public void playerkey(String keyword){
+            Contract.Requires(keyword == "PLAYER");
+
+
         }
 
 
@@ -71,8 +78,25 @@ namespace ContractTest
 
         //BUFFER
 
-        public void addToBuffer(String message){
+        public void addLineToBuffer(ArrayList buffer, String message){
+            Contract.Requires(buffer.Count>=0);
+            Contract.Requires(message!=null);
 
+            Contract.Ensures(buffer.Contains(message));
+            Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) + 1));
+        }
+
+        public void getLineFromBuffer(ArrayList buffer){
+            Contract.Requires(buffer.Count>0);
+
+            Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count)-1));
+        }
+
+        public Boolean bufferContent(ArrayList buffer){
+            Contract.Requires(buffer.Count >= 0);
+
+            Contract.Ensures(isEmpty == true);
+            return default(Boolean);
         }
 
         //BACKEND
@@ -130,6 +154,11 @@ namespace ContractTest
         
 
         //FRONTEND
+
+
+        public void repaint(){
+
+        }
     
        public static void Main(string[] args)
         {
