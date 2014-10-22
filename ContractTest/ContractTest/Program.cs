@@ -20,6 +20,7 @@ namespace ContractTest
         private int port;
         private Boolean isConnected = false;
         private Boolean isEmpty = false;
+        private Boolean isChanged = false;
         private ArrayList buffer = new ArrayList();
         private ArrayList players = new ArrayList();
         private ArrayList dragons = new ArrayList();
@@ -34,7 +35,7 @@ namespace ContractTest
             Contract.Requires(port >= 0 && port <= 65535);
             Contract.Requires(ip != null && ip.Length > 6 && ip.Length < 16);    
 
-            Contract.Ensures(isConnected == true);
+         
         }
 
 
@@ -65,10 +66,13 @@ namespace ContractTest
         }
 
 
-        public void playerkey(String keyword){
-            Contract.Requires(keyword == "PLAYER");
+        public Player playerkey(ArrayList buffer){
+            Contract.Requires(buffer.Count > 0);
+            Contract.Requires(buffer.Contains("PLAYER"));
+            Contract.Requires(buffer.Contains("ID"));
 
-
+            Contract.Ensures(players.Count == Contract.OldValue((buffer.Count) + 1));
+            return default(Player);
         }
 
 
@@ -157,7 +161,9 @@ namespace ContractTest
 
 
         public void repaint(){
+            Contract.Requires(mapcells != null);
 
+            Contract.Ensures(isChanged == true);
         }
     
        public static void Main(string[] args)
