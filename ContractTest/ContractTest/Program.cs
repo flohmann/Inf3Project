@@ -27,7 +27,7 @@ namespace ContractTest
 
         // CONNECTOR 
 
-        public Boolean Connect(String ip, String port){
+        public Boolean connect(String ip, String port){
             Contract.Requires(port != null || port == "666");
             Contract.Requires(ip != null);    
 
