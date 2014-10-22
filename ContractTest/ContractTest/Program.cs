@@ -24,6 +24,8 @@ namespace ContractTest
         private ArrayList dragons = new ArrayList();
         private ArrayList mapcells = new ArrayList();
         private ArrayList challenges = new ArrayList();
+        private Map m;
+        
 
         // CONNECTOR 
 
@@ -82,47 +84,44 @@ namespace ContractTest
             
         }
 
-         public void deletPlayer(String p){
+         public void deletePlayer(Player p){
             Contract.Requires(p!=null);     //Precondition
 
             Contract.Ensures(!players.Contains(p)); //Postcondition
             
         }
 
-         public void storeDragon(String d){
+         public void storeDragon(Dragon d){
             Contract.Requires(d!=null);     //Precondition
 
             Contract.Ensures(dragons.Contains(d)); //Postcondition
             
         }
 
-        public void deleteDragon(String d){
+        public void deleteDragon(Dragon d){
             Contract.Requires(d!=null);     //Precondition
 
             Contract.Ensures(!dragons.Contains(d)); //Postcondition
             
         }
 
-        public void setMap(String [][] m){
+        public void setMap(Map m){
             Contract.Requires(m!=null);     //Precondition
+            Contract.Requires(m.Height != null || m.height > 0);
+            Contract.Requires(m.Wigth != null || m.wigth > 0);
 
-            Contract.Ensures(mapcells.Contains(m)); //Postcondition Nicht fertig !!!
-            
+            Contract.Ensures(m.height > 0);
+            Contract.Ensures(m.wigth > 0);
         }
 
-        public void storeChallenge(String c){
+        public void storeChallenge(Challenge c){
             Contract.Requires(c!=null);     //Precondition
 
             Contract.Ensures(challenges.Contains(c)); //Postcondition
             
         }
 
-        //Unit-Test
-
-        public void sendCommandToConnectorTest(String command){
-
-
-        }
+        
 
         //FRONTEND
     
