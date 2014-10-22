@@ -18,18 +18,18 @@ namespace ContractTest
     {
         private String ip;
         private String port;
-        private Boolean connect = false;
+        private Boolean isConnected = false;
         private ArrayList buffer = new ArrayList();
 
 
         // CONNECTOR 
 
-        public Boolean isConnect(String ip, String port){
+        public Boolean Connect(String ip, String port){
             Contract.Requires(port != null || port == "666");
             Contract.Requires(ip != null);    
 
-            Contract.Ensures(connect = true);
-            return connect;
+            Contract.Ensures(isConnected == true);
+            return isConnected;
         }
 
 
