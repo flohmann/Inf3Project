@@ -16,16 +16,15 @@ namespace ContractTest
 
     class Program
     {
-        private String ip;
-        private int port;
         private Boolean isConnected = false;
         private Boolean isEmpty = false;
+        private Boolean isChanged = false;
         private ArrayList buffer = new ArrayList();
         private ArrayList players = new ArrayList();
         private ArrayList dragons = new ArrayList();
         private ArrayList mapcells = new ArrayList();
         private ArrayList challenges = new ArrayList();
-        private Map m;
+       
         
 
         // CONNECTOR 
@@ -34,7 +33,7 @@ namespace ContractTest
             Contract.Requires(port >= 0 && port <= 65535);
             Contract.Requires(ip != null && ip.Length > 6 && ip.Length < 16);    
 
-           
+         
         }
 
 
@@ -65,10 +64,13 @@ namespace ContractTest
         }
 
 
-        public void playerkey(String keyword){
-            Contract.Requires(keyword == "PLAYER");
+        public Player playerkey(ArrayList buffer){
+            Contract.Requires(buffer.Count > 0);
+            Contract.Requires(buffer.Contains("PLAYER"));
+            Contract.Requires(buffer.Contains("ID"));
 
-
+            Contract.Ensures(players.Count == Contract.OldValue((buffer.Count) + 1));
+            return default(Player);
         }
 
 
@@ -103,52 +105,46 @@ namespace ContractTest
 
         public void sendCommandToConnector(String command){
             Contract.Requires(command!=null); 
+            
             //Hier wird sendMessageToServer  in Connector aufgerufen
-            // Es gibt kein Postcondition. 
+            
         }
 
         public void storePlayer(Player p){
-            Contract.Requires(p!=null);     //Precondition
+            Contract.Requires(p!=null);     
 
-            Contract.Ensures(players.Contains(p)); //Postcondition
+            Contract.Ensures(players.Contains(p)); 
             
         }
 
          public void deletePlayer(Player p){
-            Contract.Requires(p!=null);     //Precondition
+            Contract.Requires(p!=null);    
 
-            Contract.Ensures(!players.Contains(p)); //Postcondition
+            Contract.Ensures(!players.Contains(p)); 
             
         }
 
          public void storeDragon(Dragon d){
-            Contract.Requires(d!=null);     //Precondition
+            Contract.Requires(d!=null);     
 
-            Contract.Ensures(dragons.Contains(d)); //Postcondition
+            Contract.Ensures(dragons.Contains(d)); 
             
         }
 
         public void deleteDragon(Dragon d){
-            Contract.Requires(d!=null);     //Precondition
+            Contract.Requires(d!=null);     
 
-            Contract.Ensures(!dragons.Contains(d)); //Postcondition
+            Contract.Ensures(!dragons.Contains(d)); 
             
         }
 
         public void setMap(Map m){
-            Contract.Requires(m!=null);     //Precondition
-            Contract.Requires(m.Height != null || m.height > 0);
-            Contract.Requires(m.Wigth != null || m.wigth > 0);
+            Contract.Requires(m!=null);     
+            Contract.Requires(m.height > 0);
+            Contract.Requires(m.wigth > 0);
 
             Contract.Ensures(m.height > 0);
             Contract.Ensures(m.wigth > 0);
-        }
-
-        public void storeChallenge(Challenge c){
-            Contract.Requires(c!=null);     //Precondition
-
-            Contract.Ensures(challenges.Contains(c)); //Postcondition
-            
         }
 
         
@@ -157,7 +153,9 @@ namespace ContractTest
 
 
         public void repaint(){
+            Contract.Requires(mapcells != null);
 
+            Contract.Ensures(isChanged == true);
         }
     
        public static void Main(string[] args)
