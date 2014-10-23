@@ -66,18 +66,26 @@ namespace ContractTest
         }
 
 
-        public Player playerkey(ArrayList buffer){
+        public Player EbnfRulePlayer(ArrayList buffer){
             Contract.Requires(buffer.Count > 0);
-            Contract.Requires(buffer.Contains("PLAYER"));
-            Contract.Requires(buffer.Contains("ID"));
-
-            Contract.Ensures(players.Count == Contract.OldValue((buffer.Count) + 1));
+            Contract.Requires(buffer.Contains("begin:player"));
+            Contract.Requires(buffer.Contains("id"));
+            Contract.Requires(buffer.Contains("type:Player"));
+            Contract.Requires(buffer.Contains("busy:")); 
+            Contract.Requires(buffer.Contains("desk:"));
+            Contract.Requires(buffer.Contains("x:"));
+            Contract.Requires(buffer.Contains("y:"));
+            Contract.Requires(buffer.Contains("points"));
+            Contract.Requires(buffer.Contains("end:player"));
+ 
             return default(Player);
         }
 
 
-        public void transferMethod(){
+        public void transferMethodPlayer(Player p){
+            Contract.Requires(p != null);
 
+            Contract.Ensures(players.Count == Contract.OldValue((players.Count) + 1));
         }
 
         //BUFFER
