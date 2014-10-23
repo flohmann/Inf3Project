@@ -17,7 +17,17 @@ namespace UnitTestProject1
             String command = "ask:mv:up";
             Assert.AreEqual("ask:mv:up",command);
         }
-       
+       [TestMethod]
+        public void pushMessageIntoBuffer()
+        {
+           List<String> buffer=new List<String>();
+           String message = "Begin:Player...";
+           buffer.Add(message);
+
+           Assert.IsTrue(buffer.Contains(message)); //Schaut ob die Message im Buffer ist
+           Assert.IsNotNull(buffer);                //Schaut ob der Buffer null ist
+           Assert.AreEqual(message, buffer);        //Vergleicht die geschickte Nachricht mit der im Buffer
+        }
         [TestMethod]
         public void storePlayerTest()
         {
