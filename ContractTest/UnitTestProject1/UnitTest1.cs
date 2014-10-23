@@ -10,11 +10,8 @@ namespace UnitTestProject1
     public class UnitTest1
     {
        
-       //CONNECTER
-           
-       
 
-       [TestMethod]
+        [TestMethod]
         public void pushMessageIntoBuffer()
         {
            List<String> buffer=new List<String>();
@@ -23,7 +20,9 @@ namespace UnitTestProject1
 
            Assert.IsTrue(buffer.Contains(message)); //Schaut ob die Message im Buffer ist
            Assert.IsNotNull(buffer);                //Schaut ob der Buffer null ist
-           Assert.AreEqual(message, buffer);        //Vergleicht die geschickte Nachricht mit der im Buffer
+           Assert.AreEqual("Begin:Player...", message);        //Vergleicht die geschickte Nachricht mit der im Buffer
+
+            //bzw ist das doch dann der selbe Test für EbnfRulePlayer() ?
         }
 
        //PARSER
