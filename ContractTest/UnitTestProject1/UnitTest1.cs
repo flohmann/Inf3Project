@@ -10,7 +10,29 @@ namespace UnitTestProject1
     public class UnitTest1
     {
        
+        [TestMethod]
+        public void connect()
+        {
+            String ip = "203.000.113.195";
+            int port = 666;
 
+            Assert.AreEqual("666", port);
+            Assert.IsNotNull(port);
+            Assert.IsNotNull(ip);
+        }
+
+        [TestMethod]
+        public void sendMessageToServer()
+        {
+            String message ="player1 +1 lft";      /*ich weis erhrlich gesagt nich wie so eine Message an den Server aussieht 
+                                                    * und ob man das überhaupt so im unit test prüfen kann ;-(*/
+             Boolean isConnected = true;
+
+            Assert.IsTrue(isConnected);          //Das sieht iwie falsch aus..bitte prüfen :(
+            Assert.IsNotNull(message);
+         
+        }
+         
         [TestMethod]
         public void sendCommandToConnectorTest()
         {
