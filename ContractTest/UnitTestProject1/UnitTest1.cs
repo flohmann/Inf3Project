@@ -10,13 +10,10 @@ namespace UnitTestProject1
     public class UnitTest1
     {
        
+       //CONNECTER
+           
+       
 
-        [TestMethod]
-        public void sendCommandToConnectorTest()
-        {
-            String command = "ask:mv:up";
-            Assert.AreEqual("ask:mv:up",command);
-        }
        [TestMethod]
         public void pushMessageIntoBuffer()
         {
@@ -28,6 +25,23 @@ namespace UnitTestProject1
            Assert.IsNotNull(buffer);                //Schaut ob der Buffer null ist
            Assert.AreEqual(message, buffer);        //Vergleicht die geschickte Nachricht mit der im Buffer
         }
+
+       //PARSER
+
+
+       //BUFFER
+
+
+       //BACKEND
+
+
+       [TestMethod]
+       public void sendCommandToConnectorTest()
+       {
+           String command = "ask:mv:up";
+           Assert.AreEqual("ask:mv:up", command);
+       }
+
         [TestMethod]
         public void storePlayerTest()
         {
@@ -74,6 +88,10 @@ namespace UnitTestProject1
             dragons.Remove(d);
             Assert.IsFalse(dragons.Contains(d));
         }
+
+
+        //FRONTEND
+
         [TestMethod]
         public void setMapTest()
         {
