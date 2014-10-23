@@ -9,8 +9,15 @@ namespace UnitTestProject1
     [TestClass]
     public class UnitTest1
     {
-       
+       //CONNECTOR
+        [TestMethod]
+        public void connectTest()
+        {
+            Boolean isConnected = true;
 
+            Assert.IsTrue(isConnected);
+        }
+    
         [TestMethod]
         public void pushMessageIntoBuffer()
         {
@@ -24,6 +31,21 @@ namespace UnitTestProject1
 
             //bzw ist das doch dann der selbe Test für EbnfRulePlayer() ?
         }
+
+        [TestMethod]
+        public void sendMessageToServerTest()
+        {
+            List<String> buffer = new List<String>();
+            String message = "get:map..";
+            buffer.Add(message);
+            List<String> server = new List<String>();
+            server.Add(message);
+
+
+            Assert.IsTrue(buffer ==  server);
+        }
+
+      
 
        //PARSER
 
@@ -98,7 +120,7 @@ namespace UnitTestProject1
             m.Height = 30;
             m.Wigth = 30;
 
-
+            
            Assert.AreEqual(30, m.Height);
            Assert.AreEqual(30, m.Wigth);
         }
