@@ -42,7 +42,7 @@ namespace UnitTestProject1
             server.Add(message);
 
 
-            Assert.IsTrue(buffer.Contains(message) ==  server.Contains(message));
+            Assert.AreEqual(buffer.Contains(message), server.Contains(message));
         }
 
       
