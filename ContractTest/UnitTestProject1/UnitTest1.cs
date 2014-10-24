@@ -42,7 +42,7 @@ namespace UnitTestProject1
             server.Add(message);
 
 
-            Assert.IsTrue(buffer ==  server);
+            Assert.IsTrue(buffer.Contains(message) ==  server.Contains(message));
         }
 
       
@@ -76,7 +76,7 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
-        public void EbnfRuleResult()
+        public void EbnfRuleResultTest()
         {
             List<String> buffer = new List<String>();
             buffer.Add("begin:result");
@@ -175,9 +175,6 @@ namespace UnitTestProject1
             dragons.Remove(d);
             Assert.IsFalse(dragons.Contains(d));
         }
-
-
-        //FRONTEND
 
         [TestMethod]
         public void setMapTest()
