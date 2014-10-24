@@ -32,7 +32,7 @@ namespace ContractTest
         public void connect(String ip, int port){
             Contract.Requires(port >= 0 && port <= 65535);
             Contract.Requires(ip != null && ip.Length > 6 && ip.Length < 16);    
-
+            
          
         }
 
@@ -151,7 +151,32 @@ namespace ContractTest
             return default(Player);
         }
 
+       public Mapcells EbnfRuleMapcells(ArrayList buffer){
+           Contract.Requires(buffer.Count > 0);
+           Contract.Requires(buffer.Contains( "begin:cell"));
+           Contract.Requires(buffer.Contains("row:"));
+           Contract.Requires(buffer.Contains("col:"));
+           Contract.Requires(buffer.Contains("begin:props"));
+           Contract.Requires(buffer.Contains("end:props"));
+           Contract.Requires(buffer.Contains("end:cell"));
 
+           Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
+            return default(Mapcells);
+        }
+
+       public Map EbnfRulesMap(ArrayList buffer){
+           Contract.Requires(buffer.Count > 0);
+           Contract.Requires(buffer.Contains("begin:map"));
+           Contract.Requires(buffer.Contains("width:"));
+           Contract.Requires(buffer.Contains("hight:"));
+           Contract.Requires(buffer.Contains("begin:cells"));
+           Contract.Requires(buffer.Contains("end:cells"));
+           Contract.Requires(buffer.Contains("end:map"));
+
+           Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
+           return default(Map);
+
+       }
 
         public void transferMethodServer(){
             Contract.Requires(isConnected == true);
@@ -183,6 +208,18 @@ namespace ContractTest
 
             Contract.Ensures(players.Count == Contract.OldValue((players.Count) + 1));
         }
+
+        public void transferMethodMapcells(Mapcells mc){
+            Contract.Requires(mc != null);
+
+            Contract.Ensures(mapcells.Count == Contract.OldValue((mapcells.Count) + 1));
+        }
+
+        public void transferMethodMap(Map m){
+            Contract.Requires(m != null);
+
+        }
+        
 
         //BUFFER
 
