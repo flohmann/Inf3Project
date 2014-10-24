@@ -117,7 +117,16 @@ namespace UnitTestProject1
             Assert.IsFalse(buffer.Contains(tempCommand));                          
         }
 
+        [TestMethod]
+        public void BufferContentTest()
+        {
+            List<String> buffer = new List<String>();
+            buffer.Add("begin:result");
 
+            Assert.IsTrue(buffer!=null);
+           
+           
+        }
 
        //BACKEND
 
