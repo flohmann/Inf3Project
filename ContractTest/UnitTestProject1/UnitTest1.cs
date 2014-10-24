@@ -25,11 +25,9 @@ namespace UnitTestProject1
            String message = "Begin:Player...";
            buffer.Add(message);
 
-           Assert.IsTrue(buffer.Contains(message)); //Schaut ob die Message im Buffer ist
-           Assert.IsNotNull(buffer);                //Schaut ob der Buffer null ist
-           Assert.AreEqual("Begin:Player...", message);        //Vergleicht die geschickte Nachricht mit der im Buffer
-
-            //bzw ist das doch dann der selbe Test für EbnfRulePlayer() ?
+           Assert.IsTrue(buffer.Contains(message)); 
+           Assert.IsNotNull(buffer);                
+           Assert.AreEqual("Begin:Player...", message);        
         }
 
         [TestMethod]
