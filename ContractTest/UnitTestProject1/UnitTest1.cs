@@ -12,7 +12,7 @@ namespace UnitTestProject1
        
 
         [TestMethod]
-        public void pushMessageIntoBuffer()
+        public void pushMessageIntoBufferTest()
         {
            List<String> buffer=new List<String>();
            String message = "Begin:Player...";
@@ -26,9 +26,75 @@ namespace UnitTestProject1
         }
 
        //PARSER
+       
+        [TestMethod]
+        public void readBufferTest()
+        {
+            List<String> buffer = new List<String>();
+            buffer.Add("Begin:Player");
+
+            String tempCommand = buffer.FirstOrDefault();
+            buffer.RemoveAt(0);
+
+            Assert.IsFalse(buffer.Contains(tempCommand));
+        }
+
+        [TestMethod]
+        public void EbnfRuleServerTest()
+        {
+            List<String> buffer = new List<String>();
+            buffer.Add("begin:server");
+            buffer.Add("ver:");
+            buffer.Add("end:server");
+
+            String tempCommand = buffer.FirstOrDefault();
+            buffer.RemoveAt(0);
+
+            Assert.IsFalse(buffer.Contains(tempCommand));
+        }
+
+        [TestMethod]
+        public void EbnfRuleResult()
+        {
+            List<String> buffer = new List<String>();
+            buffer.Add("begin:result");
+            buffer.Add("round:");
+            buffer.Add("running:");
+            buffer.Add("delay:");
+            buffer.Add("begin:opponents");
+            buffer.Add("end:opponents");
+            buffer.Add("end:result");
+
+            String tempCommand = buffer.FirstOrDefault();
+            buffer.RemoveAt(0);
+            Assert.IsFalse(buffer.Contains(tempCommand));         
+        }
 
 
        //BUFFER
+
+
+        [TestMethod]
+        public void addLineToBufferTest()
+        {
+            List<String> buffer = new List<String>();
+            buffer.Add("begin:result");
+
+            Assert.IsTrue(buffer.Contains(buffer.FirstOrDefault()));
+        }
+
+        [TestMethod]
+        public void getLineFromBufferTest()
+        {
+            List<String> buffer = new List<String>();
+            buffer.Add("begin:result");
+
+            String tempCommand = buffer.FirstOrDefault();
+            buffer.RemoveAt(0);
+
+            Assert.IsFalse(buffer.Contains(tempCommand));                          
+        }
+
 
 
        //BACKEND

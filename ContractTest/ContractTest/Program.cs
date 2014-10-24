@@ -19,11 +19,11 @@ namespace ContractTest
         private Boolean isConnected = false;
         private Boolean isEmpty = false;
         private Boolean isChanged = false;
-        private ArrayList buffer = new ArrayList();
-        private ArrayList players = new ArrayList();
-        private ArrayList dragons = new ArrayList();
-        private ArrayList mapcells = new ArrayList();
-        private ArrayList challenges = new ArrayList();
+        private List<String> buffer = new List<String>();
+        private List<Player> players = new List<Player>();
+        private List<Dragon> dragons = new List<Dragon>();
+        private List<Mapcells> mapcells = new List<Mapcells>();
+        private List<Challenge> challenges = new List<Challenge>();
        
         
 
@@ -38,7 +38,8 @@ namespace ContractTest
 
 
 
-        public void pushMessageIntoBuffer(ArrayList buffer, String message){
+        public void pushMessageIntoBuffer(List<String> buffer, String message)
+        {
             Contract.Requires(buffer.Count >= 0);
             Contract.Requires(message != null);
             
@@ -57,13 +58,15 @@ namespace ContractTest
 
         // PARSER
 
-        public void readBuffer(ArrayList buffer){
+       public void readBuffer(List<String> buffer)
+       {
             Contract.Requires(buffer.Count>0);
 
             Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
         }
 
-        public void EbnfRuleServer(ArrayList buffer){
+       public void EbnfRuleServer(List<String> buffer)
+       {
             Contract.Requires(buffer.Count > 0);
             Contract.Requires(buffer.Contains("begin:server"));
             Contract.Requires(buffer.Contains("ver:"));
@@ -73,7 +76,8 @@ namespace ContractTest
         }
 
 
-        public void EbnfRuleResult(ArrayList buffer){
+       public void EbnfRuleResult(List<String> buffer)
+       {
             Contract.Requires(buffer.Count > 0);
             Contract.Requires(buffer.Contains("begin:result"));
             Contract.Requires(buffer.Contains("round:"));
@@ -85,7 +89,8 @@ namespace ContractTest
 
             Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
         }
-        public void EbnfRuleOpponents(ArrayList buffer){
+       public void EbnfRuleOpponents(List<String> buffer)
+       {
             Contract.Requires(buffer.Count > 0);
             Contract.Requires(buffer.Contains("begin:opponents"));
             Contract.Requires(buffer.Contains("id:"));
@@ -96,7 +101,8 @@ namespace ContractTest
       
             Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
         }
-        public Challenge EbnfRuleChallenge(ArrayList buffer){
+       public Challenge EbnfRuleChallenge(List<String> buffer)
+       {
             Contract.Requires(buffer.Count > 0);
 
             Contract.Requires(buffer.Contains("begin:challenge"));
@@ -112,7 +118,8 @@ namespace ContractTest
             return default(Challenge);
         }
 
-        public Dragon EbnfRuleDragon(ArrayList buffer) {
+       public Dragon EbnfRuleDragon(List<String> buffer)
+       {
             Contract.Requires(buffer.Count > 0);
             Contract.Requires(buffer.Contains("begin:dragon"));
             Contract.Requires(buffer.Contains("id:"));
@@ -127,7 +134,8 @@ namespace ContractTest
             return default(Dragon);
         
         }
-        public Player EbnfRulePlayer(ArrayList buffer){
+       public Player EbnfRulePlayer(List<String> buffer)
+       {
             Contract.Requires(buffer.Count > 0);
             Contract.Requires(buffer.Contains("begin:player"));
             Contract.Requires(buffer.Contains("id"));
@@ -178,7 +186,8 @@ namespace ContractTest
 
         //BUFFER
 
-        public void addLineToBuffer(ArrayList buffer, String message){
+        public void addLineToBuffer(List<String> buffer, String message)
+        {
             Contract.Requires(buffer.Count>=0);
             Contract.Requires(message!=null);
 
@@ -186,13 +195,15 @@ namespace ContractTest
             Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) + 1));
         }
 
-        public void getLineFromBuffer(ArrayList buffer){
+        public void getLineFromBuffer(List<String> buffer)
+        {
             Contract.Requires(buffer.Count>0);
 
             Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count)-1));
         }
 
-        public Boolean bufferContent(ArrayList buffer){
+        public Boolean bufferContent(List<String> buffer)
+        {
             Contract.Requires(buffer.Count >= 0);
 
             Contract.Ensures(isEmpty == true);
