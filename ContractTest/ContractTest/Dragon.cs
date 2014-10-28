@@ -8,6 +8,11 @@ namespace ContractTest
 {
     class Dragon
     {
+        private int dragonId;
+        private Boolean busy;
+        private string desc;
+        private int x;
+        private int y;
 
     }
 }
