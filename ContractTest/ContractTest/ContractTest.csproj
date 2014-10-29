@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Challenge.cs" />
+    <Compile Include="Backend.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Dragon.cs" />
     <Compile Include="Mapcells.cs" />
