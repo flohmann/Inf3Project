@@ -22,12 +22,12 @@ namespace UnitTestProject1
         public void pushMessageIntoBufferTest()
         {
            List<String> buffer=new List<String>();
-           String message = "Begin:Player...";
+           String message = "begin:player...";
            buffer.Add(message);
 
            Assert.IsTrue(buffer.Contains(message)); 
            Assert.IsNotNull(buffer);                
-           Assert.AreEqual("Begin:Player...", message);        
+           Assert.AreEqual("begin:player...", message);        
         }
 
         [TestMethod]
@@ -51,7 +51,7 @@ namespace UnitTestProject1
         public void readBufferTest()
         {
             List<String> buffer = new List<String>();
-            buffer.Add("Begin:Player");
+            buffer.Add("begin:player");
 
             String tempCommand = buffer.FirstOrDefault();
             buffer.RemoveAt(0);

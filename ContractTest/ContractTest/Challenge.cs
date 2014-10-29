@@ -8,5 +8,8 @@ namespace ContractTest
 {
     class Challenge
     {
+        private int challengeId;
+        private Boolean accepted;
+
     }
 }

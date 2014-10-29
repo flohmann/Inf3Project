@@ -8,6 +8,12 @@ namespace ContractTest
 {
     class Player
     {
+        private int playerId;
+        private Boolean busy;
+        private string desc;
+        private int x;
+        private int y;
+        private int points;
 
     }
 }
