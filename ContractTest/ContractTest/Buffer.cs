@@ -8,5 +8,6 @@ namespace ContractTest
 {
     class Buffer
     {
+
     }
 }
