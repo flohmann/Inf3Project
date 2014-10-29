@@ -197,29 +197,8 @@ namespace ContractTest
 
         //BUFFER
 
-        public void addLineToBuffer(List<String> buffer, String message)
-        {
-            Contract.Requires(buffer.Count>=0);
-            Contract.Requires(message!=null);
-
-            Contract.Ensures(buffer.Contains(message));
-            Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) + 1));
-        }
-
-        public void getLineFromBuffer(List<String> buffer)
-        {
-            Contract.Requires(buffer.Count>0);
-
-            Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count)-1));
-        }
-
-        public Boolean bufferContent(List<String> buffer)
-        {
-            Contract.Requires(buffer.Count >= 0);
-
-            Contract.Ensures(isEmpty == true);
-            return default(Boolean);
-        }
+      
+      
 
         //BACKEND
 
