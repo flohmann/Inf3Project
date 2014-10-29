@@ -6,13 +6,7 @@ using System.Threading.Tasks;
 
 namespace ContractTest
 {
-    class Dragon
+    class Buffer
     {
-        private int dragonId;
-        private Boolean busy;
-        private string desc;
-        private int x;
-        private int y;
-
     }
 }

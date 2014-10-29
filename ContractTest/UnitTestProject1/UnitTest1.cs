@@ -22,14 +22,12 @@ namespace UnitTestProject1
         public void pushMessageIntoBufferTest()
         {
            List<String> buffer=new List<String>();
-           String message = "Begin:Player...";
+           String message = "begin:player...";
            buffer.Add(message);
 
-           Assert.IsTrue(buffer.Contains(message)); //Schaut ob die Message im Buffer ist
-           Assert.IsNotNull(buffer);                //Schaut ob der Buffer null ist
-           Assert.AreEqual("Begin:Player...", message);        //Vergleicht die geschickte Nachricht mit der im Buffer
-
-            //bzw ist das doch dann der selbe Test für EbnfRulePlayer() ?
+           Assert.IsTrue(buffer.Contains(message)); 
+           Assert.IsNotNull(buffer);                
+           Assert.AreEqual("begin:player...", message);        
         }
 
         [TestMethod]
@@ -42,7 +40,7 @@ namespace UnitTestProject1
             server.Add(message);
 
 
-            Assert.AreEqual(buffer.Contains(message),server.Contains(message));
+            Assert.AreEqual(buffer.Contains(message), server.Contains(message));
         }
 
       
@@ -53,7 +51,7 @@ namespace UnitTestProject1
         public void readBufferTest()
         {
             List<String> buffer = new List<String>();
-            buffer.Add("Begin:Player");
+            buffer.Add("begin:player");
 
             String tempCommand = buffer.FirstOrDefault();
             buffer.RemoveAt(0);
@@ -117,7 +115,17 @@ namespace UnitTestProject1
             Assert.IsFalse(buffer.Contains(tempCommand));                          
         }
 
+        [TestMethod]
+        public void BufferContentTest()
+        {
+            List<String> buffer = new List<String>();
+            buffer.Add("begin:result");
+            buffer.RemoveAt(0);
 
+            Assert.IsTrue(buffer==null);
+           
+           
+        }
 
        //BACKEND
 
