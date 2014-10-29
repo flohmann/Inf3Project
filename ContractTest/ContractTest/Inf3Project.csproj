@@ -86,7 +86,7 @@
   <ItemGroup>
     <Compile Include="Buffer.cs" />
     <Compile Include="Challenge.cs" />
-    <Compile Include="Connect.cs" />
+    <Compile Include="Connector.cs" />
     <Compile Include="DefaultGui.cs" />
     <Compile Include="DefaultGui.Designer.cs" />
     <Compile Include="IBackend.cs" />
