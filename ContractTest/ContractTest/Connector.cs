@@ -9,11 +9,11 @@ using ContractTest;
 
 namespace ContractTest
 {
-    class Connector
+    class Connect
     {
             private Boolean isConnected = false;
 
-        public Connector()
+        public Connect()
         {
 
         }
