@@ -86,7 +86,7 @@
   <ItemGroup>
     <Compile Include="Buffer.cs" />
     <Compile Include="Challenge.cs" />
-    <Compile Include="Connector.cs" />
+    <Compile Include="Connect.cs" />
     <Compile Include="DefaultGui.cs" />
     <Compile Include="DefaultGui.Designer.cs" />
     <Compile Include="IBackend.cs" />
@@ -95,7 +95,6 @@
     <Compile Include="Map.cs" />
     <Compile Include="Dragon.cs" />
     <Compile Include="Mapcells.cs" />
-    <Compile Include="Parser.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Program_Client.cs" />
