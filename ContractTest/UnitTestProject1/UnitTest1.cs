@@ -120,8 +120,9 @@ namespace UnitTestProject1
         {
             List<String> buffer = new List<String>();
             buffer.Add("begin:result");
+            buffer.RemoveAt(0);
 
-            Assert.IsTrue(buffer!=null);
+            Assert.IsTrue(buffer==null);
            
            
         }
