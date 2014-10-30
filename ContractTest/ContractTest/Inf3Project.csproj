@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="Buffer.cs" />
     <Compile Include="Challenge.cs" />
+    <Compile Include="GetMessage.cs" />
     <Compile Include="Connector.cs" />
     <Compile Include="DefaultGui.cs">
       <SubType>Form</SubType>
