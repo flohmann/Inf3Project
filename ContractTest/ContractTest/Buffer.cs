@@ -13,11 +13,11 @@ namespace ContractTest
     class Buffer
     {
 
-        private List<String> buffer = new List<String>();
+        private List<String> buffer;
        
 
         public Buffer(){
-
+            buffer = new List<String>();
         }
 
         public void addLineToBuffer(String message)
