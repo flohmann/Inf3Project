@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Diagnostics.Contracts;
+using System.Collections;
+using ContractTest;
+using System.Collections.Hashtable;
 namespace Frontend
 {
     /// <summary>
@@ -13,6 +16,64 @@ namespace Frontend
     /// </summary>
     public class Backend : IBackend
     {
+        Hashtable players = new Hashtable();
+        Hashtable dragons = new Hashtable();
+
+
+        public void sendCommandToConnector(String command)
+        {
+            Contract.Requires(command != null);
+
+            //Hier wird sendMessageToServer  in Connector aufgerufen
+
+        }
+
+        public void storePlayer()
+        {
+            
+            
+            Contract.Requires(dragons != null);
+            //players.Add(8, "Nasti");
+            Contract.Ensures(dragons.Contains(dragons));
+
+        }
+
+        public void deletePlayer(Player p)
+        {
+            Contract.Requires(p != null);
+
+            Contract.Ensures(!dragons.Contains(p));
+
+        }
+
+        public void storeDragon(Dragon d)
+        {
+            Contract.Requires(d != null);
+
+            Contract.Ensures(dragons.Contains(d));
+
+        }
+
+        public void deleteDragon(Dragon d)
+        {
+            Contract.Requires(d != null);
+
+            Contract.Ensures(!dragons.Contains(d));
+
+        }
+
+        public void setMap(Map m)
+        {
+            Contract.Requires(m != null);
+            Contract.Requires(m.height > 0);
+            Contract.Requires(m.wigth > 0);
+
+            Contract.Ensures(m.height > 0);
+            Contract.Ensures(m.wigth > 0);
+        }
+
+
+
         public void sendCommand(string command)
         {
             Console.WriteLine("received command " + command);

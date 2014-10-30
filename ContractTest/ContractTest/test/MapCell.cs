@@ -18,6 +18,11 @@ namespace Frontend
             this.attributes.AddRange(attributes);
         }
 
+        public List<MapCellAttribute> getCell()
+        {
+            return attributes;
+        }
+
         public int getXPosition()
         {
             return this.x;
