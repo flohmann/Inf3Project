@@ -11,22 +11,21 @@ namespace ContractTest
 {
     class GetMessage
     {
-        private List<String> msgList = new List<String>();
+        private String message;
+        private Buffer buffer;
 
         public GetMessage()
         {
+            buffer = new Buffer();
             Thread thread = new Thread(new ThreadStart(getMessageFromServer));
             thread.Start();
         }
 
         public void pushMessageIntoBuffer(String message)
         {
-            Contract.Requires(msgList.Count >= 0);
             Contract.Requires(message != null);
 
 
-            Contract.Ensures(msgList.Contains(message));
-            Contract.Ensures(msgList.Count == Contract.OldValue((msgList.Count) + 1));
 
         }
 

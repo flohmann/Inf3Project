@@ -106,7 +106,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Program_Client.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="test\Backend.cs" />
+    <Compile Include="Backend.cs" />
     <Compile Include="test\Entity.cs" />
     <Compile Include="test\MapCell.cs" />
   </ItemGroup>

@@ -14,9 +14,10 @@ namespace ContractTest
     {
 
         private List<String> buffer;
-       
+        private Parser parser;
 
         public Buffer(){
+            parser = new Parser();
             buffer = new List<String>();
         }
 

@@ -14,8 +14,8 @@ namespace ContractTest
     {
         private Backend backend;
 
-        public Parser(Backend be){
-            this.backend = be;
+        public Parser(){
+            backend = new Backend();
         }
 
         public void readBuffer(List<String> buffer)
