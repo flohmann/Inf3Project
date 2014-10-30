@@ -16,9 +16,9 @@ namespace Frontend
     /// </summary>
     public class Backend : IBackend
     {
-        Hashtable players = new Hashtable();
-        Hashtable dragons = new Hashtable();
-
+        private Hashtable players = new Hashtable();
+        private Hashtable dragons = new Hashtable();
+        private ArrayList challenges;
 
         public void sendCommandToConnector(String command)
         {
@@ -94,6 +94,12 @@ namespace Frontend
             List<IPositionable> players = new List<IPositionable>();
             players.Add(new Entity(1, 1));
             return players;
+        }
+
+        public ArrayList getChallenges()
+        {
+           challenges = new ArrayList();
+           return challenges;
         }
 
         public ITile[][] getMap()

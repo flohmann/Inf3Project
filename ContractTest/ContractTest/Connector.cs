@@ -26,10 +26,12 @@ namespace ContractTest
 
         public void setIp(String ip)
         {
+            if (ip != null && ip.Length > 6 && ip.Length < 16)
             this.ip = ip;
         }
         public void setPort(Int32 port)
         {
+            if (port >= 0 && port <= 65535)
             this.port = port;
         }
 

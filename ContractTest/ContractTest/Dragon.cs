@@ -8,11 +8,16 @@ namespace ContractTest
 {
     class Dragon
     {
-        private int dragonId;
-        private Boolean busy;
-        private string desc;
+        private Int32 dragonId;
+        private Dragon type;
+        private Boolean isBusy;
+        private String desc;
         private int x;
         private int y;
+
+        public Dragon(Int32 id){
+            this.dragonId = id;
+        }
 
     }
 }
