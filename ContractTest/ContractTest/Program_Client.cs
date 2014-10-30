@@ -202,60 +202,11 @@ namespace ContractTest
 
         //BACKEND
 
-        public void sendCommandToConnector(String command){
-            Contract.Requires(command!=null); 
-            
-            //Hier wird sendMessageToServer  in Connector aufgerufen
-            
-        }
-
-        public void storePlayer(Player p){
-            Contract.Requires(p!=null);     
-
-            Contract.Ensures(players.Contains(p)); 
-            
-        }
-
-         public void deletePlayer(Player p){
-            Contract.Requires(p!=null);    
-
-            Contract.Ensures(!players.Contains(p)); 
-            
-        }
-
-         public void storeDragon(Dragon d){
-            Contract.Requires(d!=null);     
-
-            Contract.Ensures(dragons.Contains(d)); 
-            
-        }
-
-        public void deleteDragon(Dragon d){
-            Contract.Requires(d!=null);     
-
-            Contract.Ensures(!dragons.Contains(d)); 
-            
-        }
-
-        public void setMap(Map m){
-            Contract.Requires(m!=null);     
-            Contract.Requires(m.height > 0);
-            Contract.Requires(m.wigth > 0);
-
-            Contract.Ensures(m.height > 0);
-            Contract.Ensures(m.wigth > 0);
-        }
-
-        
-
+       
         //FRONTEND
 
 
-        public void repaint(){
-            Contract.Requires(mapcells != null);
-
-            Contract.Ensures(isChanged == true);
-        }
+      
     
        public static void Main(string[] args)
         {

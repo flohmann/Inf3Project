@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
+using System.Collections;
+using ContractTest;
 
 namespace Frontend
 {
@@ -27,6 +30,9 @@ namespace Frontend
     public partial class DefaultGui : Form
     {
         private IBackend backend;
+        private MapCell mapcell;
+        private Int32 xPos;
+        private Int32 yPos;
         public DefaultGui(IBackend backend) : base()
         {
             if (backend == null)
@@ -51,6 +57,13 @@ namespace Frontend
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        /// 
+
+        public void repaint()
+        {
+            Contract.Requires(mapcell.getCell() != null);
+        }
+
         private void chat_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
             if(e.KeyChar == (char)Keys.Enter) 
