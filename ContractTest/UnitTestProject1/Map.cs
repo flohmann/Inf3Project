@@ -22,7 +22,8 @@ namespace UnitTestProject1
         public int Height
         {
             get { return this.height; }
-            set { this.height = value; }
+            set {if (Height == null)
+                this.height = value; }
         }
     }
 }
