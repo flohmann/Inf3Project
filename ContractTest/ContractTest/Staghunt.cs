@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Inf3Project
 {
-    class Staghunt
+    class Staghunt : Challenge
     {
+        
     }
 }

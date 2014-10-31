@@ -90,6 +90,9 @@
     <Compile Include="Buffer.cs" />
     <Compile Include="Challenge.cs" />
     <Compile Include="Dragonhunt.cs" />
+    <Compile Include="Enum\EnumDragonhunt.cs" />
+    <Compile Include="Enum\EnumStagehunt.cs" />
+    <Compile Include="Enum\EnumSkirmish.cs" />
     <Compile Include="GetMessage.cs" />
     <Compile Include="Connector.cs" />
     <Compile Include="DefaultGui.cs">
@@ -102,7 +105,7 @@
     <Compile Include="Map.cs" />
     <Compile Include="Dragon.cs" />
     <Compile Include="Mapcells.cs" />
-    <Compile Include="Minigames.cs" />
+    <Compile Include="Enum\EnumMinigames.cs" />
     <Compile Include="Opponent.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Player.cs" />

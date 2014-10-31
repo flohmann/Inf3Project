@@ -18,9 +18,10 @@ namespace Inf3Project
 
         public Player(Int32 id)
         {
-            
+            this.playerId = id;
         }
-        public Player playerId { get; set; }
+       
+        //public Player playerId { get; set; }
     
     }
 

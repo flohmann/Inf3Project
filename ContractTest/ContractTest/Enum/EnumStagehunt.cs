@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Inf3Project
+namespace Inf3Project.Enum
 {
-    class Minigames
+    class EnumStagehunt
     {
-        enum minigames
+        public enum EnumDragonhunt
         {
-	    Dragonhunt,
-	    Skirmish,
-	    Stagehunt,
-        };
+            STAGE,
+            BUNNY
+        }
+
     }
 }
