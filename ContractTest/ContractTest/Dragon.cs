@@ -17,8 +17,9 @@ namespace Inf3Project
         private int y;
 
         public Dragon(Int32 id){
-            this.dragonId = id;
+          
         }
+        public Dragon dragonId { get; set; }
 
     }
 }

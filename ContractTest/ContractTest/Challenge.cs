@@ -11,8 +11,16 @@ namespace Inf3Project
     {
         private int challengeId;
         private Boolean isAccepted;
+        private Opponent opponent;
+        private Player playerId;
+        private Opponent opponentId;
         
+        public Challenge( int challengeId, Player playerId, Opponent opponentId){
+            this.challengeId = challengeId;
+            this.playerId = playerId;
+            this.opponentId = opponentId;
+        }
+
         
-        
-     }
+    }
 }
