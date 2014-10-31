@@ -7,21 +7,32 @@ using System.Diagnostics.Contracts;
 using System.Collections;
 using Inf3Project;
 using Frontend;
+using System.Threading;
 
 namespace Inf3Project
 {
     class Parser
     {
         private Backend backend;
+        private Buffer buffer;
 
-        public Parser(){
+        public Parser(Buffer buffer){
             backend = new Backend();
+            this.buffer = buffer;
+            Thread readBufferThread = new Thread(new ThreadStart(readBuffer));
+            readBufferThread.Start();
         }
        
-        public void readBuffer(List<String> buffer)
+        public void readBuffer()
         {
-            Contract.Requires(buffer.Count > 0);
-            Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
+            Contract.Requires(buffer.getBufferList().Count > 0);
+
+            while(buffer != null){
+                //content here
+                buffer.getLineFromBuffer();
+            }
+
+            Contract.Ensures(buffer.getBufferList().Count == Contract.OldValue((buffer.getBufferList().Count) - 1));
         }
        
         public void EbnfRuleServer(List<String> buffer)

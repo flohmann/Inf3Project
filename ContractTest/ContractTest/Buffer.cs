@@ -13,36 +13,40 @@ namespace Inf3Project
     class Buffer
     {
 
-        private List<String> buffer;
+        private List<String> bufferList;
         private Parser parser;
 
         public Buffer(){
-            parser = new Parser();
-            buffer = new List<String>();
+            parser = new Parser(this);
+            bufferList = new List<String>();
         }
 
         public void addLineToBuffer(String message)
         {
-            Contract.Requires(buffer.Count >= 0);
+            Contract.Requires(bufferList.Count >= 0);
             Contract.Requires(message != null);
 
-            Contract.Ensures(buffer.Contains(message));
-            Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) + 1));
+            Contract.Ensures(bufferList.Contains(message));
+            Contract.Ensures(bufferList.Count == Contract.OldValue((bufferList.Count) + 1));
         }
 
         public String getLineFromBuffer()
         {
-            Contract.Requires(buffer.Count > 0);
+            Contract.Requires(bufferList.Count > 0);
 
-            Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
-            return buffer[0];
+            Contract.Ensures(bufferList.Count == Contract.OldValue((bufferList.Count) - 1));
+            return bufferList[0];
         }
 
         public void bufferContent()
         {
-            Contract.Requires(buffer.Count >= 0);
+            Contract.Requires(bufferList.Count >= 0);
 
-            Contract.Ensures(buffer.Count==0);
+            Contract.Ensures(bufferList.Count==0);
+        }
+
+        public List<String> getBufferList(){
+            return this.bufferList;
         }
 
     }
