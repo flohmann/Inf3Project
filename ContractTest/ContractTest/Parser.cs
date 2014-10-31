@@ -6,20 +6,24 @@ using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 using System.Collections;
 using ContractTest;
+using Frontend;
 
 namespace ContractTest
 {
     class Parser
     {
-        Buffer buffer= new Buffer();
+        private Backend backend;
 
+        public Parser(){
+            backend = new Backend();
+        }
+       
         public void readBuffer(List<String> buffer)
         {
             Contract.Requires(buffer.Count > 0);
-
             Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
         }
-
+       
         public void EbnfRuleServer(List<String> buffer)
         {
             Contract.Requires(buffer.Count > 0);
@@ -29,8 +33,7 @@ namespace ContractTest
 
             //      Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
         }
-
-
+        
         public void EbnfRuleResult(List<String> buffer)
         {
             Contract.Requires(buffer.Count > 0);
@@ -44,6 +47,7 @@ namespace ContractTest
 
             Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
         }
+        
         public void EbnfRuleOpponents(List<String> buffer)
         {
             Contract.Requires(buffer.Count > 0);
@@ -56,10 +60,10 @@ namespace ContractTest
 
             Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
         }
+        
         public Challenge EbnfRuleChallenge(List<String> buffer)
         {
             Contract.Requires(buffer.Count > 0);
-
             Contract.Requires(buffer.Contains("begin:challenge"));
             Contract.Requires(buffer.Contains("id:"));
             Contract.Requires(buffer.Contains("type:"));
@@ -72,7 +76,7 @@ namespace ContractTest
             Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
             return default(Challenge);
         }
-
+       
         public Dragon EbnfRuleDragon(List<String> buffer)
         {
             Contract.Requires(buffer.Count > 0);
@@ -89,6 +93,7 @@ namespace ContractTest
             return default(Dragon);
 
         }
+       
         public Player EbnfRulePlayer(List<String> buffer)
         {
             Contract.Requires(buffer.Count > 0);
@@ -105,7 +110,7 @@ namespace ContractTest
             Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
             return default(Player);
         }
-
+        
         public Mapcells EbnfRuleMapcells(ArrayList buffer)
         {
             Contract.Requires(buffer.Count > 0);
@@ -137,7 +142,7 @@ namespace ContractTest
 
         public void transferMethodServer()
         {
-            Contract.Requires(isConnected);
+           
 
         }
 
@@ -155,28 +160,28 @@ namespace ContractTest
         {
             Contract.Requires(c != null);
 
-            Contract.Ensures(challenges.Count == Contract.OldValue((challenges.Count) + 1));
+            Contract.Ensures(backend.getChallenges().Count == Contract.OldValue((backend.getChallenges().Count) + 1));
         }
 
         public void transferMethodDragon(Dragon d)
         {
             Contract.Requires(d != null);
 
-            Contract.Ensures(dragons.Count == Contract.OldValue((dragons.Count) + 1));
+            Contract.Ensures(backend.getDragons().Count == Contract.OldValue((backend.getDragons().Count) + 1));
         }
 
         public void transferMethodPlayer(Player p)
         {
             Contract.Requires(p != null);
 
-            Contract.Ensures(players.Count == Contract.OldValue((players.Count) + 1));
+            Contract.Ensures(backend.getPlayers().Count == Contract.OldValue((backend.getPlayers().Count) + 1));
         }
 
         public void transferMethodMapcells(Mapcells mc)
         {
             Contract.Requires(mc != null);
 
-            Contract.Ensures(mapcells.Count == Contract.OldValue((mapcells.Count) + 1));
+   //         Contract.Ensures(MapCell.getCell().Count == Contract.OldValue((mapcells.Count) + 1));
         }
 
         public void transferMethodMap(Map m)

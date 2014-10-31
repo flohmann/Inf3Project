@@ -12,25 +12,33 @@ namespace ContractTest
     class Connector
     {
         private String ip;
-        private Int32 port = 666;
+        private int port = 666;
         private Boolean isConnected = false;
-        private List<String> msgList = new List<String>();
-          
+        private GetMessage gm;
 
-        public Connector(String ip, Int32 port)
+        public Connector(String ip, int port)
         {
             setIp(ip);
             setPort(port);
             connect(ip, port);
+            gm = new GetMessage();
         }
 
         public void setIp(String ip)
         {
-            this.ip = ip;
+            if (ip != null && ip.Length > 6 && ip.Length < 16)
+            {
+                this.ip = ip;
+            }
+            
         }
-        public void setPort(Int32 port)
+       
+        public void setPort(int port)
         {
-            this.port = port;
+            if (port >= 0 && port <= 65535)
+            {
+                this.port = port;
+            }
         }
 
     /*    public String Ip{
@@ -39,7 +47,7 @@ namespace ContractTest
                 return this.ip;
             }
             set
-            { 
+        {
                 if(ip!=null && ip.Length > 6 && ip.Length < 16)
                     this.ip = value;
             }
@@ -55,29 +63,15 @@ namespace ContractTest
             {
                 if (port >= 0 && port <= 65535)
                     this.port = value;
-            }
+        }
         }*/
-        
         
         public void connect(String ip, Int32 port)
         {
             Contract.Requires(port >= 0 && port <= 65535);
             Contract.Requires(ip != null && ip.Length > 6 && ip.Length < 16);
         }
-
-
-
-        public void pushMessageIntoBuffer(String message)
-        {
-            Contract.Requires(msgList.Count >= 0);
-            Contract.Requires(message != null);
-
-
-            Contract.Ensures(msgList.Contains(message));
-            Contract.Ensures(msgList.Count == Contract.OldValue((msgList.Count) + 1));
-
-        }
-
+        
         public void sendMessageToServer(String message)
         {
             Contract.Requires(isConnected);
