@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 
-namespace ContractTest
+namespace Inf3Project
 {
     class Challenge
     {

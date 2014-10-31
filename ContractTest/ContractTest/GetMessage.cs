@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace ContractTest
+namespace Inf3Project
 {
     class GetMessage
     {
@@ -24,9 +24,6 @@ namespace ContractTest
         public void pushMessageIntoBuffer(String message)
         {
             Contract.Requires(message != null);
-
-
-
         }
 
         public void getMessageFromServer()

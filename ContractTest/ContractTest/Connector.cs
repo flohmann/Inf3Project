@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 using System.Collections;
-using ContractTest;
+using Inf3Project;
 
-namespace ContractTest
+namespace Inf3Project
 {
     class Connector
     {

@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 using System.Collections;
-using ContractTest;
+using Inf3Project;
 using Frontend;
 
-namespace ContractTest
+namespace Inf3Project
 {
     class Parser
     {

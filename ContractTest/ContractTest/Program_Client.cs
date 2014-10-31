@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace ContractTest
+namespace Inf3Project
 {
 
 
