@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Frontend;
 
 namespace Inf3Project
 {
-    class Dragon
+    class Dragon : IPositionable
     {
         private Int32 dragonId;
         private Dragon type;

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Frontend;
 
 namespace Inf3Project
 {
-    class Player
+    class Player : IPositionable
     {
         private Int32 playerId;
         private Boolean isBusy;
