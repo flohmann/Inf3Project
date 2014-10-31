@@ -12,11 +12,11 @@ namespace ContractTest
     class Connector
     {
         private String ip;
-        private Int32 port = 666;
+        private int port = 666;
         private Boolean isConnected = false;
         private GetMessage gm;
 
-        public Connector(String ip, Int32 port)
+        public Connector(String ip, int port)
         {
             setIp(ip);
             setPort(port);
@@ -27,12 +27,18 @@ namespace ContractTest
         public void setIp(String ip)
         {
             if (ip != null && ip.Length > 6 && ip.Length < 16)
-            this.ip = ip;
+            {
+                this.ip = ip;
+            }
+            
         }
-        public void setPort(Int32 port)
+       
+        public void setPort(int port)
         {
             if (port >= 0 && port <= 65535)
-            this.port = port;
+            {
+                this.port = port;
+            }
         }
 
     /*    public String Ip{
@@ -59,18 +65,13 @@ namespace ContractTest
                     this.port = value;
         }
         }*/
-
-
+        
         public void connect(String ip, Int32 port)
         {
             Contract.Requires(port >= 0 && port <= 65535);
             Contract.Requires(ip != null && ip.Length > 6 && ip.Length < 16);
         }
-
-
-
         
-
         public void sendMessageToServer(String message)
         {
             Contract.Requires(isConnected);

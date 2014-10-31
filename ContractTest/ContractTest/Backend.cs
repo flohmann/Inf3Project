@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 using System.Collections;
 using ContractTest;
-using System.Collections.Hashtable;
 
 namespace Frontend
 {
@@ -21,13 +20,11 @@ namespace Frontend
         private Hashtable dragons;
         private ArrayList challenges; //brauchen nicht speichern?
 
-
         public Backend()
         {
             players = new Hashtable();
             dragons = new Hashtable();
         }
-
 
         public void sendCommandToConnector(String command)
         {
@@ -81,8 +78,6 @@ namespace Frontend
             Contract.Ensures(m.wigth > 0);
         }
 
-
-
         public void sendCommand(string command)
         {
             Console.WriteLine("received command " + command);
@@ -97,8 +92,8 @@ namespace Frontend
             List<IPositionable> dragons = new List<IPositionable>();
             dragons.Add(new Entity(0,1));
             return dragons;
-
         }
+       
         public List<IPositionable> getPlayers() {
             List<IPositionable> players = new List<IPositionable>();
             players.Add(new Entity(1, 1));

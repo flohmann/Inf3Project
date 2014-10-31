@@ -17,14 +17,13 @@ namespace ContractTest
         public Parser(){
             backend = new Backend();
         }
-
+       
         public void readBuffer(List<String> buffer)
         {
             Contract.Requires(buffer.Count > 0);
-
             Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
         }
-
+       
         public void EbnfRuleServer(List<String> buffer)
         {
             Contract.Requires(buffer.Count > 0);
@@ -34,8 +33,7 @@ namespace ContractTest
 
             //      Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
         }
-
-
+        
         public void EbnfRuleResult(List<String> buffer)
         {
             Contract.Requires(buffer.Count > 0);
@@ -49,6 +47,7 @@ namespace ContractTest
 
             Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
         }
+        
         public void EbnfRuleOpponents(List<String> buffer)
         {
             Contract.Requires(buffer.Count > 0);
@@ -61,10 +60,10 @@ namespace ContractTest
 
             Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
         }
+        
         public Challenge EbnfRuleChallenge(List<String> buffer)
         {
             Contract.Requires(buffer.Count > 0);
-
             Contract.Requires(buffer.Contains("begin:challenge"));
             Contract.Requires(buffer.Contains("id:"));
             Contract.Requires(buffer.Contains("type:"));
@@ -77,7 +76,7 @@ namespace ContractTest
             Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
             return default(Challenge);
         }
-
+       
         public Dragon EbnfRuleDragon(List<String> buffer)
         {
             Contract.Requires(buffer.Count > 0);
@@ -94,6 +93,7 @@ namespace ContractTest
             return default(Dragon);
 
         }
+       
         public Player EbnfRulePlayer(List<String> buffer)
         {
             Contract.Requires(buffer.Count > 0);
@@ -110,7 +110,7 @@ namespace ContractTest
             Contract.Ensures(buffer.Count == Contract.OldValue((buffer.Count) - 1));
             return default(Player);
         }
-
+        
         public Mapcells EbnfRuleMapcells(ArrayList buffer)
         {
             Contract.Requires(buffer.Count > 0);
