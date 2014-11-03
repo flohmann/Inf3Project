@@ -8,7 +8,7 @@ namespace Inf3Project
 {
     class Dragonhunt : Challenge
     {
-        private EnumDragonhunt enumDragonhunt;
+        private eDragonhunt enumDragonhunt;
 
         public Dragonhunt(Int32 id, Player player, Opponent opponent, Boolean isAccepted)
             : base(opponent, isAccepted){
@@ -17,5 +17,4 @@ namespace Inf3Project
         }
 
     }
-}
 }

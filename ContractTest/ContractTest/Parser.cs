@@ -35,6 +35,10 @@ namespace Inf3Project
             Contract.Ensures(buffer.getBufferList().Count == Contract.OldValue((buffer.getBufferList().Count) - 1));
         }
        
+
+
+
+
         public void EbnfRuleServer(List<String> buffer)
         {
             Contract.Requires(buffer.Count > 0);

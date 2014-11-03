@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Inf3Project.Enum
 {
-    class EnumSkirmish
+    class eSkirmish
     {
         public enum EnumSkirmish
         {

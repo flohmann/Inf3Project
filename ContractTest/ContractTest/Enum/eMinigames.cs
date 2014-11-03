@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Inf3Project
 {
-    class EnumMinigames
+    class eMinigames
     {
         public enum EnumMinigames
         {
-	    Dragonhunt,
-	    Skirmish,
-	    Stagehunt,
+	        DRAGONHUNT,
+            SKIRMISH,
+            STAGEHUNT
         };
     }
 }
