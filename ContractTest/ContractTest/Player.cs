@@ -7,21 +7,28 @@ using Frontend;
 
 namespace Inf3Project
 {
-    class Player : IPositionable
+    public class Player : IPositionable
     {
-        private Int32 playerId;
+        private int playerId;
         private Boolean isBusy;
         private string desc;
         private int x;
         private int y;
         private int points;
 
-        public Player(Int32 id)
+        public Player(int id)
         {
             this.playerId = id;
         }
-       
-        //public Player playerId { get; set; }
+
+        public int getXPosition()
+        {
+            return x;
+        }
+        public int getYPosition()
+        {
+            return y;
+        }
     
     }
 

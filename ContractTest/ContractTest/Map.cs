@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Inf3Project
 {
-    class Map
+    public class Map
     {
         public int wigth;
         public int height;

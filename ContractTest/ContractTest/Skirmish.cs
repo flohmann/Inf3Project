@@ -8,5 +8,10 @@ namespace Inf3Project
 {
     class Skirmish : Challenge
     {
+        public Skirmish(Opponent opponent, Boolean isAccepted)
+            : base(opponent, isAccepted)
+        {
+
+        }
     }
 }

@@ -14,20 +14,25 @@ namespace Inf3Project
 {
     class Connector
     {
+        /*
+         * variables 
+         */
         private String ip;
-        private Int32 port = 666;
+        private int port = 666;
         private Buffer buffer;
         private StreamWriter sw;
         private StreamReader sr;
         private TcpClient tcpClient;
+        private Boolean isConnected = false;
 
-        public Connector(String ip, Int32 port)
+        /*
+         * constructors 
+         */
+        public Connector(String ip, int port)
         {
             setIp(ip);
             setPort(port);
-            connect(ip, port);
             buffer = new Buffer();
-
             connectToServer();
 
             //create read thread and start it
@@ -35,45 +40,39 @@ namespace Inf3Project
             readThread.Start();
         }
 
+        /*
+         * methods
+         */
         public void setIp(String ip)
         {
             if (ip != null && ip.Length > 6 && ip.Length < 16)
             {
                 this.ip = ip;
             }
-            
+
         }
-       
-        public void setPort(Int32 port)
+
+        public void setPort(int port)
         {
             if (port >= 0 && port <= 65535)
             {
                 this.port = port;
             }
         }
-        
-        public void connect(String ip, Int32 port)
+
+        //method used for the readStream
+        private void readStreamThread()
         {
-            Contract.Requires(port >= 0 && port <= 65535);
-
-
-            Contract.Requires(ip != null && ip.Length > 6 && ip.Length < 16);
-        }
-        
-        public void sendMessageToServer(String message)
-        {
-            Contract.Requires(isConnected);
-            Contract.Requires(message != null);
-
+            while (tcpClient.Connected)
+            {
+                buffer.addLineToBuffer(sr.ReadLine().ToString()); 
+            }
         }
 
-        private TcpClient getTcpClient()
+        //opens a tcp connection to the server
+        public void connectToServer()
         {
-            return this.tcpClient;
-        }
-
-        private void connectToServer()
-        {
+            //Contract.Requires(port >= 0 && port <= 65535);
             try
             {
                 tcpClient = new TcpClient();
@@ -88,15 +87,27 @@ namespace Inf3Project
             {
                 Console.WriteLine(e);
             }
+
+            //Contract.Requires(ip != null && ip.Length > 6 && ip.Length < 16);
+        }
+        
+        public void sendMessageToServer(String message)
+        {
+            Contract.Requires(isConnected);
+
+            sw.WriteLine(message);
+            sw.Flush();
+
+            Contract.Requires(message != null);
+
         }
 
-        private void readStreamThread()
+        private TcpClient getTcpClient()
         {
-            while (tcpClient.Connected)
-            {
-                buffer.addLineToBuffer(sr.Read().ToString());
-            }
+            return this.tcpClient;
         }
+
+        
 
 
     }

@@ -19,6 +19,8 @@ namespace Inf3Project
         public Parser(Buffer buffer){
             backend = new Backend();
             this.buffer = buffer;
+            
+            //create read thread and start it
             Thread readBufferThread = new Thread(new ThreadStart(readBuffer));
             readBufferThread.Start();
         }
@@ -28,8 +30,12 @@ namespace Inf3Project
             Contract.Requires(buffer.getBufferList().Count > 0);
 
             while(buffer != null){
-                //content here
-                buffer.getLineFromBuffer();
+                if(buffer.bufferContent()){
+                    //parse this stuff with regex & delete the console output
+                    //implementet just for testing
+                    Console.WriteLine(buffer.getLineFromBuffer());
+                    
+                }
             }
 
             Contract.Ensures(buffer.getBufferList().Count == Contract.OldValue((buffer.getBufferList().Count) - 1));

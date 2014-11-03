@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Inf3Project;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,15 +9,14 @@ namespace Frontend
 {
     static class Program
     {
-        /// <summary>
-        /// Der Haupteinstiegspunkt für die Anwendung.
-        /// </summary>
-        [STAThread]
+
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DefaultGui(new Backend()));
+            Connector connector = new Connector("127.0.0.1", 666);
+            
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new DefaultGui(new Backend()));
         }
     }
 }
