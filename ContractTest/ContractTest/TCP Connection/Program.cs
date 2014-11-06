@@ -14,7 +14,7 @@ namespace TCPConnection
         private static TcpClient tcpClient;
         private static StreamWriter sw;
         private static StreamReader sr;
-        
+
 
         static void Main(string[] args)
         {
@@ -24,6 +24,7 @@ namespace TCPConnection
             //connect the streams (write and read)
             sw = new StreamWriter(tcpClient.GetStream());
             sr = new StreamReader(tcpClient.GetStream());
+
 
             Receiver rec = new Receiver(tcpClient, sr);
             rec.Receive();
