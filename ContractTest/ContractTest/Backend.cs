@@ -18,7 +18,7 @@ namespace Frontend
     {
         private Hashtable players;
         private Hashtable dragons;
-        private ArrayList challenges; //brauchen nicht speichern?
+        private ArrayList challenges; 
 
         public Backend()
         {
@@ -30,8 +30,8 @@ namespace Frontend
         {
             Contract.Requires(command != null);
 
-            //Hier wird sendMessageToServer  in Connector aufgerufen
-
+            
+            //sendMessageToServer is called in Connector
         }
 
         public void storePlayer()
