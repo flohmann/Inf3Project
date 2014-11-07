@@ -90,13 +90,13 @@ namespace Frontend
 
         public List<IPositionable> getDragons() {
             List<IPositionable> dragons = new List<IPositionable>();
-            dragons.Add(new Entity(0,1));
+            dragons.Add(new Entity(111, 0, 1, "Dragon"));
             return dragons;
         }
        
         public List<IPositionable> getPlayers() {
             List<IPositionable> players = new List<IPositionable>();
-            players.Add(new Entity(1, 1));
+            players.Add(new Entity(01,1, 1, "Player"));
             return players;
         }
 

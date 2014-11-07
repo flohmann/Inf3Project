@@ -7,7 +7,7 @@ using Frontend;
 
 namespace Inf3Project
 {
-    public class Opponent : IPositionable
+    public class Opponent 
     {
         private Int32 opponentId;
         private String desc;

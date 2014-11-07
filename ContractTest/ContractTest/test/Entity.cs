@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Frontend
 {
-    public abstract class Entity : IPositionable
+    public class Entity : IPositionable
     {
         private int x, y;
         private int id;
