@@ -16,6 +16,7 @@ namespace Inf3Project
          * variables 
          */
         private List<String> bufferList;
+        private int BUFFERSIZE = 15;
         private Parser parser;
         private Boolean searchEnd = false;
         private int begin = -1;
@@ -26,7 +27,7 @@ namespace Inf3Project
          */
         public Buffer(){
             parser = new Parser(this);
-            bufferList = new List<String>(15);
+            bufferList = new List<String>(BUFFERSIZE);
         }
 
         /*
@@ -34,16 +35,15 @@ namespace Inf3Project
          */
         public Boolean bufferContent()
         {
+            Boolean tmp = false;
             Contract.Requires(bufferList.Count >= 0);
             if (bufferList != null && bufferList.Count > 0)
             {
-                return true;
+                tmp = true;
             }
-            else
-            {
-                return false;
-            }
+            
             Contract.Ensures(bufferList.Count == 0);
+            return tmp;
         }
 
         //creates a one-line element of each server-push for the buffer

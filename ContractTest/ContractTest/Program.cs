@@ -10,13 +10,13 @@ namespace Frontend
     static class Program
     {
 
-        //static void Main()
-        //{
-        //    Connector connector = new Connector("127.0.0.1", 666);
-            
-        //    //Application.EnableVisualStyles();
-        //    //Application.SetCompatibleTextRenderingDefault(false);
-        //    //Application.Run(new DefaultGui(new Backend()));
-        //}
+         static void Main()
+         {
+             Connector connector = new Connector("127.0.0.1", 666);
+
+             //Application.EnableVisualStyles();
+             //Application.SetCompatibleTextRenderingDefault(false);
+             //Application.Run(new DefaultGui(new Backend()));
+         }
     }
 }

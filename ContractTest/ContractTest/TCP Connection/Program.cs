@@ -16,7 +16,7 @@ namespace TCPConnection
         private static StreamReader sr;
 
 
-        static void Main(string[] args)
+     /*   static void Main(string[] args)
         {
             tcpClient = new TcpClient();
             tcpClient.Connect("127.0.0.1", 666);
@@ -34,6 +34,6 @@ namespace TCPConnection
             {
                 sender.SendMsg(Console.ReadLine());
             }
-        }    
+        }   */
     }
 }
