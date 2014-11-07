@@ -113,6 +113,9 @@
     <Compile Include="Backend.cs" />
     <Compile Include="Skirmish.cs" />
     <Compile Include="Staghunt.cs" />
+    <Compile Include="TCP Connection\Program.cs" />
+    <Compile Include="TCP Connection\Receiver.cs" />
+    <Compile Include="TCP Connection\Sender.cs" />
     <Compile Include="test\Entity.cs" />
     <Compile Include="test\MapCell.cs" />
   </ItemGroup>
