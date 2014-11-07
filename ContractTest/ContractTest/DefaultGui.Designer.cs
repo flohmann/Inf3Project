@@ -3,14 +3,14 @@
     partial class DefaultGui
     {
         /// <summary>
-        /// Erforderliche Designervariable.
+        /// required designvariable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Verwendete Ressourcen bereinigen.
+        /// Cleaning used resources.
         /// </summary>
-        /// <param name="disposing">True, wenn verwaltete Ressourcen gelöscht werden sollen; andernfalls False.</param>
+        /// <param name="disposing">True, if manages resources should be deleted; else False.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))

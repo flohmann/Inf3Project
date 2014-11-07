@@ -74,9 +74,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -116,9 +113,9 @@
     <Compile Include="Backend.cs" />
     <Compile Include="Skirmish.cs" />
     <Compile Include="Staghunt.cs" />
-    <Compile Include="TCPConnection\Program.cs" />
-    <Compile Include="TCPConnection\Receiver.cs" />
-    <Compile Include="TCPConnection\Sender.cs" />
+    <Compile Include="TCP Connection\Program.cs" />
+    <Compile Include="TCP Connection\Receiver.cs" />
+    <Compile Include="TCP Connection\Sender.cs" />
     <Compile Include="test\Entity.cs" />
     <Compile Include="test\MapCell.cs" />
   </ItemGroup>
@@ -128,7 +125,6 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
