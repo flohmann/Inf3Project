@@ -7,27 +7,25 @@ using Frontend;
 
 namespace Inf3Project
 {
-    public class Player : IPositionable
+    public class Player : Entity
     {
-        private int playerId;
-        private Boolean isBusy;
-        private string desc;
-        private int x;
-        private int y;
         private int points;
 
-        public Player(int id)
+        public Player(int id, int x, int y, String type, int points, String desc, Boolean isBusy) : base(id, x, y, type)
         {
-            this.playerId = id;
+            setPoints(points);
+            setBusy(isBusy);
+            setDesc(desc);
+       
         }
 
-        public int getXPosition()
+        public int getPoints()
         {
-            return x;
+            return points;
         }
-        public int getYPosition()
+        public void setPoints(int points)
         {
-            return y;
+            this.points = points;
         }
     
     }

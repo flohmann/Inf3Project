@@ -6,23 +6,80 @@ using System.Threading.Tasks;
 
 namespace Frontend
 {
-    public class Entity : IPositionable
+    public abstract class Entity : IPositionable
     {
-        int x, y;
-        public Entity(int x, int y)
+        private int x, y;
+        private int id;
+        private String type;
+        private String desc;
+        private Boolean isBusy;
+        
+        public Entity(int id, int x, int y, String type)
         {
-            this.x = x;
-            this.y = y;
+            setId(id);
+            setXPosition(x);
+            setYPosition(y);
+            setType(type);
+        }
+
+        public int getId()
+        {
+            return id;
+        }
+
+        public void setId(int id)
+        {
+            this.id = id;
+        }
+
+        public String getType()
+        {
+            return type;
+        }
+
+        public void setType(String type)
+        {
+            this.type = type;
+        }
+
+        public String getDesc()
+        {
+            return desc;
+        }
+
+        public void setDesc(String desc)
+        {
+            this.desc = desc;
+        }
+
+        public Boolean getBusy()
+        {
+            return isBusy;
+        }
+
+        public void setBusy(Boolean isBusy)
+        {
+            this.isBusy = isBusy;
         }
 
         public int getXPosition()
         {
-            return this.x;
+            return x;
+        }
+
+        public void setXPosition(int x)
+        {
+            this.x = x;
         }
 
         public int getYPosition()
         {
-            return this.y;
+            return y;
+        }
+
+        public void setYPosition(int y)
+        {
+            this.y = y;
         }
     }
 }

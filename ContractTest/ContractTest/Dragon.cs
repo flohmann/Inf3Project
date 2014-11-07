@@ -7,27 +7,14 @@ using Frontend;
 
 namespace Inf3Project
 {
-    public class Dragon : IPositionable
-    {
-        private int dragonId;
-        private Dragon type;
-        private Boolean isBusy;
-        private String desc;
-        private int x;
-        private int y;
-
-        public Dragon(int id){
-          
+    public class Dragon : Entity
+    {  
+        public Dragon(int id, int x, int y, String type, Boolean busy, String desc) : base(id, x, y, type)
+        {
+            setBusy(busy);
+            setDesc(desc);
         }
 
-        public int getXPosition()
-        {
-            return x;
-        }
-        public int getYPosition()
-        {
-            return y;
-        }
 
     }
 }

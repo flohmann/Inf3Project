@@ -9,23 +9,32 @@ namespace Inf3Project
 {
     public class Opponent : IPositionable
     {
-        private Int32 OpponentId;
-        private string desc;
-        private int x;
-        private int y;
+        private Int32 opponentId;
+        private String desc;
         private int points;
 
-        public Opponent(Int32 id)
+        public Opponent(Int32 id, String desc, int points)
         {
-            
+            this.opponentId = id;
+            this.desc = desc;
+            this.points = points;
         }
 
-        public int getXPosition(){
-            return x;
-        }
-        public int getYPosition()
+        public Int32 getID()
         {
-            return y;
+            return opponentId;
         }
+
+        public Int32 getPoints()
+        {
+            return points;
+        }
+
+        public String getDesc()
+        {
+            return desc;
+        }
+       
+    
     }
 }
