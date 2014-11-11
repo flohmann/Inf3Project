@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace TCPConnection
+namespace Inf3Project
 {
     class Sender
     {
@@ -19,13 +19,26 @@ namespace TCPConnection
         {
             this.tcpClient = tcpClient;
             this.sw = sw;
+            SendMsg("Hallo");
         }
 
         public void SendMsg(String msg)
         {
             sw.WriteLine(msg);
             sw.Flush();
+            Thread readThread = new Thread(new ThreadStart(writeStreamThread));
+            readThread.Start();
+
         }
 
+        private void writeStreamThread()
+        {
+            while (tcpClient.Connected)
+            {
+                sw.WriteLine(Console.ReadLine());
+                sw.Flush();
+            }
+
+        }
     }
 }

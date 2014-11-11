@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace TCPConnection
+namespace Inf3Project
 {
     class Receiver
     {
@@ -19,6 +19,7 @@ namespace TCPConnection
         {
             this.tcpClient = tcpClient;
             this.sr = sr;
+            Receive();
         }
 
         //methods

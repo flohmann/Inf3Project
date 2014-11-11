@@ -23,7 +23,7 @@ namespace Inf3Project
         private StreamWriter sw;
         private StreamReader sr;
         private TcpClient tcpClient;
-        private Boolean isConnected = false;
+  
 
         /*
          * constructors 
@@ -32,17 +32,15 @@ namespace Inf3Project
         {
             setIp(ip);
             setPort(port);
-            buffer = new Buffer();
             connectToServer();
 
-            //create read thread and start it
-            Thread readThread = new Thread(new ThreadStart(readStreamThread));
-            readThread.Start();
+            Receiver rec = new Receiver(tcpClient, sr);
+            Sender sender = new Sender(tcpClient, sw);
         }
 
-        /*
-         * methods
-         */
+   
+
+        
         public void setIp(String ip)
         {
             if (ip != null && ip.Length > 6 && ip.Length < 16)
@@ -91,16 +89,7 @@ namespace Inf3Project
             //Contract.Requires(ip != null && ip.Length > 6 && ip.Length < 16);
         }
         
-        public void sendMessageToServer(String message)
-        {
-            Contract.Requires(isConnected);
-
-            sw.WriteLine(message);
-            sw.Flush();
-
-            Contract.Requires(message != null);
-
-        }
+ 
 
         private TcpClient getTcpClient()
         {

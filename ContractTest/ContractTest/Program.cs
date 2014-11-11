@@ -1,22 +1,27 @@
-﻿using Inf3Project;
+﻿using Frontend;
+using Inf3Project;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Frontend
+
+namespace Inf3Project
 {
-    static class Program
+    class Program
     {
+    
 
-         static void Main()
-         {
-             Connector connector = new Connector("127.0.0.1", 666);
 
-             //Application.EnableVisualStyles();
-             //Application.SetCompatibleTextRenderingDefault(false);
-             //Application.Run(new DefaultGui(new Backend()));
-         }
+        static void Main(string[] args)
+        {
+            Connector connector = new Connector("127.0.0.1", 666);
+        }
+
     }
 }
