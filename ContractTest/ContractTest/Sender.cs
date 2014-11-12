@@ -19,10 +19,10 @@ namespace Inf3Project
         {
             this.tcpClient = tcpClient;
             this.sw = sw;
-            SendMsg("Hallo");
+            sendMsg("Hallo");
         }
 
-        public void SendMsg(String msg)
+        public void sendMsg(String msg)
         {
             sw.WriteLine(msg);
             sw.Flush();

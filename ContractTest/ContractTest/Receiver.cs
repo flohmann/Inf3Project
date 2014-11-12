@@ -19,11 +19,11 @@ namespace Inf3Project
         {
             this.tcpClient = tcpClient;
             this.sr = sr;
-            Receive();
+            receive();
         }
 
         //methods
-        public void Receive()
+        public void receive()
         {
             //create a thread to read the server messages
             Thread readThread = new Thread(new ThreadStart(readStreamThread));
