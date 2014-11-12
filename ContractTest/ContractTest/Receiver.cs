@@ -23,7 +23,7 @@ namespace Inf3Project
         }
 
         //methods
-        public void receive()
+        public void Receive()
         {
             //create a thread to read the server messages
             Thread readThread = new Thread(new ThreadStart(readStreamThread));
