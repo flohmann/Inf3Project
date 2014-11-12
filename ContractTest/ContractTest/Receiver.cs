@@ -13,17 +13,22 @@ namespace Inf3Project
     {
         private StreamReader sr;
         private TcpClient tcpClient;
+        private List<String> serverMessage;
+        private Connector connector;
 
         //constructors
-        public Receiver(TcpClient tcpClient, StreamReader sr)
+        public Receiver(TcpClient tcpClient, StreamReader sr, Connector connector)
         {
             this.tcpClient = tcpClient;
+            this.connector = connector;
+
             this.sr = sr;
-            Receive();
+            serverMessage = new List<String>();
+            receive();
         }
 
         //methods
-        public void Receive()
+        public void receive()
         {
             //create a thread to read the server messages
             Thread readThread = new Thread(new ThreadStart(readStreamThread));
@@ -33,9 +38,41 @@ namespace Inf3Project
 
         private void readStreamThread()
         {
+            String tmpMessage;
+            Boolean schreibe = false;
+            Int32 messageId = -1;
             while (tcpClient.Connected)
             {
-                Console.WriteLine(sr.ReadLine().ToString());
+                tmpMessage = sr.ReadLine().ToString();
+                Console.WriteLine(tmpMessage);
+
+                String[] tmp = tmpMessage.Split(':');
+                int value;
+
+                if ((tmp[0].Equals("begin")) && (Int32.TryParse(tmp[1], out value)))
+                {
+                    messageId = value;
+                    schreibe = true;
+                }
+
+                if (schreibe)
+                {
+                    serverMessage.Add(tmpMessage);
+                }
+
+
+                if ((tmp[0].Equals("end")) && (Int32.TryParse(tmp[1], out value)))
+                {
+                    if (value == messageId)
+                    {
+                        connector.addMessageToBuffer(new List<String>(this.serverMessage));
+                        schreibe = false;
+                        serverMessage.Clear();
+                    }
+
+
+                }
+                
             }
         }
     }

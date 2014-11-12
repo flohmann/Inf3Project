@@ -30,11 +30,12 @@ namespace Inf3Project
          */
         public Connector(String ip, int port)
         {
+            buffer = new Buffer();
             setIp(ip);
             setPort(port);
             connectToServer();
 
-            Receiver rec = new Receiver(tcpClient, sr);
+            Receiver rec = new Receiver(tcpClient, sr, this);
             Sender sender = new Sender(tcpClient, sw);
         }
 
@@ -58,13 +59,10 @@ namespace Inf3Project
             }
         }
 
-        //method used for the readStream
-        private void readStreamThread()
+        //send message to buffer
+        public void addMessageToBuffer(List<String> msg)
         {
-            while (tcpClient.Connected)
-            {
-                buffer.addLineToBuffer(sr.ReadLine().ToString()); 
-            }
+            buffer.addMessageToBuffer(msg); 
         }
 
         //opens a tcp connection to the server

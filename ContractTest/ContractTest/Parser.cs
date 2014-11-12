@@ -27,18 +27,18 @@ namespace Inf3Project
        
         public void readBuffer()
         {
-            Contract.Requires(buffer.getBufferList().Count > 0);
+            Contract.Requires(buffer.getBuffer().Length > 0);
 
             while(buffer != null){
-                if(buffer.bufferContent()){
+                if(buffer.bufferHasContent()){
                     //parse this stuff with regex & delete the console output
                     //implementet just for testing
-                    Console.WriteLine(buffer.getLineFromBuffer());
+                    Console.WriteLine("parser: "+buffer.getLineFromBuffer());
                     
                 }
             }
 
-            Contract.Ensures(buffer.getBufferList().Count == Contract.OldValue((buffer.getBufferList().Count) - 1));
+            Contract.Ensures(buffer.getBuffer().Length == Contract.OldValue((buffer.getBuffer().Length) - 1));
         }
        
 
