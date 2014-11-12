@@ -15,7 +15,7 @@ namespace Inf3Project
         /*
          * variables 
          */
-        private List<String> bufferList;
+        private List<String>[] buffer;
         private int BUFFERSIZE = 15;
         private Parser parser;
         private Boolean searchEnd = false;
@@ -27,93 +27,73 @@ namespace Inf3Project
          */
         public Buffer(){
             parser = new Parser(this);
-            bufferList = new List<String>(BUFFERSIZE);
+       
+            List<String>[] buffer = new List<String>[BUFFERSIZE];
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                buffer[i] = new List<String>();
+            }
+            
         }
 
         /*
          * methods 
          */
-        public Boolean bufferContent()
+        public Boolean bufferHasContent()
         {
             Boolean tmp = false;
-            Contract.Requires(bufferList.Count >= 0);
-            if (bufferList != null && bufferList.Count > 0)
+            Contract.Requires(buffer.Length >= 0);
+            if (buffer != null && buffer.Length > 0)
             {
                 tmp = true;
             }
-            
-            Contract.Ensures(bufferList.Count == 0);
+
+            Contract.Ensures(buffer.Length == 0);
             return tmp;
         }
 
         //creates a one-line element of each server-push for the buffer
-        public void addLineToBuffer(String message)
+        public void addMessageToBuffer(List<String> message)
         {
-            if (message != null)
-            {
-                if (searchEnd)
-                {
-                    String[] tmp = message.Split(':');
-                    if (tmp[0].Equals("end"))
-                    {
-                        int end = -1;
-                        bool isNumber = int.TryParse(tmp[1], out end);
-                        if (isNumber)
-                        {
-                            if (begin.Equals(end))
-                            {
-                                searchEnd = false;
-                                begin = -1;
-                                end = -1;
-                                bufferList.Add(tmpBuffer);
-                                tmpBuffer = "";
-                            }
-                        }
-                        else
-                        {
-                            tmpBuffer += message + ";";
-                        } 
-                    }
-                    else
-                    {
-                        tmpBuffer += message + ";";
-                    }
-                }
-                else
-                {
-                    String[] tmp = message.Split(':');
-                    if (tmp[0].Equals("begin"))
-                    {
-                        bool isNumber = int.TryParse(tmp[1], out begin);
-                        if (isNumber)
-                        {
-                            searchEnd = true;
-                        }
-                    }
-                }
-            }
             
-            Contract.Ensures(bufferList.Contains(message));
-            Contract.Ensures(bufferList.Count == Contract.OldValue((bufferList.Count) + 1));
+            if (bufferHasContent())
+            {
+                for (int i = 0; i < buffer.Length; i++)
+                {
+                    if (buffer[i] == null)
+                    {
+                        buffer[i] = message;
+                        break;
+                    }
+                }
+            }
         }
 
-        public String getLineFromBuffer()
+        public List<String> getLineFromBuffer()
         {
-            Contract.Requires(bufferList.Count > 0);
+            Contract.Requires(buffer.Length > 0);
 
-            if (bufferList != null && bufferList.Count > 0)
+            List<String> tmp = null;
+            if (buffer != null && buffer.Length > 0)
             {
-                String tmp = bufferList[0];
-                bufferList.RemoveAt(0);
-                return tmp;
+                tmp = buffer[0];
+
+                for (int i = 0; i < buffer.Length; i++)
+                {
+                    if ((i + 1) < buffer.Length)
+                    {
+                        buffer[i] = buffer[i + 1];
+                        buffer[i + 1] = null;
+                    }
+                }
             }
 
-            Contract.Ensures(bufferList.Count == Contract.OldValue((bufferList.Count) - 1));
-            return null;
+            return tmp;
+            
         }
 
-        public List<String> getBufferList(){
-            return this.bufferList;
+        public List<String>[] getBuffer(){
+            return this.buffer;
         }
 
     }
