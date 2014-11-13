@@ -17,8 +17,10 @@ namespace Inf3Project
          * variables 
          */
         private List<List<String>> buffer;
-        private int counter;
+        private int counter=0;
         private Parser parser;
+
+        private Object lockthis = new Object();
 
 
         /*
@@ -28,7 +30,7 @@ namespace Inf3Project
         {
             parser = new Parser(this);
             List<List<String>> buffer = new List<List<String>>();
-            counter++;
+            
 
         }
 
@@ -55,7 +57,7 @@ namespace Inf3Project
             if (bufferHasContent())
             {
 
-                lock (this.getMessageFromBuffer())
+                lock (lockthis)
                 {
                     for (int i = 0; i < buffer.Count; i++)
                     {
@@ -79,21 +81,23 @@ namespace Inf3Project
             Contract.Requires(buffer.Count > 0);
 
             List<String> tmp = null;
-            if (buffer != null && buffer.Count > 0)
+            lock (lockthis)
             {
-                tmp = buffer[0];
-
-                for (int i = 0; i < buffer.Count; i++)
+                if (buffer != null && buffer.Count > 0)
                 {
-                    if ((i + 1) < buffer.Count)
+                    tmp = buffer[0];
+
+                    for (int i = 0; i < buffer.Count; i++)
                     {
-                        buffer[i] = buffer[i + 1];
-                        buffer[i + 1] = null;
+                        if ((i + 1) < buffer.Count)
+                        {
+                            buffer[i] = buffer[i + 1];
+                            buffer[i + 1] = null;
+                        }
                     }
                 }
             }
-
-                return tmp;
+            return tmp;
 
         }
 
