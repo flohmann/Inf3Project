@@ -85,8 +85,8 @@ namespace Inf3Project
                 sr = new StreamReader(tcpClient.GetStream());
 
             }
-            catch (Exception e)
-            {
+            catch (Exception e){
+             
                 Console.WriteLine(e);
             }
 
