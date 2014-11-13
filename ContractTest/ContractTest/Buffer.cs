@@ -102,10 +102,7 @@ namespace Inf3Project
 
         }
 
-        public List<List<String>> getBuffer()
-        {
-            return buffer;
-        }
+       
 
     }
 }
