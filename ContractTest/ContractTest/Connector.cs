@@ -39,7 +39,7 @@ namespace Inf3Project
             Sender sender = new Sender(tcpClient, sw);
         }
 
-   
+   // Zum Kuckuck nochmal!!!!!!!!1  ich hasse Git!!!!!!!!!!!!!
 
         
         public void setIp(String ip)
