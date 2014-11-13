@@ -33,7 +33,7 @@ namespace Inf3Project
             //create a thread to read the server messages
             Thread readThread = new Thread(new ThreadStart(readStreamThread));
             readThread.Start();
-
+            
         }
 
         private void readStreamThread()

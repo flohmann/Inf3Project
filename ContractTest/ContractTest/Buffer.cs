@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 using System.Collections;
 using Inf3Project;
-using System.Exception;
+
 
 
 namespace Inf3Project
@@ -56,7 +57,7 @@ namespace Inf3Project
 
             if (bufferHasContent())
             {
-
+                
                 lock (lockthis)
                 {
                     for (int i = 0; i < buffer.Count; i++)
