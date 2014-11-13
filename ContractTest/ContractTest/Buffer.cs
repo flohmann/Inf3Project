@@ -15,7 +15,7 @@ namespace Inf3Project
         /*
          * variables 
          */
-        private List<String>[] buffer;
+        private List<List<String>> buffer;
         private int BUFFERSIZE = 15;
         private Parser parser;
         private Boolean searchEnd = false;
@@ -42,13 +42,13 @@ namespace Inf3Project
         public Boolean bufferHasContent()
         {
             Boolean tmp = false;
-            Contract.Requires(buffer.Length >= 0);
-            if (buffer != null && buffer.Length > 0)
+            Contract.Requires(buffer.Count >= 0);
+            if (buffer != null && buffer.Count > 0)
             {
                 tmp = true;
             }
 
-            Contract.Ensures(buffer.Length == 0);
+            Contract.Ensures(buffer.Count == 0);
             return tmp;
         }
 
@@ -58,7 +58,7 @@ namespace Inf3Project
             
             if (bufferHasContent())
             {
-                for (int i = 0; i < buffer.Length; i++)
+                for (int i = 0; i < buffer.Count; i++)
                 {
                     if (buffer[i] == null)
                     {
@@ -71,16 +71,16 @@ namespace Inf3Project
 
         public List<String> getLineFromBuffer()
         {
-            Contract.Requires(buffer.Length > 0);
+            Contract.Requires(buffer.Count > 0);
 
             List<String> tmp = null;
-            if (buffer != null && buffer.Length > 0)
+            if (buffer != null && buffer.Count > 0)
             {
-                tmp = buffer[0];
+              //  tmp.AddBuffer[0];                        //Hier nochmal guten ob die methode so sinn macht
 
-                for (int i = 0; i < buffer.Length; i++)
+                for (int i = 0; i < buffer.Count; i++)
                 {
-                    if ((i + 1) < buffer.Length)
+                    if ((i + 1) < buffer.Count)
                     {
                         buffer[i] = buffer[i + 1];
                         buffer[i + 1] = null;
@@ -92,8 +92,18 @@ namespace Inf3Project
             
         }
 
-        public List<String>[] getBuffer(){
-            return this.buffer;
+        public void setLineFromBuffer(List<String> s)
+        {
+            buffer.Add(s);
+
+        }
+
+        public List<String> getBuffer(){
+            List<String> tmp;
+            tmp = buffer[0];
+            buffer.Remove(tmp);
+
+            return tmp;
         }
 
     }

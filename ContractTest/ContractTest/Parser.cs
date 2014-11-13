@@ -25,9 +25,9 @@ namespace Inf3Project
             readBufferThread.Start();
         }
        
-        public void readBuffer()
-        {
-            Contract.Requires(buffer.getBuffer().Length > 0);
+        public void readBuffer(){
+           
+            Contract.Requires(buffer.getBuffer().Count > 0);
 
             while(buffer != null){
                 if(buffer.bufferHasContent()){
@@ -38,7 +38,7 @@ namespace Inf3Project
                 }
             }
 
-            Contract.Ensures(buffer.getBuffer().Length == Contract.OldValue((buffer.getBuffer().Length) - 1));
+            Contract.Ensures(buffer.getBuffer().Count == Contract.OldValue((buffer.getBuffer().Count) - 1));
         }
        
 

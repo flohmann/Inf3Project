@@ -38,7 +38,7 @@ namespace Inf3Project
                 sw.WriteLine(Console.ReadLine());
                 sw.Flush();
             }
-            //was für ein Blödsinn!!!
+            
         }
     }
 }

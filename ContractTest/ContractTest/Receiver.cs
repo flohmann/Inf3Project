@@ -65,10 +65,13 @@ namespace Inf3Project
                 {
                     if (value == messageId)
                     {
-                        connector.addMessageToBuffer(new List<String>(this.serverMessage));
-                        schreibe = false;
-                        serverMessage.Clear();
-                    }
+                       
+                       
+                            connector.addMessageToBuffer(serverMessage);
+                            schreibe = false;
+                            serverMessage.Clear();
+                        
+                        }
 
 
                 }
