@@ -39,7 +39,7 @@ namespace Inf3Project
         private void readStreamThread()
         {
             String tmpMessage;
-            Boolean schreibe = false;
+            Boolean write = false;
             Int32 messageId = -1;
             while (tcpClient.Connected)
             {
@@ -48,32 +48,37 @@ namespace Inf3Project
 
                 String[] tmp = tmpMessage.Split(':');
                 int value;
-
+                
                 if ((tmp[0].Equals("begin")) && (Int32.TryParse(tmp[1], out value)))
                 {
                     messageId = value;
-                    schreibe = true;
-                }
-
-                if (schreibe)
-                {
-                    serverMessage.Add(tmpMessage);
-                }
+                   
+                    write = true;
+                   
 
 
-                if ((tmp[0].Equals("end")) && (Int32.TryParse(tmp[1], out value)))
-                {
-                    if (value == messageId)
-                    {
-                        connector.addMessageToBuffer(new List<String>(this.serverMessage));
-                        schreibe = false;
-                        serverMessage.Clear();
+                            if (write)
+                            {
+                                serverMessage.Add(tmpMessage);
+                            }
+
+
+                            if ((tmp[0].Equals("end")) && (Int32.TryParse(tmp[1], out value)))
+                            {
+                                if (value == messageId)
+                                {
+                                   
+                                    connector.addMessageToBuffer(new List<String>(this.serverMessage));
+                                    write = false;
+                                    serverMessage.Clear();
+                                }
+
+
+                            }
+
+                        }
                     }
-
-
                 }
-                
             }
         }
-    }
-}
+    

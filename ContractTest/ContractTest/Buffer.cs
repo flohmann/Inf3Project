@@ -15,12 +15,10 @@ namespace Inf3Project
         /*
          * variables 
          */
-        private List<String>[] buffer;
+        private List<Object> buffer;
         private int BUFFERSIZE = 15;
         private Parser parser;
-        private Boolean searchEnd = false;
-        private int begin = -1;
-        private String tmpBuffer;
+       
 
         /*
          * constructors 
@@ -28,11 +26,11 @@ namespace Inf3Project
         public Buffer(){
             parser = new Parser(this);
        
-            List<String>[] buffer = new List<String>[BUFFERSIZE];
-            for (int i = 0; i < buffer.Length; i++)
-            {
-                buffer[i] = new List<String>();
-            }
+            List<Object> buffer = new List<Object>(BUFFERSIZE);
+            //for (int i = 0; i < buffer.Length; i++)
+            //{
+            //    buffer = new List<String>();
+            //}
             
         }
 
@@ -42,59 +40,59 @@ namespace Inf3Project
         public Boolean bufferHasContent()
         {
             Boolean tmp = false;
-            Contract.Requires(buffer.Length >= 0);
-            if (buffer != null && buffer.Length > 0)
+            Contract.Requires(buffer.Count >= 0);
+            if (buffer != null && buffer.Count > 0)
             {
                 tmp = true;
             }
 
-            Contract.Ensures(buffer.Length == 0);
+            Contract.Ensures(buffer.Count == 0);
             return tmp;
         }
 
-        //creates a one-line element of each server-push for the buffer
+        //creates a one-message element of each server-push for the buffer
         public void addMessageToBuffer(List<String> message)
         {
             
             if (bufferHasContent())
             {
-                for (int i = 0; i < buffer.Length; i++)
+                for (int i = 0; i < buffer.Count; i++)
                 {
-                    if (buffer[i] == null)
-                    {
-                        buffer[i] = message;
+                    //if (buffer == null)
+                    //{
+                        buffer.Add(message);
                         break;
                     }
                 }
             }
         }
 
-        public List<String> getLineFromBuffer()
-        {
-            Contract.Requires(buffer.Length > 0);
+        //public List<String> getLineFromBuffer()
+        //{
+        //    Contract.Requires(buffer.Length > 0);
 
-            List<String> tmp = null;
-            if (buffer != null && buffer.Length > 0)
-            {
-                tmp = buffer[0];
+        //    List<String> tmp = null;
+        //    if (buffer != null && buffer.Length > 0)
+        //    {
+        //        tmp = buffer[0];
 
-                for (int i = 0; i < buffer.Length; i++)
-                {
-                    if ((i + 1) < buffer.Length)
-                    {
-                        buffer[i] = buffer[i + 1];
-                        buffer[i + 1] = null;
-                    }
-                }
-            }
+        //        for (int i = 0; i < buffer.Length; i++)
+        //        {
+        //            if ((i + 1) < buffer.Length)
+        //            {
+        //                buffer[i] = buffer[i + 1];
+        //                buffer[i + 1] = null;
+        //            }
+        //        }
+        //    }
 
-            return tmp;
+        //    return tmp;
             
-        }
+        //}
 
-        public List<String>[] getBuffer(){
-            return this.buffer;
-        }
+    //    public List<String>[] getBuffer(){
+    //        return this.buffer;
+    //    }
 
-    }
+    //}
 }
