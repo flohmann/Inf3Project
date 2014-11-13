@@ -39,7 +39,7 @@ namespace Inf3Project
             Sender sender = new Sender(tcpClient, sw);
         }
 
-   
+   // Zum Kuckuck nochmal!!!!!!!!1  ich hasse Git!!!!!!!!!!!!!
 
         
         public void setIp(String ip)
@@ -60,11 +60,17 @@ namespace Inf3Project
         }
 
         //send message to buffer
+
+        //Lock eingefügt,   Allerdings, was macht die methode addMessageToBuffer? in Buffer haben wa auch eine ddMessageToBuffer
+        //schaut da bitte danach. Ansonsten
+        
         public void addMessageToBuffer(List<String> msg)
         {
-            buffer.addMessageToBuffer(msg); 
+            lock (buffer.getLineFromBuffer())
+            {
+                buffer.setLineFromBuffer(msg);
+            }
         }
-
         //opens a tcp connection to the server
         public void connectToServer()
         {

@@ -15,10 +15,12 @@ namespace Inf3Project
         /*
          * variables 
          */
-        private List<Object> buffer;
+        private List<List<String>> buffer;
         private int BUFFERSIZE = 15;
         private Parser parser;
-       
+        private Boolean searchEnd = false;
+        private int begin = -1;
+        private String tmpBuffer;
 
         /*
          * constructors 
@@ -26,11 +28,11 @@ namespace Inf3Project
         public Buffer(){
             parser = new Parser(this);
        
-            List<Object> buffer = new List<Object>(BUFFERSIZE);
-            //for (int i = 0; i < buffer.Length; i++)
-            //{
-            //    buffer = new List<String>();
-            //}
+            List<String>[] buffer = new List<String>[BUFFERSIZE];
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                buffer[i] = new List<String>();
+            }
             
         }
 
@@ -50,7 +52,7 @@ namespace Inf3Project
             return tmp;
         }
 
-        //creates a one-message element of each server-push for the buffer
+        //creates a one-line element of each server-push for the buffer
         public void addMessageToBuffer(List<String> message)
         {
             
@@ -58,41 +60,51 @@ namespace Inf3Project
             {
                 for (int i = 0; i < buffer.Count; i++)
                 {
-                    //if (buffer == null)
-                    //{
-                        buffer.Add(message);
+                    if (buffer[i] == null)
+                    {
+                        buffer[i] = message;
                         break;
                     }
                 }
             }
         }
 
-        //public List<String> getLineFromBuffer()
-        //{
-        //    Contract.Requires(buffer.Length > 0);
+        public List<String> getLineFromBuffer()
+        {
+            Contract.Requires(buffer.Count > 0);
 
-        //    List<String> tmp = null;
-        //    if (buffer != null && buffer.Length > 0)
-        //    {
-        //        tmp = buffer[0];
+            List<String> tmp = null;
+            if (buffer != null && buffer.Count > 0)
+            {
+              //  tmp.AddBuffer[0];                        //Hier nochmal guten ob die methode so sinn macht
 
-        //        for (int i = 0; i < buffer.Length; i++)
-        //        {
-        //            if ((i + 1) < buffer.Length)
-        //            {
-        //                buffer[i] = buffer[i + 1];
-        //                buffer[i + 1] = null;
-        //            }
-        //        }
-        //    }
+                for (int i = 0; i < buffer.Count; i++)
+                {
+                    if ((i + 1) < buffer.Count)
+                    {
+                        buffer[i] = buffer[i + 1];
+                        buffer[i + 1] = null;
+                    }
+                }
+            }
 
-        //    return tmp;
+            return tmp;
             
-        //}
+        }
 
-    //    public List<String>[] getBuffer(){
-    //        return this.buffer;
-    //    }
+        public void setLineFromBuffer(List<String> s)
+        {
+            buffer.Add(s);
 
-    //}
+        }
+
+        public List<String> getBuffer(){
+            List<String> tmp;
+            tmp = buffer[0];
+            buffer.Remove(tmp);
+
+            return tmp;
+        }
+
+    }
 }
