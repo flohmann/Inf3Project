@@ -21,6 +21,7 @@ namespace Inf3Project
         private Boolean searchEnd = false;
         private int begin = -1;
         private String tmpBuffer;
+        private int counter = 0;
 
         /*
          * constructors 
@@ -55,15 +56,21 @@ namespace Inf3Project
         //creates a one-line element of each server-push for the buffer
         public void addMessageToBuffer(List<String> message)
         {
-            
+
             if (bufferHasContent())
             {
-                for (int i = 0; i < buffer.Count; i++)
+                lock (this.getLineFromBuffer())
                 {
-                    if (buffer[i] == null)
+                    for (int i = 0; i < buffer.Count; i++)
                     {
-                        buffer[i] = message;
-                        break;
+                        if (counter < 15)
+                        {
+                            buffer.Add(message);
+                        }
+                        else
+                        {
+                            throw new System.Exception("Buffer is OverFlow");
+                        }
                     }
                 }
             }
