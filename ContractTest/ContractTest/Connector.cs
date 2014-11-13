@@ -58,19 +58,7 @@ namespace Inf3Project
                 this.port = port;
             }
         }
-
-        //send message to buffer
-
-        //Lock eingefügt,   Allerdings, was macht die methode addMessageToBuffer? in Buffer haben wa auch eine ddMessageToBuffer
-        //schaut da bitte danach. Ansonsten
         
-        public void addMessageToBuffer(List<String> msg)
-        {
-            lock (buffer.getLineFromBuffer())
-            {
-                buffer.setLineFromBuffer(msg);
-            }
-        }
         //opens a tcp connection to the server
         public void connectToServer()
         {
