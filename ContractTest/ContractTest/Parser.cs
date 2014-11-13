@@ -33,7 +33,7 @@ namespace Inf3Project
                 if(buffer.bufferHasContent()){
                     //parse this stuff with regex & delete the console output
                     //implementet just for testing
-                    Console.WriteLine("parser: "+buffer.getLineFromBuffer());
+                    Console.WriteLine("parser: "+buffer.getMessageFromBuffer());
                     
                 }
             }
