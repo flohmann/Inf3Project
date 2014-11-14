@@ -30,16 +30,14 @@ namespace Inf3Project
 
 
 
-            while (buffer != null)
+            while (buffer.bufferHasContent())
             {
-                if (buffer.bufferHasContent())
-                {
+               
                     //parse this stuff with regex & delete the console output
                     //implementet just for testing
                     Console.WriteLine("parser: " + buffer.getMessageFromBuffer());
 
-                }
-            }
+             }
         }
 
 

@@ -67,11 +67,11 @@ namespace Inf3Project
                 {
                     if (value == messageId)
                     {
-                       
-                        connector.buffer.addMessageToBuffer(new List<String>(this.serverMessage));
+                       while(connector.buffer.getCount()<15){
+                        connector.addMessageToBuffer(new List<String>(this.serverMessage));
                         write = false;
                         serverMessage.Clear();
-                        
+                       }
                     }
 
 

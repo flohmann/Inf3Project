@@ -63,10 +63,9 @@ namespace Inf3Project
         
         public void addMessageToBuffer(List<String> msg)
         {
-            lock (buffer.getMessageFromBuffer())
-            {
+            
               buffer.addMessageToBuffer(msg);
-            }
+           
         }
         //opens a tcp connection to the server
        

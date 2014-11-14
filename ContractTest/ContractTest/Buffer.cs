@@ -17,8 +17,7 @@ namespace Inf3Project
         /*
          * variables 
          */
-        private List<List<String>> buffer;
-        private int counter = 0;
+        private List<List<String>>buffer;
         private Parser parser;
 
         private Object lockthis = new Object();
@@ -30,7 +29,7 @@ namespace Inf3Project
         public Buffer()
         {
             parser = new Parser(this);
-            List<List<String>> buffer = new List<List<String>>();
+            buffer = new List<List<String>>();
 
 
         }
@@ -51,23 +50,25 @@ namespace Inf3Project
             return tmp;
         }
 
+        public int getCount()
+        {
+            return buffer.Count;
+        }
+
         //creates a one-message element of each server-push for the buffer
         public void addMessageToBuffer(List<String> message)
         {
-            while (counter >= 15)
-            {
-                Thread.Sleep(5000);
-            }
+           
             lock (lockthis)
             {
-                if (counter < 15)
+                if (buffer.Count() < 15)
                 {
                     buffer.Add(message);
-                    counter++;
+                   
                 }
                 else
                 {
-                    throw new System.Exception("Buffer is OverFlow");
+                    throw new System.Exception("BufferOverFlow");
                 }
             }
         }
@@ -76,28 +77,22 @@ namespace Inf3Project
         public List<String> getMessageFromBuffer()
         {
             Contract.Requires(buffer.Count > 0);
-            List<String> message = null;
-
-            while (buffer.Count == 0)
-            {
-                Thread.Sleep(5000);
-            }
+            List<String> tmp = new List<string>();
 
             if (bufferHasContent())
             {
                 lock (lockthis)
-                {
-
-                    buffer.ElementAt(0); 
+           
+                    tmp=(buffer.ElementAt(0)); 
                     buffer.RemoveAt(0);
-                    counter--;
+                    
 
                 }
-               
-            } return message;
+                return tmp;
+            }
                }
         }
-    }
+    
 
 
 
