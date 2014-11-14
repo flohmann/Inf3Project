@@ -18,7 +18,7 @@ namespace Inf3Project
          * variables 
          */
         private List<List<String>> buffer;
-        private int counter=0;
+        private int counter = 0;
         private Parser parser;
 
         private Object lockthis = new Object();
@@ -31,7 +31,7 @@ namespace Inf3Project
         {
             parser = new Parser(this);
             List<List<String>> buffer = new List<List<String>>();
-            
+
 
         }
 
@@ -76,7 +76,7 @@ namespace Inf3Project
         public List<String> getMessageFromBuffer()
         {
             Contract.Requires(buffer.Count > 0);
-            List<String> tmp = null;
+            List<String> message = null;
 
             while (buffer.Count == 0)
             {
@@ -87,27 +87,17 @@ namespace Inf3Project
             {
                 lock (lockthis)
                 {
-                    if (buffer != null && buffer.Count > 0)
-                    {
-                        tmp = buffer[0];
 
-                        for (int i = 0; i < buffer.Count; i++)
-                        {
-                            if ((i + 1) < buffer.Count)
-                            {
-                                buffer[i] = buffer[i + 1];
-                                buffer[i + 1] = null;
-                            }
-                        }
-                    }
+                    buffer.ElementAt(0); 
+                    buffer.RemoveAt(0);
+                    counter--;
+
                 }
-            }
-            return tmp;
+               
+            } return message;
+               }
         }
-
-       
-
     }
-}
+
 
 

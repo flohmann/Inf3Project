@@ -24,23 +24,23 @@ namespace Inf3Project
             Thread readBufferThread = new Thread(new ThreadStart(readBuffer));
             readBufferThread.Start();
         }
-       
-        public void readBuffer(){
-           
-            Contract.Requires(buffer.getBuffer().Count > 0);
 
-            while(buffer != null){
-                if(buffer.bufferHasContent()){
+        public void readBuffer()
+        {
+
+
+
+            while (buffer != null)
+            {
+                if (buffer.bufferHasContent())
+                {
                     //parse this stuff with regex & delete the console output
                     //implementet just for testing
-                    Console.WriteLine("parser: "+buffer.getMessageFromBuffer());
-                    
+                    Console.WriteLine("parser: " + buffer.getMessageFromBuffer());
+
                 }
             }
-
-            Contract.Ensures(buffer.getBuffer().Count == Contract.OldValue((buffer.getBuffer().Count) - 1));
         }
-       
 
 
 
