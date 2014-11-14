@@ -17,10 +17,10 @@ namespace Inf3Project
         /*
          * variables 
          */
-        private List<List<String>>buffer;
+        private List<List<String>> buffer;
         private Parser parser;
 
-        private Object lockthis = new Object();
+
 
 
         /*
@@ -41,10 +41,7 @@ namespace Inf3Project
         {
             Boolean tmp = false;
             Contract.Requires(buffer.Count >= 0);
-            if (buffer != null && buffer.Count > 0)
-            {
-                tmp = true;
-            }
+            tmp = (buffer != null && buffer.Count > 0);
 
             Contract.Ensures(buffer.Count == 0);
             return tmp;
@@ -58,13 +55,13 @@ namespace Inf3Project
         //creates a one-message element of each server-push for the buffer
         public void addMessageToBuffer(List<String> message)
         {
-           
-            lock (lockthis)
+
+            lock (buffer)
             {
                 if (buffer.Count() < 15)
                 {
                     buffer.Add(message);
-                   
+
                 }
                 else
                 {
@@ -79,19 +76,27 @@ namespace Inf3Project
             Contract.Requires(buffer.Count > 0);
             List<String> tmp = new List<string>();
 
-            if (bufferHasContent())
+            lock (buffer)
             {
-                lock (lockthis)
-           
-                    tmp=(buffer.ElementAt(0)); 
+
+                if (bufferHasContent())
+                {
+
+
+
+                    tmp = (buffer.ElementAt(0));
                     buffer.RemoveAt(0);
-                    
+
 
                 }
-                return tmp;
             }
-               }
+
+            return tmp;
+
         }
+    }
+}
+    
     
 
 
