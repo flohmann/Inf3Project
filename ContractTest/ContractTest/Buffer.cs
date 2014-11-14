@@ -92,6 +92,7 @@ namespace Inf3Project
             
         }
 
+
         public void setLineFromBuffer(List<String> s)
         {
             buffer.Add(s);
