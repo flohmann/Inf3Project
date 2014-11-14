@@ -54,24 +54,20 @@ namespace Inf3Project
         //creates a one-message element of each server-push for the buffer
         public void addMessageToBuffer(List<String> message)
         {
-
-            if (bufferHasContent())
+            while (counter >= 15)
             {
-                
-                lock (lockthis)
+                Thread.Sleep(5000);
+            }
+            lock (lockthis)
+            {
+                if (counter < 15)
                 {
-                    for (int i = 0; i < buffer.Count; i++)
-                    {
-                        if (counter < 15)
-                        {
-                            buffer.Add(message);
-                            counter++;
-                        }
-                        else
-                        {
-                           throw new System.Exception("Buffer is OverFlow");
-                        }
-                    }
+                    buffer.Add(message);
+                    counter++;
+                }
+                else
+                {
+                    throw new System.Exception("Buffer is OverFlow");
                 }
             }
         }
@@ -80,26 +76,33 @@ namespace Inf3Project
         public List<String> getMessageFromBuffer()
         {
             Contract.Requires(buffer.Count > 0);
-
             List<String> tmp = null;
-            lock (lockthis)
-            {
-                if (buffer != null && buffer.Count > 0)
-                {
-                    tmp = buffer[0];
 
-                    for (int i = 0; i < buffer.Count; i++)
+            while (buffer.Count == 0)
+            {
+                Thread.Sleep(5000);
+            }
+
+            if (bufferHasContent())
+            {
+                lock (lockthis)
+                {
+                    if (buffer != null && buffer.Count > 0)
                     {
-                        if ((i + 1) < buffer.Count)
+                        tmp = buffer[0];
+
+                        for (int i = 0; i < buffer.Count; i++)
                         {
-                            buffer[i] = buffer[i + 1];
-                            buffer[i + 1] = null;
+                            if ((i + 1) < buffer.Count)
+                            {
+                                buffer[i] = buffer[i + 1];
+                                buffer[i + 1] = null;
+                            }
                         }
                     }
                 }
             }
             return tmp;
-
         }
 
        
