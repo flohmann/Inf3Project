@@ -33,13 +33,13 @@ namespace Inf3Project
             //create a thread to read the server messages
             Thread readThread = new Thread(new ThreadStart(readStreamThread));
             readThread.Start();
-
+            
         }
 
         private void readStreamThread()
         {
             String tmpMessage;
-            Boolean schreibe = false;
+            Boolean write = false;
             Int32 messageId = -1;
             while (tcpClient.Connected)
             {
@@ -52,10 +52,12 @@ namespace Inf3Project
                 if ((tmp[0].Equals("begin")) && (Int32.TryParse(tmp[1], out value)))
                 {
                     messageId = value;
-                    schreibe = true;
-                }
+                   
+                    write = true;
+                   
 
-                if (schreibe)
+
+                            if (write)
                 {
                     serverMessage.Add(tmpMessage);
                 }
@@ -66,12 +68,11 @@ namespace Inf3Project
                     if (value == messageId)
                     {
                        
-                       
-                            connector.addMessageToBuffer(serverMessage);
-                            schreibe = false;
-                            serverMessage.Clear();
+                        connector.buffer.addMessageToBuffer(new List<String>(this.serverMessage));
+                        write = false;
+                        serverMessage.Clear();
                         
-                        }
+                    }
 
 
                 }
@@ -80,3 +81,5 @@ namespace Inf3Project
         }
     }
 }
+        }
+    

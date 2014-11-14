@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 using System.Collections;
 using Inf3Project;
+
 
 
 namespace Inf3Project
@@ -16,24 +18,21 @@ namespace Inf3Project
          * variables 
          */
         private List<List<String>> buffer;
-        private int BUFFERSIZE = 15;
+        private int counter=0;
         private Parser parser;
-        private Boolean searchEnd = false;
-        private int begin = -1;
-        private String tmpBuffer;
+
+        private Object lockthis = new Object();
+
 
         /*
          * constructors 
          */
-        public Buffer(){
+        public Buffer()
+        {
             parser = new Parser(this);
-       
-            List<String>[] buffer = new List<String>[BUFFERSIZE];
-            for (int i = 0; i < buffer.Length; i++)
-            {
-                buffer[i] = new List<String>();
-            }
+            List<List<String>> buffer = new List<List<String>>();
             
+
         }
 
         /*
@@ -52,60 +51,63 @@ namespace Inf3Project
             return tmp;
         }
 
-        //creates a one-line element of each server-push for the buffer
+        //creates a one-message element of each server-push for the buffer
         public void addMessageToBuffer(List<String> message)
         {
-            
-            if (bufferHasContent())
+            while (counter >= 15)
             {
-                for (int i = 0; i < buffer.Count; i++)
+                Thread.Sleep(5000);
+            }
+            lock (lockthis)
+            {
+                if (counter < 15)
                 {
-                    if (buffer[i] == null)
-                    {
-                        buffer[i] = message;
-                        break;
-                    }
+                    buffer.Add(message);
+                    counter++;
+                }
+                else
+                {
+                    throw new System.Exception("Buffer is OverFlow");
                 }
             }
         }
 
-        public List<String> getLineFromBuffer()
+
+        public List<String> getMessageFromBuffer()
         {
             Contract.Requires(buffer.Count > 0);
-
             List<String> tmp = null;
-            if (buffer != null && buffer.Count > 0)
-            {
-              //  tmp.AddBuffer[0];                        //Hier nochmal guten ob die methode so sinn macht
 
-                for (int i = 0; i < buffer.Count; i++)
+            while (buffer.Count == 0)
+            {
+                Thread.Sleep(5000);
+            }
+
+            if (bufferHasContent())
+            {
+                lock (lockthis)
                 {
-                    if ((i + 1) < buffer.Count)
+                    if (buffer != null && buffer.Count > 0)
                     {
-                        buffer[i] = buffer[i + 1];
-                        buffer[i + 1] = null;
+                        tmp = buffer[0];
+
+                        for (int i = 0; i < buffer.Count; i++)
+                        {
+                            if ((i + 1) < buffer.Count)
+                            {
+                                buffer[i] = buffer[i + 1];
+                                buffer[i + 1] = null;
+                            }
+                        }
                     }
                 }
             }
-
-            return tmp;
-            
-        }
-
-
-        public void setLineFromBuffer(List<String> s)
-        {
-            buffer.Add(s);
-
-        }
-
-        public List<String> getBuffer(){
-            List<String> tmp;
-            tmp = buffer[0];
-            buffer.Remove(tmp);
-
             return tmp;
         }
+
+       
 
     }
 }
+
+
