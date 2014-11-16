@@ -16,8 +16,6 @@ namespace Inf3Project
     class Program
     {
     
-
-
         static void Main(string[] args)
         {
             Connector connector = new Connector("127.0.0.1", 666);

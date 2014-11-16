@@ -11,24 +11,30 @@ namespace Inf3Project
 {
     class Sender
     {
+        /*
+         * variables
+         */
         private StreamWriter sw;
         private TcpClient tcpClient;
 
-        //constructors
+        /*
+         * constructors
+         */
         public Sender(TcpClient tcpClient, StreamWriter sw)
         {
             this.tcpClient = tcpClient;
             this.sw = sw;
-            sendMsg("Hallo");
         }
 
+        /*
+         * methods
+         */
         public void sendMsg(String msg)
         {
             sw.WriteLine(msg);
             sw.Flush();
             Thread readThread = new Thread(new ThreadStart(writeStreamThread));
             readThread.Start();
-
         }
 
         private void writeStreamThread()
