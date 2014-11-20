@@ -32,7 +32,6 @@ namespace Frontend
         private IBackend backend;
         private MapCell mapcell;
         private Int32 xPos;
-        private Panel panel1;
         private Int32 yPos;
         public DefaultGui(IBackend backend) : base()
         {
@@ -41,6 +40,7 @@ namespace Frontend
                 throw new ArgumentNullException("invalid value for 'backend': null");
             }
             this.backend = backend;
+                
             InitializeComponent();
             // we usually don't have a console in a form-project. This enables us to see debug-output anyway
             AllocConsole();
@@ -48,6 +48,9 @@ namespace Frontend
             this.board.Paint += board_PaintEntities;
             this.chatInput.KeyPress += chat_KeyPress;
             this.board.KeyPress += board_KeyPress;
+
+            int map_XKoord = backend.getMap()[0].Length;
+            int map_YKoord = backend.getMap().Length;
         }
 
         /// <summary>
@@ -278,38 +281,21 @@ namespace Frontend
             this.chatWindow.AppendText(sender + ": " + message + "\r\n");
         }
 
-
-
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool AllocConsole();
 
-        private void InitializeComponent()
+    /*    private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
-            // panel1
-            // 
-            this.panel1.Location = new System.Drawing.Point(26, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(246, 160);
-            this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // DefaultGui
             // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(290, 262);
             this.Name = "DefaultGui";
             this.ResumeLayout(false);
 
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        }*/
 
     }
 }
