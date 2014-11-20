@@ -37,6 +37,7 @@
             // 
             this.chatInput.BackColor = System.Drawing.SystemColors.Window;
             this.chatInput.Location = new System.Drawing.Point(23, 455);
+            this.chatInput.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chatInput.Name = "chatInput";
             this.chatInput.Size = new System.Drawing.Size(350, 20);
             this.chatInput.TabIndex = 0;
@@ -44,6 +45,7 @@
             // chatWindow
             // 
             this.chatWindow.Location = new System.Drawing.Point(23, 368);
+            this.chatWindow.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chatWindow.Name = "chatWindow";
             this.chatWindow.ReadOnly = true;
             this.chatWindow.Size = new System.Drawing.Size(350, 81);
@@ -53,6 +55,7 @@
             // board
             // 
             this.board.Location = new System.Drawing.Point(23, 12);
+            this.board.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.board.Name = "board";
             this.board.Size = new System.Drawing.Size(350, 350);
             this.board.TabIndex = 2;
@@ -68,6 +71,7 @@
             this.Controls.Add(this.chatInput);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.Name = "DefaultGui";
             this.ShowIcon = false;
