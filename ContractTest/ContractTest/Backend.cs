@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 using System.Collections;
 using Inf3Project;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Frontend
 {
@@ -18,12 +20,40 @@ namespace Frontend
     {
         private Hashtable players;
         private Hashtable dragons;
-        private ArrayList challenges; 
+        private ArrayList challenges;
+        private DefaultGui defaultGui;
+        private Thread GUIThread;
 
         public Backend()
         {
             players = new Hashtable();
             dragons = new Hashtable();
+            initGUI(this);
+        }
+
+        public static void initGUI(Backend ba)
+        {
+            ba.GUIThread = new Thread(GUIThreadStarter);
+            ba.GUIThread.Name = "GuiThread";
+            ba.GUIThread.Start(ba);
+        }
+
+        public static void GUIThreadStarter(object ba)
+        {
+            try
+            {
+                if (ba != null && ba.GetType() == typeof(Backend))
+                {
+                    Backend be = (Backend)ba;
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(true);
+                    Application.Run(be.defaultGui = new DefaultGui(be));
+                }
+            }
+            catch(Exception e){
+                //content needed
+            }
+            
         }
 
         public void sendCommandToConnector(String command)
