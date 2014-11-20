@@ -32,6 +32,7 @@ namespace Frontend
         private IBackend backend;
         private MapCell mapcell;
         private Int32 xPos;
+        private Panel panel1;
         private Int32 yPos;
         public DefaultGui(IBackend backend) : base()
         {
@@ -282,6 +283,33 @@ namespace Frontend
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool AllocConsole();
+
+        private void InitializeComponent()
+        {
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.SuspendLayout();
+            // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(26, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(246, 160);
+            this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // DefaultGui
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.panel1);
+            this.Name = "DefaultGui";
+            this.ResumeLayout(false);
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
 
     }
 }
