@@ -97,8 +97,9 @@
     <Compile Include="DefaultGui.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DefaultGui.Designer.cs" />
-    <Compile Include="GUIManager.cs" />
+    <Compile Include="DefaultGui.Designer.cs">
+      <DependentUpon>DefaultGui.cs</DependentUpon>
+    </Compile>
     <Compile Include="IBackend.cs" />
     <Compile Include="IPositionable.cs" />
     <Compile Include="ITile.cs" />
