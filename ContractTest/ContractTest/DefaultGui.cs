@@ -40,6 +40,7 @@ namespace Frontend
                 throw new ArgumentNullException("invalid value for 'backend': null");
             }
             this.backend = backend;
+                
             InitializeComponent();
             // we usually don't have a console in a form-project. This enables us to see debug-output anyway
             AllocConsole();
@@ -47,6 +48,9 @@ namespace Frontend
             this.board.Paint += board_PaintEntities;
             this.chatInput.KeyPress += chat_KeyPress;
             this.board.KeyPress += board_KeyPress;
+
+            int map_XKoord = backend.getMap()[0].Length;
+            int map_YKoord = backend.getMap().Length;
         }
 
         /// <summary>
@@ -282,6 +286,18 @@ namespace Frontend
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool AllocConsole();
+
+    /*    private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // DefaultGui
+            // 
+            this.ClientSize = new System.Drawing.Size(290, 262);
+            this.Name = "DefaultGui";
+            this.ResumeLayout(false);
+
+        }*/
 
     }
 }
