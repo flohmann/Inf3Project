@@ -113,6 +113,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Backend.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Skirmish.cs" />
     <Compile Include="Staghunt.cs" />
     <Compile Include="Receiver.cs" />
@@ -130,6 +135,18 @@
     <EmbeddedResource Include="DefaultGui.resx">
       <DependentUpon>DefaultGui.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\cement.bmp" />
+    <Content Include="Resources\grass.bmp" />
+    <Content Include="Resources\forest.BMP" />
+    <Content Include="Resources\water.bmp" />
+    <Content Include="water.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

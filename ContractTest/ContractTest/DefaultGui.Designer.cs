@@ -73,9 +73,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
-            this.Name = "DefaultGui";
+            this.Name = "Spiel";
             this.ShowIcon = false;
-            this.Text = "Default GUI";
+            this.Text = "Spiel";
             this.ResumeLayout(false);
             this.PerformLayout();
 

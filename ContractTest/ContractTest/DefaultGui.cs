@@ -85,6 +85,7 @@ namespace Frontend
                         else
                         {
                             this.backend.sendChat(input);
+                            appendChatMessage("Player1",input);
                         }
                     }
                     this.board.Focus();
@@ -188,26 +189,42 @@ namespace Frontend
         protected void drawMapTile(Graphics g, ITile tile, int absX, int absY, int width, int height)
         {
             Color colour = Color.BurlyWood;
+            TextureBrush tb;
             if (tile.isForest())
             {
                 if (tile.isHuntable())
                 {
-                    colour = Color.YellowGreen;
+                    //colour = Color.YellowGreen;
+                    Bitmap myBitmap = new Bitmap(@"C:\Users\Süleyman\Source\Repos\Inf3Project\ContractTest\ContractTest\Resources\grass.bmp");
+                    tb = new TextureBrush(myBitmap);
+                    g.FillRectangle(tb, absX, absY, width, height);
                 }
                 else
                 {
-                    colour = Color.Green;
+                    //colour = Color.Green;
+
+                    Bitmap myBitmap = new Bitmap(@"C:\Users\Süleyman\Source\Repos\Inf3Project\ContractTest\ContractTest\Resources\forest.bmp");
+                    tb = new TextureBrush(myBitmap);
+                    g.FillRectangle(tb, absX, absY, width, height);
                 }
             }
             else if (tile.isWater())
             {
-                colour = Color.Blue;
+                //colour = Color.Blue;
+                Bitmap myBitmap = new Bitmap(@"C:\Users\Süleyman\Source\Repos\Inf3Project\ContractTest\ContractTest\Resources\water.bmp");
+                tb = new TextureBrush(myBitmap);
+                g.FillRectangle(tb, absX, absY, width, height);
             }
             else if (!tile.isWalkable())
             {
-                colour = Color.DimGray;
+                //colour = Color.DimGray;
+
+                Bitmap myBitmap = new Bitmap(@"C:\Users\Süleyman\Source\Repos\Inf3Project\ContractTest\ContractTest\Resources\cement.bmp");
+                tb = new TextureBrush(myBitmap);
+                g.FillRectangle(tb, absX, absY, width, height);
             }
-            g.FillRectangle(new SolidBrush(colour), absX, absY, width, height);
+            
+            //g.FillRectangle(new SolidBrush(colour), absX, absY, width, height);
             g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), new Rectangle(absX, absY, width, height));
         }
 
@@ -285,17 +302,7 @@ namespace Frontend
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool AllocConsole();
 
-    /*    private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // DefaultGui
-            // 
-            this.ClientSize = new System.Drawing.Size(290, 262);
-            this.Name = "DefaultGui";
-            this.ResumeLayout(false);
-
-        }*/
+   
 
     }
 }

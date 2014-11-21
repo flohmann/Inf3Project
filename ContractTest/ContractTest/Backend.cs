@@ -151,7 +151,7 @@ namespace Frontend
                 for (int y = 0; y < size; y++)
                 {
                     List<MapCellAttribute> attr = new List<MapCellAttribute>();
-                    switch (r.Next(0, 5))
+                    switch (r.Next(0, 4))
                     {
                         case 0:
                             attr.Add(MapCellAttribute.WATER);
