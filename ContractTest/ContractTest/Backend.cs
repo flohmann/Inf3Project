@@ -126,7 +126,7 @@ namespace Frontend
        
         public List<IPositionable> getPlayers() {
             List<IPositionable> players = new List<IPositionable>();
-            players.Add(new Entity(01, 1, 1, "player"));
+            players.Add(new Entity(01, 5, 5, "player"));
             return players;
         }
 
