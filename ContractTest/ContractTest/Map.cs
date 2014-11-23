@@ -8,15 +8,15 @@ namespace Inf3Project
 {
     public class Map
     {
-        public int wigth;
+        public int width;
         public int height;
         
     
    
   
-        public int Wigth{
-            get { return this.wigth; }
-            set{this.wigth = value;}
+        public int Width{
+            get { return this.width; }
+            set{this.width = value;}
     }
 
         public int Height

@@ -64,13 +64,13 @@ namespace Frontend
             //sendMessageToServer is called in Connector
         }
 
-        public void storePlayer()
+        public void storePlayer(Player p)
         {
             
             
             Contract.Requires(dragons != null);
             //players.Add(8, "Nasti");
-            Contract.Ensures(dragons.Contains(dragons));
+            Contract.Ensures(players.Contains(p));
 
         }
 
@@ -78,7 +78,7 @@ namespace Frontend
         {
             Contract.Requires(p != null);
 
-            Contract.Ensures(!dragons.Contains(p));
+            Contract.Ensures(!players.Contains(p));
 
         }
 
@@ -102,10 +102,10 @@ namespace Frontend
         {
             Contract.Requires(m != null);
             Contract.Requires(m.height > 0);
-            Contract.Requires(m.wigth > 0);
+            Contract.Requires(m.width > 0);
 
             Contract.Ensures(m.height > 0);
-            Contract.Ensures(m.wigth > 0);
+            Contract.Ensures(m.width > 0);
         }
 
         public void sendCommand(string command)
