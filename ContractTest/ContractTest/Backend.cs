@@ -126,7 +126,7 @@ namespace Frontend
        
         public List<IPositionable> getPlayers() {
             List<IPositionable> players = new List<IPositionable>();
-            players.Add(new Entity(01, 1, 1, "player"));
+            players.Add(new Entity(01, 5, 5, "player"));
             return players;
         }
 
@@ -151,7 +151,7 @@ namespace Frontend
                 for (int y = 0; y < size; y++)
                 {
                     List<MapCellAttribute> attr = new List<MapCellAttribute>();
-                    switch (r.Next(0, 5))
+                    switch (r.Next(0, 4))
                     {
                         case 0:
                             attr.Add(MapCellAttribute.WATER);
