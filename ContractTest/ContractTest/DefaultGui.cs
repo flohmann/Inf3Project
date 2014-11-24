@@ -68,6 +68,7 @@ namespace Frontend
             Contract.Requires(mapcell.getCell() != null);
         }
 
+
         private void chat_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
             if(e.KeyChar == (char)Keys.Enter) 
@@ -211,7 +212,7 @@ namespace Frontend
             else if (tile.isWater())
             {
                 //colour = Color.Blue;
-                Bitmap myBitmap = new Bitmap(@"C:\Users\Süleyman\Source\Repos\Inf3Project\ContractTest\ContractTest\Resources\water.bmp");
+                Bitmap myBitmap = new Bitmap("water.bmp");
                 tb = new TextureBrush(myBitmap);
                 g.FillRectangle(tb, absX, absY, width, height);
             }
