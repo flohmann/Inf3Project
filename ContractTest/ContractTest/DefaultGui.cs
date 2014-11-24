@@ -68,7 +68,6 @@ namespace Frontend
             Contract.Requires(mapcell.getCell() != null);
         }
 
-
         private void chat_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
             if(e.KeyChar == (char)Keys.Enter) 
@@ -189,22 +188,24 @@ namespace Frontend
         /// <param name="height">height of the tile in pixels</param>
         protected void drawMapTile(Graphics g, ITile tile, int absX, int absY, int width, int height)
         {
-            Color colour = Color.BurlyWood;
+            //Color colour = Color.BurlyWood;
+
             TextureBrush tb;
             if (tile.isForest())
             {
                 if (tile.isHuntable())
                 {
                     //colour = Color.YellowGreen;
-                    Bitmap myBitmap = new Bitmap(@"C:\Users\Süleyman\Source\Repos\Inf3Project\ContractTest\ContractTest\Resources\grass.bmp");
+                    Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\grass.bmp");
                     tb = new TextureBrush(myBitmap);
                     g.FillRectangle(tb, absX, absY, width, height);
                 }
                 else
                 {
                     //colour = Color.Green;
-
-                    Bitmap myBitmap = new Bitmap(@"C:\Users\Süleyman\Source\Repos\Inf3Project\ContractTest\ContractTest\Resources\forest.bmp");
+                    
+               
+                    Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\forest.bmp");
                     tb = new TextureBrush(myBitmap);
                     g.FillRectangle(tb, absX, absY, width, height);
                 }
@@ -212,7 +213,7 @@ namespace Frontend
             else if (tile.isWater())
             {
                 //colour = Color.Blue;
-                Bitmap myBitmap = new Bitmap("water.bmp");
+                Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\water.bmp");
                 tb = new TextureBrush(myBitmap);
                 g.FillRectangle(tb, absX, absY, width, height);
             }
@@ -220,7 +221,7 @@ namespace Frontend
             {
                 //colour = Color.DimGray;
 
-                Bitmap myBitmap = new Bitmap(@"C:\Users\Süleyman\Source\Repos\Inf3Project\ContractTest\ContractTest\Resources\cement.bmp");
+                Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\cement.bmp");
                 tb = new TextureBrush(myBitmap);
                 g.FillRectangle(tb, absX, absY, width, height);
             }
