@@ -80,6 +80,7 @@ namespace Frontend
 
         internal void sendChatMessage()
         {
+
             throw new NotImplementedException();
         }
     }

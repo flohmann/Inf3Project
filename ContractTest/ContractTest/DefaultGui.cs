@@ -301,7 +301,7 @@ namespace Frontend
         public void sendChatMessage()
         {
             this.Invoke(message);
-           // m.sendChatMessage();
+            m.sendChatMessage();
         }
         public void appendChatMessage(String sender, String message)
         {

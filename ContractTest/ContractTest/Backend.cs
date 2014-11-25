@@ -127,6 +127,8 @@ namespace Frontend
             if (message != null || message.Length != 0)
             {
                 this.chatMsg = message;
+                m.sendChatMessage();
+
             }
 
             Console.WriteLine("received chatmessage " + getChat() );
