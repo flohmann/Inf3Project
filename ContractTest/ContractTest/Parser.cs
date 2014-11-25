@@ -25,7 +25,12 @@ namespace Inf3Project
             readBufferThread.Start();
         }
 
-       
+        public void readBuffer()
+        {
+            buffer.getMessageFromBuffer();
+            
+        }
+
 
         
     }
