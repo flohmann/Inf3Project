@@ -37,7 +37,7 @@ namespace Frontend
         private readonly Action message;
         public DefaultGui(IBackend backend) : base()
         {
-            
+
             if (backend == null)
             {
                 throw new ArgumentNullException("invalid value for 'backend': null");
@@ -88,7 +88,7 @@ namespace Frontend
                         else
                         {
                             this.ba.sendChat(input);
-                            appendChatMessage("Player1", input);
+                            this.ba.setChatMsg(input);
                             
                         }
                     }
@@ -309,7 +309,7 @@ namespace Frontend
         {
             try
             {
-                this.chatWindow.AppendText(ba.getChatMsg());
+                this.chatWindow.AppendText(this.ba.getChatMsg());
             }
             catch (Exception e)
             {

@@ -111,7 +111,7 @@ namespace Frontend
         {
             if (command != null || command.Length != 0)
             {
-                command = commandMsg;
+                this.commandMsg = command;
             }
             Console.WriteLine("received command " + command);
             
@@ -122,14 +122,14 @@ namespace Frontend
             return commandMsg;     
         }
         
-        public void sendChat(string message)
+        public void sendChat(String message)
         {
             if (message != null || message.Length != 0)
             {
-                message = chatMsg;
+                this.chatMsg = message;
             }
 
-            Console.WriteLine("received chatmessage " + message);
+            Console.WriteLine("received chatmessage " + getChat() );
         }
 
         public String getChat()
