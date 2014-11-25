@@ -10,10 +10,7 @@ namespace Inf3Project
     {
         public int width;
         public int height;
-        
-    
-   
-  
+
         public int Width{
             get { return this.width; }
             set{this.width = value;}
