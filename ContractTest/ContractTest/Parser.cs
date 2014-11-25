@@ -28,15 +28,11 @@ namespace Inf3Project
         public void readBuffer()
         {
 
-
-
             while (buffer.bufferHasContent())
             {
-               
-                    //parse this stuff with regex & delete the console output
-                    //implementet just for testing
-                    Console.WriteLine("parser: " + buffer.getMessageFromBuffer());
-
+                //parse this stuff with regex & delete the console output
+                //implementet just for testing
+                Console.WriteLine("parser: " + buffer.getMessageFromBuffer());
              }
         }
 

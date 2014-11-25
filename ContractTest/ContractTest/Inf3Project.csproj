@@ -146,7 +146,6 @@
     <Content Include="Resources\grass.bmp" />
     <Content Include="Resources\forest.BMP" />
     <Content Include="Resources\water.bmp" />
-    <Content Include="water.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
