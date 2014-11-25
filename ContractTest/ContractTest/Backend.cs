@@ -26,7 +26,7 @@ namespace Frontend
         private String commandMsg="";
         private String receivedMsg="";
 
-
+         
 
         public Backend()
         {
