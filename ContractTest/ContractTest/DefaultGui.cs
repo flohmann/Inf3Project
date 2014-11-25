@@ -87,9 +87,7 @@ namespace Frontend
                         }
                         else
                         {
-                            this.ba.sendChat(input);
-                            this.ba.setChatMsg(input);
-                            
+                            this.ba.sendChat(input); 
                         }
                     }
                     this.board.Focus();
@@ -118,19 +116,19 @@ namespace Frontend
                     break;
                 case 'a':
                 case 'A':
-                    this.ba.sendCommand("ask:mv:lft");
+                    this.ba.moveLeft();
                     break;
                 case 'd':
                 case 'D':
-                    this.ba.sendCommand("ask:mv:rgt");
+                    this.ba.moveRight();
                     break;
                 case 'w':
                 case 'W':
-                    this.ba.sendCommand("ask:mv:up");
+                    this.ba.moveUp();
                     break;
                 case 's':
                 case 'S':
-                    this.ba.sendCommand("ask:mv:dwn");
+                    this.ba.moveDown();
                     break;
             }
         }
