@@ -9,6 +9,7 @@ using Inf3Project;
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
+using Frontend;
 
 namespace Inf3Project
 {
@@ -23,6 +24,7 @@ namespace Inf3Project
         private StreamWriter sw;
         private StreamReader sr;
         private TcpClient tcpClient;
+        private GUIManager m = new GUIManager();
 
         /*
          * constructors 
@@ -35,6 +37,7 @@ namespace Inf3Project
             connectToServer();
             Receiver rec = new Receiver(tcpClient, sr, this);
             Sender sender = new Sender(tcpClient, sw);
+            m.initGUI();
         }
 
         /*

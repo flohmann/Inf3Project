@@ -84,7 +84,7 @@
         #endregion
 
         private System.Windows.Forms.TextBox chatInput;
-        private System.Windows.Forms.RichTextBox chatWindow;
+        public System.Windows.Forms.RichTextBox chatWindow;
         private System.Windows.Forms.Panel board;
     }
 }

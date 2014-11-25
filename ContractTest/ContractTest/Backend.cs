@@ -21,39 +21,17 @@ namespace Frontend
         private Hashtable players;
         private Hashtable dragons;
         private ArrayList challenges;
-        private DefaultGui defaultGui;
-        private Thread GUIThread;
+        private GUIManager m;
+        private String chatMsg="";
+        private String commandMsg="";
+        private String receivedMsg="";
+
+
 
         public Backend()
         {
             players = new Hashtable();
             dragons = new Hashtable();
-            initGUI(this);
-        }
-
-        public static void initGUI(Backend ba)
-        {
-            ba.GUIThread = new Thread(GUIThreadStarter);
-            ba.GUIThread.Name = "GuiThread";
-            ba.GUIThread.Start(ba);
-        }
-
-        public static void GUIThreadStarter(object ba)
-        {
-            try
-            {
-                if (ba != null && ba.GetType() == typeof(Backend))
-                {
-                    Backend be = (Backend)ba;
-                    Application.EnableVisualStyles();
-                    Application.SetCompatibleTextRenderingDefault(true);
-                    Application.Run(be.defaultGui = new DefaultGui(be));
-                }
-            }
-            catch(Exception e){
-                //content needed
-            }
-            
         }
 
         public void sendCommandToConnector(String command)
@@ -63,6 +41,27 @@ namespace Frontend
             
             //sendMessageToServer is called in Connector
         }
+
+        public void moveLeft()
+        {
+            sendCommand("ask:mv:lft");
+        }
+
+        public void moveRight()
+        {
+            sendCommand("ask:mv:rgt");
+        }
+
+        public void moveDown()
+        {
+            sendCommand("ask:mv:dwn");
+        }
+
+        public void moveUp()
+        {
+            sendCommand("ask:mv:up");
+        }
+
 
         public void storePlayer(Player p)
         {
@@ -110,12 +109,42 @@ namespace Frontend
 
         public void sendCommand(string command)
         {
+            if (command != null || command.Length != 0)
+            {
+                command = commandMsg;
+            }
             Console.WriteLine("received command " + command);
+            
         }
 
+        public String getCommand()
+        {       
+            return commandMsg;     
+        }
+        
         public void sendChat(string message)
         {
+            if (message != null || message.Length != 0)
+            {
+                message = chatMsg;
+            }
+
             Console.WriteLine("received chatmessage " + message);
+        }
+
+        public String getChat()
+        {
+            return chatMsg;
+        }
+
+        public void setChatMsg(String chatmsg)
+        {
+            this.receivedMsg = chatMsg;
+        }
+      
+        public String getChatMsg()
+        {
+            return receivedMsg;
         }
 
         public List<IPositionable> getDragons() {

@@ -38,5 +38,18 @@ namespace Frontend
         /// </summary>
         /// <param name="message">the text to send as chatmessage</param>
         void sendChat(string message);
+
+        String getCommand();
+        String getChat();
+
+        void setChatMsg(String chatmsg);
+        String getChatMsg();
+
+        //  void sendChatMsg(String message);
+        void moveLeft();
+        void moveRight();
+        void moveDown();
+        void moveUp();
+        
     }
 }

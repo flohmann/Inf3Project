@@ -29,17 +29,20 @@ namespace Frontend
     /// </summary>
     public partial class DefaultGui : Form
     {
-        private IBackend backend;
+        private IBackend ba;
+        private GUIManager m;
         private MapCell mapcell;
         private Int32 xPos;
         private Int32 yPos;
+        private readonly Action message;
         public DefaultGui(IBackend backend) : base()
         {
+            
             if (backend == null)
             {
                 throw new ArgumentNullException("invalid value for 'backend': null");
             }
-            this.backend = backend;
+            this.ba = backend;
                 
             InitializeComponent();
             // we usually don't have a console in a form-project. This enables us to see debug-output anyway
@@ -74,18 +77,19 @@ namespace Frontend
             {
                     string input = this.chatInput.Text.Trim();
                     this.chatInput.Text = "";
-                    // ignore empty input
+                    
                     if (input != "")
                     {
                         if (input.StartsWith("/"))
                         {
                             input = input.Substring(1, input.Length-1);
-                            this.backend.sendCommand(input);
+                            this.ba.sendCommand(input);
                         }
                         else
                         {
-                            this.backend.sendChat(input);
-                            appendChatMessage("Player1",input);
+                            this.ba.sendChat(input);
+                            appendChatMessage("Player1", input);
+                            
                         }
                     }
                     this.board.Focus();
@@ -114,19 +118,19 @@ namespace Frontend
                     break;
                 case 'a':
                 case 'A':
-                    this.backend.sendCommand("ask:mv:lft");
+                    this.ba.sendCommand("ask:mv:lft");
                     break;
                 case 'd':
                 case 'D':
-                    this.backend.sendCommand("ask:mv:rgt");
+                    this.ba.sendCommand("ask:mv:rgt");
                     break;
                 case 'w':
                 case 'W':
-                    this.backend.sendCommand("ask:mv:up");
+                    this.ba.sendCommand("ask:mv:up");
                     break;
                 case 's':
                 case 'S':
-                    this.backend.sendCommand("ask:mv:dwn");
+                    this.ba.sendCommand("ask:mv:dwn");
                     break;
             }
         }
@@ -138,7 +142,7 @@ namespace Frontend
         /// <param name="e"></param>
         private void board_PaintMap(object sender, System.Windows.Forms.PaintEventArgs e) {
             Size tileSize = this.getTileSize();
-            ITile[][] cells = this.backend.getMap();
+            ITile[][] cells = this.ba.getMap();
             // validity checked beforehand in getTileSize
             Debug.Assert(cells != null);
             BufferedGraphics buffer = BufferedGraphicsManager.Current.Allocate(this.board.CreateGraphics(), this.board.DisplayRectangle);
@@ -158,12 +162,12 @@ namespace Frontend
         /// <param name="e"></param>
         private void board_PaintEntities(object sender, System.Windows.Forms.PaintEventArgs e)
         {
-            List<IPositionable> dragons = this.backend.getDragons();
+            List<IPositionable> dragons = this.ba.getDragons();
             foreach (IPositionable dragon in dragons)
             {
                 this.drawDragon(e.Graphics, dragon);
             }
-            List<IPositionable> players = this.backend.getPlayers();
+            List<IPositionable> players = this.ba.getPlayers();
             foreach (IPositionable player in players)
             {
                 this.drawPlayer(e.Graphics, player);
@@ -270,7 +274,7 @@ namespace Frontend
         /// <returns>the size of one tile to fit the whole map on the board</returns>
         protected Size getTileSize()
         {
-            IPositionable[][] cells = this.backend.getMap();
+            IPositionable[][] cells = this.ba.getMap();
             if (cells == null)
             {
                 throw new ArgumentNullException("backend returned null as map");
@@ -295,9 +299,22 @@ namespace Frontend
         /// </summary>
         /// <param name="sender">the source of the message</param>
         /// <param name="message">the message itself</param>
-        public void appendChatMessage(string sender, string message)
+       
+        public void sendChatMessage()
         {
-            this.chatWindow.AppendText(sender + ": " + message + "\r\n");
+            this.Invoke(message);
+           // m.sendChatMessage();
+        }
+        public void appendChatMessage(String sender, String message)
+        {
+            try
+            {
+                this.chatWindow.AppendText(ba.getChatMsg());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         [DllImport("kernel32.dll", SetLastError = true)]
