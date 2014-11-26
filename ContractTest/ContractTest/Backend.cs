@@ -63,13 +63,10 @@ namespace Frontend
         }
 
 
-        public void storePlayer(Player p)
-        {
+        public void storePlayer(int id, String type, Boolean busy, String desc, int x, int y, int points){
+        
             
-            
-            Contract.Requires(dragons != null);
-            //players.Add(8, "Nasti");
-            Contract.Ensures(players.Contains(p));
+          
 
         }
 
@@ -81,7 +78,7 @@ namespace Frontend
 
         }
 
-        public void storeDragon(Dragon d)
+        public void storeDragon(int id, String type, Boolean busy, String desc, int x, int y)
         {
             Contract.Requires(d != null);
 

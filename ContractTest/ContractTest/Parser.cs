@@ -20,7 +20,7 @@ namespace Inf3Project
         private Buffer buffer;
         List<String> msg;
         //the following have to be reset every single time
-        private int id;
+        private int id = -1;
         private String type;
         private bool busy;
         private String desc;
@@ -28,7 +28,8 @@ namespace Inf3Project
         private int y;
         private int points;
 
-        public Parser(Buffer buffer){
+        public Parser(Buffer buffer)
+        {
             backend = new Backend();
             this.buffer = buffer;
 
@@ -36,7 +37,7 @@ namespace Inf3Project
             Thread readBufferThread = new Thread(new ThreadStart(readBuffer));
             readBufferThread.Start();
         }
-        
+
         public void readBuffer()
         {
             while (buffer != null)
@@ -50,7 +51,8 @@ namespace Inf3Project
 
         }
 
-        private void removeFrame(){
+        private void removeFrame()
+        {
             //delete the begin:x and end:x frame
             String[] tmp = msg[0].Split(':');
             int value;
@@ -62,10 +64,10 @@ namespace Inf3Project
                 {
                     msg.RemoveAt(0);
                     msg.RemoveAt(msg.Count - 1);
-                    
+
                     //delete the begin:upd and end:udp if existing
                     tmp = msg[0].Split(':');
-                    if((tmp[0].Equals("begin")) && (tmp[1].Equals("upd")))
+                    if ((tmp[0].Equals("begin")) && (tmp[1].Equals("upd")))
                     {
                         tmp = msg[msg.Count() - 1].Split(':');
                         if ((tmp[0].Equals("end")) && (tmp[1].Equals("upd")))
@@ -74,147 +76,101 @@ namespace Inf3Project
                             msg.RemoveAt(msg.Count - 1);
                         }
                     }
-                    getENBF();
+                    getEBNF();
                 }
             }
         }
 
-        private void getENBF()
+        private void getEBNF()
         {
             String[] tmp = msg[0].Split(':');
-            if ((tmp[0].Equals("begin")) && (tmp[1].Equals("player")))
+            if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("player"))) || (tmp[1].Equals("dragon")))
             {
-                convertPlayer(msg);
+                parsePlayer();
             }
-            else if((tmp[0].Equals("begin")) && (tmp[1].Equals("dragon"))){
-                convertDragon(msg);
-            }
+
             //every possible ENBF command needs its own if
         }
 
-
-        private void convertPlayer(List<String> msg)
+        public void parsePlayer()
         {
-            //used variables - int id, String type, bool busy, String desc, int x, int y, int points
-            parseId();
-            parseType();
-            parseBusy();
-            parseDesc();
-            parseX();
-            parseY();
-            parsePoints();
-            convertPlayer();
-            clearVar();
+            String[] tmp = msg[0].Split(':');
 
-        }
-
-        private void parseId(){
-            for(int i = 0; i < msg.Count; i++){
-                String[] tmp = msg[i].Split(':');
-                if(tmp[0].Equals("id")){
-                    this.id = Int32.Parse(tmp[1]);
-                    msg.RemoveAt(i);
-                    break;
-                }
-            }
-        }
-
-        private void parseType()
-        {
-            for (int i = 0; i < msg.Count; i++)
+            if (tmp[0].Equals("id"))
             {
-                String[] tmp = msg[i].Split(':');
+                this.id = Int32.Parse(tmp[1]);
+                msg.RemoveAt(0);
+                tmp = msg[0].Split(':');
                 if (tmp[0].Equals("type"))
                 {
                     this.type = tmp[1];
-                    msg.RemoveAt(i);
-                    break;
-                }
-            }
-        }
-
-        private void parseBusy()
-        {
-            for (int i = 0; i < msg.Count; i++)
-            {
-                String[] tmp = msg[i].Split(':');
-                if (tmp[0].Equals("busy"))
-                {
-                    if (tmp[1].Equals("true"))
+                    msg.RemoveAt(0);
+                    tmp = msg[0].Split(':');
+                    if (tmp[0].Equals("busy"))
                     {
-                        this.busy = true;
+                        if (tmp[1].Equals("true"))
+                        {
+                            this.busy = true;
+                        }
+                        else
+                        {
+                            this.busy = false;
+                        }
+                        msg.RemoveAt(0);
+                        tmp = msg[0].Split(':');
+                        if (tmp[0].Equals("desc"))
+                        {
+                            this.desc = tmp[1];
+                            msg.RemoveAt(0);
+                            tmp = msg[0].Split(':');
+                            if (tmp[0].Equals("x"))
+                            {
+                                this.x = Int32.Parse(tmp[1]);
+                                msg.RemoveAt(0);
+                                tmp = msg[0].Split(':');
+                                if (tmp[0].Equals("y"))
+                                {
+                                    this.y = Int32.Parse(tmp[1]);
+                                    msg.RemoveAt(0);
+                                    tmp = msg[0].Split(':');
+                                    if (tmp[0].Equals("points"))
+                                    {
+                                        this.points = Int32.Parse(tmp[1]);
+                                        msg.RemoveAt(0);
+                                    }
+                                    else
+                                    {
+                                        createDragon();
+                                    }
+                                }
+                            }
+                        }
                     }
-                    else
-                    {
-                        this.busy = false;
-                    }
-                    this.msg.RemoveAt(i);
-                    break;
                 }
             }
         }
 
-        private void parseDesc()
+        private void createPlayer()
         {
-            for (int i = 0; i < msg.Count; i++)
+            //used variables - int id, String type, bool busy, String desc, int x, int y, int points
+            if ((id >= 0) && (type != "") && (x < 0) && (y < 0) && (points < 0))
             {
-                String[] tmp = msg[i].Split(':');
-                if (tmp[0].Equals("desc"))
-                {
-                    this.desc = tmp[1];
-                    msg.RemoveAt(i);
-                    break;
-                }
+                backend.storePlayer(id, type, busy, desc, x, y, points);
+                //call clear()
             }
         }
 
-        private void parseX()
+        private void createDragon()
         {
-            for (int i = 0; i < msg.Count; i++)
+            //used variables - int id, String type, bool busy, String desc, int x, int y
+            if ((id >= 0) && (type != "") && (x < 0) && (y < 0) && (points < 0))
             {
-                String[] tmp = msg[i].Split(':');
-                if (tmp[0].Equals("x"))
-                {
-                    this.x = Int32.Parse(tmp[1]);
-                    msg.RemoveAt(i);
-                    break;
-                }
+                backend.storeDragon(id, type, busy, desc, x, y);
+                //call clear()
             }
         }
 
-        private void parseY()
-        {
-            for (int i = 0; i < msg.Count; i++)
-            {
-                String[] tmp = msg[i].Split(':');
-                if (tmp[0].Equals("y"))
-                {
-                    this.y = Int32.Parse(tmp[1]);
-                    msg.RemoveAt(i);
-                    break;
-                }
-            }
-        }
-
-        private void parsePoints()
-        {
-            for (int i = 0; i < msg.Count; i++)
-            {
-                String[] tmp = msg[i].Split(':');
-                if (tmp[0].Equals("points"))
-                {
-                    this.points = Int32.Parse(tmp[1]);
-                    msg.RemoveAt(i);
-                    break;
-                }
-            }
-        }
-
-        private void convertPlayer(){
-            //new Entity or if the Entity exists - update the old one
-        }
-
-        private void clearVar()
+        private void clearVars()
         {
             //at this moment it only clears the variables of the Player
             //needs to be improoved to all vars
@@ -226,12 +182,5 @@ namespace Inf3Project
             this.y = -1;
             this.points = -1;
         }
-
-        private void convertDragon(List<String> msg)
-        {
-            //content here
-        }
-
-       
-}
+    }
 }
