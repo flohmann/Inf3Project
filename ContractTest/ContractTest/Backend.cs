@@ -188,7 +188,7 @@ namespace Frontend
                             attr.Add(MapCellAttribute.FOREST);
                             break;
                         case 2:
-                            attr.Add(MapCellAttribute.FOREST);
+                            attr.Add(MapCellAttribute.FORES T);
                             break;
                         case 3:
                             attr.Add(MapCellAttribute.UNWALKABLE);

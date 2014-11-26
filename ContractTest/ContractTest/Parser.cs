@@ -92,13 +92,20 @@ namespace Inf3Project
         private void getEBNF()
         {
             String[] tmp = msg[0].Split(':');
-            if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("player"))) || (tmp[1].Equals("dragon")))
+            if ((tmp[0].Equals("begin")) && (tmp[1].Equals("player")) || (tmp[1].Equals("dragon")))
             {
+                msg.RemoveAt(0);
                 parseEntity();
             }
             else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("map"))))
             {
+                msg.RemoveAt(0);
                 parseMap();
+            }
+            else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("server"))))
+            {
+                msg.RemoveAt(0);
+                parseServer();
             }
             //every possible ENBF command needs its own if
         }
@@ -166,6 +173,18 @@ namespace Inf3Project
         {
             //Yulia's code here <<==---- HERE!!!!!
         }
+
+        private void parseServer()
+        {
+            String[] tmp = msg[0].Split(':');
+
+            if (tmp[0].Equals("ver"))
+            {
+                this.id = Int32.Parse(tmp[1]);
+                msg.RemoveAt(0);
+                createServer();
+            }
+        }
         private void createPlayer()
         {
             //used variables - int id, String type, bool busy, String desc, int x, int y, int points
@@ -186,6 +205,11 @@ namespace Inf3Project
                 backend.storeDragon(d);
                 clearVars();
             }
+        }
+
+        private void createServer()
+        {
+            //CREATE SERVER WUUUUUT -F
         }
 
         private void clearVars()
