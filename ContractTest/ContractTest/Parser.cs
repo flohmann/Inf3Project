@@ -66,16 +66,16 @@ namespace Inf3Project
                     msg.RemoveAt(msg.Count - 1);
 
                     //delete the begin:upd and end:udp if existing
-                    tmp = msg[0].Split(':');
-                    if ((tmp[0].Equals("begin")) && (tmp[1].Equals("upd")))
-                    {
-                        tmp = msg[msg.Count() - 1].Split(':');
-                        if ((tmp[0].Equals("end")) && (tmp[1].Equals("upd")))
-                        {
-                            msg.RemoveAt(0);
-                            msg.RemoveAt(msg.Count - 1);
-                        }
-                    }
+                    //tmp = msg[0].Split(':');
+                    //if ((tmp[0].Equals("begin")) && (tmp[1].Equals("upd")))
+                    //{
+                    //    tmp = msg[msg.Count() - 1].Split(':');
+                    //    if ((tmp[0].Equals("end")) && (tmp[1].Equals("upd")))
+                    //    {
+                    //        msg.RemoveAt(0);
+                    //        msg.RemoveAt(msg.Count - 1);
+                    //    }
+                    //}
                     getEBNF();
                 } 
                 else
@@ -148,6 +148,7 @@ namespace Inf3Project
                                     {
                                         this.points = Int32.Parse(tmp[1]);
                                         msg.RemoveAt(0);
+                                        createPlayer();
                                     }
                                     else
                                     {
@@ -170,7 +171,8 @@ namespace Inf3Project
             //used variables - int id, String type, bool busy, String desc, int x, int y, int points
             if ((id >= 0) && (type != "") && (x < 0) && (y < 0) && (points < 0))
             {
-                backend.storePlayer(id, type, busy, desc, x, y, points);
+                Player p = new Player(id, x, y, type, points, desc, busy);
+                backend.storePlayer(p);
                 clearVars();
             }
         }
@@ -180,7 +182,8 @@ namespace Inf3Project
             //used variables - int id, String type, bool busy, String desc, int x, int y
             if ((id >= 0) && (type != "") && (x < 0) && (y < 0))
             {
-                backend.storeDragon(id, type, busy, desc, x, y);
+                Dragon d = new Dragon(id, x, y, type, busy, desc);
+                backend.storeDragon(d);
                 clearVars();
             }
         }

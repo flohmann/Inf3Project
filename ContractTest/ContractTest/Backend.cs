@@ -63,11 +63,10 @@ namespace Frontend
         }
 
 
-        public void storePlayer(int id, String type, Boolean busy, String desc, int x, int y, int points){
-        
-            
-          
+        public void storePlayer(Player p)
+        {
 
+            players[p.getId()] = p;
         }
 
         public void deletePlayer(Player p)
