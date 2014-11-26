@@ -21,12 +21,12 @@ namespace Inf3Project
         List<String> msg;
         //the following have to be reset every single time
         private int id = -1;
-        private String type;
-        private bool busy;
-        private String desc;
-        private int x;
-        private int y;
-        private int points;
+        private String type = "";
+        private bool busy = false;
+        private String desc = "";
+        private int x = -1;
+        private int y = -1;
+        private int points = -1;
 
         public Parser(Buffer buffer)
         {
@@ -77,7 +77,15 @@ namespace Inf3Project
                         }
                     }
                     getEBNF();
+                } 
+                else
+                {
+                    throw new System.FormatException("parser.removeFrame() - no end:x found");
                 }
+            } 
+            else
+            {
+                throw new System.FormatException("parser.removeFrame() - no begin:x found");
             }
         }
 
@@ -86,13 +94,16 @@ namespace Inf3Project
             String[] tmp = msg[0].Split(':');
             if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("player"))) || (tmp[1].Equals("dragon")))
             {
-                parsePlayer();
+                parseEntity();
             }
-
+            else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("map"))))
+            {
+                parseMap();
+            }
             //every possible ENBF command needs its own if
         }
 
-        public void parsePlayer()
+        public void parseEntity()
         {
             String[] tmp = msg[0].Split(':');
 
@@ -149,24 +160,28 @@ namespace Inf3Project
                 }
             }
         }
-
+       
+        private void parseMap()
+        {
+            //Yulia's code here <<==---- HERE!!!!!
+        }
         private void createPlayer()
         {
             //used variables - int id, String type, bool busy, String desc, int x, int y, int points
             if ((id >= 0) && (type != "") && (x < 0) && (y < 0) && (points < 0))
             {
                 backend.storePlayer(id, type, busy, desc, x, y, points);
-                //call clear()
+                clearVars();
             }
         }
 
         private void createDragon()
         {
             //used variables - int id, String type, bool busy, String desc, int x, int y
-            if ((id >= 0) && (type != "") && (x < 0) && (y < 0) && (points < 0))
+            if ((id >= 0) && (type != "") && (x < 0) && (y < 0))
             {
                 backend.storeDragon(id, type, busy, desc, x, y);
-                //call clear()
+                clearVars();
             }
         }
 
