@@ -28,15 +28,16 @@ namespace Inf3Project
         private int y;
         private int points;
 
+
         public Parser(Buffer buffer){
             backend = new Backend();
             this.buffer = buffer;
-
+            
             //create read thread and start it
             Thread readBufferThread = new Thread(new ThreadStart(readBuffer));
             readBufferThread.Start();
         }
-        
+
         public void readBuffer()
         {
             while (buffer != null)
@@ -213,7 +214,7 @@ namespace Inf3Project
         private void convertPlayer(){
             //new Entity or if the Entity exists - update the old one
         }
-
+            
         private void clearVar()
         {
             //at this moment it only clears the variables of the Player
@@ -227,11 +228,8 @@ namespace Inf3Project
             this.points = -1;
         }
 
-        private void convertDragon(List<String> msg)
-        {
-            //content here
-        }
 
-       
-}
+        }
+        
+    }
 }
