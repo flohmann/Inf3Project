@@ -15,6 +15,8 @@ namespace Inf3Project
     {
         private Backend backend;
         private Buffer buffer;
+        private List<String> msg;
+        
 
         public Parser(Buffer buffer){
             backend = new Backend();
@@ -31,7 +33,17 @@ namespace Inf3Project
             
         }
 
+        public void removeFrame()
+        {
+                msg =  buffer.getMessageFromBuffer();
+                String[] tmp = msg[0].Split(':');
+                int value;
 
+                if ((tmp[0].Equals("begin")) && (Int32.TryParse(tmp[1], out value)))
+                {
+
+
+        }
         
     }
 }
