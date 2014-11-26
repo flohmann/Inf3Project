@@ -27,6 +27,7 @@ namespace Inf3Project
         private int x = -1;
         private int y = -1;
         private int points = -1;
+        private int ver = -1;
 
         public Parser(Buffer buffer)
         {
@@ -180,7 +181,7 @@ namespace Inf3Project
 
             if (tmp[0].Equals("ver"))
             {
-                this.id = Int32.Parse(tmp[1]);
+                this.ver = Int32.Parse(tmp[1]);
                 msg.RemoveAt(0);
                 createServer();
             }
