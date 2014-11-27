@@ -28,6 +28,16 @@ namespace Inf3Project
         private int y = -1;
         private int points = -1;
         private int ver = -1;
+        private int width;
+        private int height;
+        private int row;
+        private int col;
+        private bool walkable;
+        private bool huntable;
+        private bool forest;
+        private bool water;
+        private bool wall;
+        private bool accepted;
 
         public Parser(Buffer buffer)
         {
@@ -106,7 +116,12 @@ namespace Inf3Project
             else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("server"))))
             {
                 msg.RemoveAt(0);
-                parseServer();
+              //  parseServer();
+            }
+            else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("challenge"))))
+            {
+                msg.RemoveAt(0);
+                parseChallenge();
             }
             //every possible ENBF command needs its own if
         }
@@ -172,20 +187,193 @@ namespace Inf3Project
        
         private void parseMap()
         {
-            //Yulia's code here <<==---- HERE!!!!!
-        }
-
-        private void parseServer()
-        {
             String[] tmp = msg[0].Split(':');
 
-            if (tmp[0].Equals("ver"))
+            if (tmp[0].Equals("width"))
             {
-                this.ver = Int32.Parse(tmp[1]);
+                this.width = Int32.Parse(tmp[1]);
                 msg.RemoveAt(0);
-                createServer();
+                tmp = msg[0].Split(':');
+                if (tmp[0].Equals("height"))
+                {
+                    this.height =Int32.Parse(tmp[1]);
+                    msg.RemoveAt(0);
+                    tmp = msg[0].Split(':');
+
+                    if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("cells"))))
+                    {   
+                        do{
+                        parseCells();
+
+                        //kick end ???? 
+
+                        tmp = msg[0].Split(':');
+                        } while (!((tmp[0].Equals("end")) && ((tmp[1].Equals("cells")))));
+
+                    }
+
+                }
             }
+            createMap();
         }
+
+
+        private void parseCells()
+        {
+            String[] tmp = msg[0].Split(':');
+            if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("cell"))))
+            {
+
+                if (tmp[0].Equals("row"))
+                {
+                    this.row = Int32.Parse(tmp[1]);
+                    msg.RemoveAt(0);
+                    tmp = msg[0].Split(':');
+                    if (tmp[0].Equals("col"))
+                    {
+                        this.col = Int32.Parse(tmp[1]);
+                        msg.RemoveAt(0);
+                        tmp = msg[0].Split(':');
+                        if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("props"))))
+                        {
+                            do
+                            {
+                                parseProperty();
+                                tmp = msg[0].Split(':');
+                            } while (!((tmp[0].Equals("end")) && ((tmp[1].Equals("props")))));
+                        }
+                    }
+                }
+                if ((tmp[0].Equals("end")) && ((tmp[1].Equals("cell"))))
+                {
+                    parseMap();
+                }
+
+            }
+            throw new Exception("No Cells");
+        }
+
+
+
+        private void parseProperty()
+        {
+            String[] tmp = msg[0].Split(':');
+            if (tmp[0].Equals("WALKABLE"))
+            {
+
+                if (tmp[1].Equals("true"))
+                {
+                    this.walkable = true;
+                }
+                else
+                {
+                    this.walkable = false;
+                }
+                msg.RemoveAt(0);
+            }
+            tmp = msg[0].Split(':');
+            if (tmp[0].Equals("HUNTABLE"))
+            {
+                if (tmp[1].Equals("true"))
+                {
+                    this.huntable = true;
+                }
+                else
+                {
+                    this.huntable = false;
+                }
+                msg.RemoveAt(0);
+            }
+            tmp = msg[0].Split(':');
+            if (tmp[0].Equals("FOREST"))
+            {
+                if (tmp[1].Equals("true"))
+                {
+                    this.forest = true;
+                }
+                else
+                {
+                    this.forest = false;
+                }
+                msg.RemoveAt(0);
+            }
+            tmp = msg[0].Split(':');
+            if (tmp[0].Equals("WATER"))
+            {
+                if (tmp[1].Equals("true"))
+                {
+                    this.water = true;
+                }
+                else
+                {
+                    this.water = false;
+                }
+                msg.RemoveAt(0);
+            }
+            tmp = msg[0].Split(':');
+            if (tmp[0].Equals("WALL"))
+            {
+                if (tmp[1].Equals("true"))
+                {
+                    this.wall = true;
+                }
+                else
+                {
+                    this.wall = false;
+                }
+                msg.RemoveAt(0);
+            }
+            if ((tmp[0].Equals("end")) && ((tmp[1].Equals("props"))))
+            {
+                parseCells();
+            }
+
+            throw new Exception("No Property");
+        }
+
+        private void parseChallenge()
+        {
+
+            String[] tmp = msg[0].Split(':');
+
+            if (tmp[0].Equals("id"))
+            {
+                this.id = Int32.Parse(tmp[1]);
+                msg.RemoveAt(0);
+                tmp = msg[0].Split(':');
+                if (tmp[0].Equals("type"))
+                {
+
+                    if ((tmp[1].Equals("Dragon") || tmp[1].Equals("Staghunt")) || tmp[1].Equals("Skirmish"))
+                    {
+                        this.type = tmp[1];
+                        msg.RemoveAt(0);
+                    }
+                    tmp = msg[0].Split(':');
+                    if (tmp[0].Equals("accepted"))
+                    {
+                        if (tmp[1].Equals("true"))
+                        {
+                            this.accepted = true;
+                        }
+                        else
+                        {
+                            this.accepted = false;
+                        }
+                        msg.RemoveAt(0);
+                    }
+                    if ((tmp[0].Equals("end")) && ((tmp[1].Equals("challenge"))))
+                    {
+                        msg.RemoveAt(0);
+                        
+                    }
+
+                }
+                //what call we ?? 
+            }
+            throw new Exception("No Challenge");
+        }
+
         private void createPlayer()
         {
             //used variables - int id, String type, bool busy, String desc, int x, int y, int points
@@ -213,6 +401,14 @@ namespace Inf3Project
             //CREATE SERVER WUUUUUT -F
         }
 
+        private void createMap()
+        {
+            if ((width > 0) && (height > 0)) { 
+            backend.getMap();
+            clearVars();
+        }
+        }
+
         private void clearVars()
         {
             //at this moment it only clears the variables of the Player
@@ -225,5 +421,12 @@ namespace Inf3Project
             this.y = -1;
             this.points = -1;
         }
+
+        private void convertDragon(List<String> msg)
+        {
+            //content here
+        }
+
+
     }
 }
