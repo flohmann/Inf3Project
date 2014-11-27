@@ -103,6 +103,12 @@ namespace Frontend
             Contract.Ensures(m.width > 0);
         }
 
+        public void giveTime()
+        {
+            DateTime dateValue = DateTime.Now;
+            Console.WriteLine("Time: ", dateValue.ToString("hh:mm:ss.fff tt"));
+        }
+
         public void sendCommand(string command)
         {
             if (command != null || command.Length != 0)

@@ -19,6 +19,7 @@ namespace Inf3Project
         private Backend backend;
         private Buffer buffer;
         List<String> msg;
+        private Mapcells cells;
         //the following have to be reset every single time
         private int id = -1;
         private String type = "";
@@ -38,6 +39,9 @@ namespace Inf3Project
         private bool water;
         private bool wall;
         private bool accepted;
+        private DateTime time;
+        private Dragon d;
+        private Player p;
 
         public Parser(Buffer buffer)
         {
@@ -123,9 +127,25 @@ namespace Inf3Project
                 msg.RemoveAt(0);
                 parseChallenge();
             }
+            else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("time"))))
+            {
+                msg.RemoveAt(0);
+                parseTime();
+            }
+            else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("upd"))))
+            {
+                msg.RemoveAt(0);
+                parseUpd();
+            }
+            else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("del"))))
+            {
+                msg.RemoveAt(0);
+                parseDel();
+            }
             //every possible ENBF command needs its own if
         }
 
+      
         public void parseEntity()
         {
             String[] tmp = msg[0].Split(':');
@@ -374,6 +394,72 @@ namespace Inf3Project
             throw new Exception("No Challenge");
         }
 
+
+        private void parseTime()
+        {
+            String[] tmp = msg[0].Split(':');
+
+            if (tmp[0].Equals("time"))
+            {
+                this.time = DateTime.Parse(tmp[1]);
+                msg.RemoveAt(0);
+            }
+            if ((tmp[0].Equals("end")) && ((tmp[1].Equals("time"))))
+            {
+                msg.RemoveAt(0);
+                backend.giveTime();
+
+            }
+            throw new Exception("No Time");
+        }
+
+        private void parseUpd()
+        {
+            String[] tmp = msg[0].Split(':');
+
+            if (tmp[0].Equals("Dragon"))
+            {
+                backend.storeDragon(d);
+                msg.RemoveAt(0);
+            }
+            if (tmp[0].Equals("Player"))
+            {
+                backend.storePlayer(p);
+                msg.RemoveAt(0);
+            }
+            if (tmp[0].Equals("Maocell"))
+            {
+                createMap();
+                msg.RemoveAt(0);
+            }
+
+            throw new Exception("No update");
+
+        }
+        private void parseDel()
+        {
+            String[] tmp = msg[0].Split(':');
+
+            if (tmp[0].Equals("Dragon"))
+            {
+                backend.deleteDragon(d);
+                msg.RemoveAt(0);
+            }
+            if (tmp[0].Equals("Player"))
+            {
+                backend.deletePlayer(p);
+                msg.RemoveAt(0);
+            }
+
+            throw new Exception("No delete");
+
+        }
+
+        private void parseOnline()
+        {
+
+        }
+
         private void createPlayer()
         {
             //used variables - int id, String type, bool busy, String desc, int x, int y, int points
@@ -408,6 +494,8 @@ namespace Inf3Project
             clearVars();
         }
         }
+
+        
 
         private void clearVars()
         {
