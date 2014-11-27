@@ -27,16 +27,16 @@ namespace Inf3Project
         private int x = -1;
         private int y = -1;
         private int points = -1;
-        private int width;
-        private int height;
-        private int row;
-        private int col;
-        private bool walkable;
-        private bool huntable;
-        private bool forest;
-        private bool water;
-        private bool wall;
-        private bool accepted;
+        private int width = -1;
+        private int height = -1;
+        private int row = -1;
+        private int col = -1;
+        private bool walkable = false;
+        private bool huntable = false;
+        private bool forest = false;
+        private bool water = false;
+        private bool wall = false;
+        private bool accepted = false;
         private bool delete = false;
         private int ver = -1;
         private DateTime time;
@@ -51,13 +51,25 @@ namespace Inf3Project
             readBufferThread.Start();
         }
 
+        //new method to parse the string from the buffer to a List<String>
+        private List<String> parseBufferMsg()
+        {
+            List<String> tmpList = new List<string>();
+            String[] tmp = buffer.getMessageFromBuffer().Split('$');
+            for (int i = 0; i < tmp.Length; i++)
+            {
+                tmpList.Add(tmp[i]);
+            }
+                return tmpList;
+        }
+
         public void readBuffer()
         {
             while (buffer != null)
             {
                 if (buffer.bufferHasContent())
                 {
-                    msg = buffer.getMessageFromBuffer();
+                    msg = parseBufferMsg();
                     removeFrame();
                 }
             }
@@ -66,13 +78,7 @@ namespace Inf3Project
 
         private void removeFrame()
         {
-            Console.WriteLine("removeFrame");
-            List<String> tmpBuf = buffer.getMessageFromBuffer();
-            for (int i = 0; i < tmpBuf.Count; i++)
-            {
-                Console.WriteLine(tmpBuf[i]);
-            }
-
+            Console.WriteLine("--> in removeFrame");
             //delete the begin:x and end:x frame
             String[] tmp = msg[0].Split(':');
             int value;
@@ -85,7 +91,6 @@ namespace Inf3Project
                     msg.RemoveAt(0);
                     msg.RemoveAt(msg.Count - 1);
 
-                   
                     getState();
                 } 
                 else
@@ -136,33 +141,39 @@ namespace Inf3Project
             if ((tmp[0].Equals("begin")) && (tmp[1].Equals("player")) || (tmp[1].Equals("dragon")))
             {
                 msg.RemoveAt(0);
+                msg.RemoveAt(msg.Count - 1);
                 parseEntity();
             }
             else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("map"))))
             {
                 msg.RemoveAt(0);
+                msg.RemoveAt(msg.Count - 1);
                 parseMap();
             }
             else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("server"))))
             {
                 msg.RemoveAt(0);
+                msg.RemoveAt(msg.Count - 1);
                 //  parseServer();
             }
             else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("challenge"))))
             {
                 msg.RemoveAt(0);
+                msg.RemoveAt(msg.Count - 1);
                 parseChallenge();
                 
             }
             else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("time"))))
             {
                 msg.RemoveAt(0);
+                msg.RemoveAt(msg.Count - 1);
                 parseTime();
 
             }
             else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("cells"))))
             {
                 msg.RemoveAt(0);
+                msg.RemoveAt(msg.Count - 1);
                 parseCells();
 
             }
@@ -210,13 +221,17 @@ namespace Inf3Project
                                 {
                                     this.y = Int32.Parse(tmp[1]);
                                     msg.RemoveAt(0);
-                                    tmp = msg[0].Split(':');
-                                    if (tmp[0].Equals("points"))
+                                    //can only use Split(msg), if a row is in msg left
+                                    if (msg.Count > 0)
                                     {
-                                        this.points = Int32.Parse(tmp[1]);
-                                        msg.RemoveAt(0);
-                                            
-                                        createPlayer();
+                                        tmp = msg[0].Split(':');
+                                        if (tmp[0].Equals("points"))
+                                        {
+                                            this.points = Int32.Parse(tmp[1]);
+                                            msg.RemoveAt(0);
+
+                                            createPlayer();
+                                        }
                                     }
                                     else
                                     {
@@ -437,10 +452,10 @@ namespace Inf3Project
         private void createPlayer()
         {
             //used variables - int id, String type, bool busy, String desc, int x, int y, int points
-            if ((id >= 0) && (type != "") && (x < 0) && (y < 0) && (points < 0))
+            if ((id >= 0) && (type != "") && (x > 0) && (y > 0) && (points >= 0))
             {
                 Player p = new Player(id, x, y, type, points, desc, busy);
-                if (delete)
+                if (!delete)
                 {
                     backend.storePlayer(p);
                     clearVars();
@@ -458,10 +473,10 @@ namespace Inf3Project
         private void createDragon()
         {
             //used variables - int id, String type, bool busy, String desc, int x, int y
-            if ((id >= 0) && (type != "") && (x < 0) && (y < 0))
+            if ((id >= 0) && (type != "") && (x > 0) && (y > 0))
             {
                 Dragon d = new Dragon(id, x, y, type, busy, desc);
-                if (delete)
+                if (!delete)
                 {
                     backend.storeDragon(d);
                     clearVars();
@@ -498,6 +513,20 @@ namespace Inf3Project
             this.x = -1;
             this.y = -1;
             this.points = -1;
+            this.id = -1;
+            this.points = -1;
+            this.width = -1;
+            this.height = -1;
+            this.row = -1;
+            this.col = -1;
+            this.walkable = false;
+            this.huntable = false;
+            this.forest = false;
+            this.water = false;
+            this.wall = false;
+            this.accepted = false;
+            this.delete = false;
+            this.ver = -1;
         }
 
     }

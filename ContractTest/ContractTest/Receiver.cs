@@ -16,8 +16,8 @@ namespace Inf3Project
          */
         private StreamReader sr;
         private TcpClient tcpClient;
-        private List<String> serverMessage;
         private Buffer buffer;
+        private Parser parser;
 
         /*
          * constructors
@@ -26,8 +26,8 @@ namespace Inf3Project
         {
             this.tcpClient = tcpClient;
             buffer = new Buffer();
+            parser = new Parser(buffer); 
             this.sr = sr;
-            serverMessage = new List<String>();
             receive();
         }
 
@@ -45,6 +45,7 @@ namespace Inf3Project
         {
             //repaired method - pls don't touch - easily frightened :p
             String tmpMessage = "";
+            String serverMessage = "";
             Boolean write = false;
             int value;
             while (tcpClient.Connected)
@@ -54,21 +55,21 @@ namespace Inf3Project
                 if((tmp[0].Equals("begin")) && (Int32.TryParse(tmp[1], out value)))
                 {
                     write = true;
-                    serverMessage.Add(tmpMessage);
+                    serverMessage += tmpMessage + "$";
                     value = Int32.Parse(tmp[1]);
                 } 
                 else
                 {
                     if((tmp[0].Equals("end")) && (Int32.TryParse(tmp[1], out value)))
                     {
-                        serverMessage.Add(tmpMessage);
+                        serverMessage += tmpMessage;
                         buffer.addMessageToBuffer(serverMessage);
                         write = false;
-                        serverMessage.Clear();
+                        serverMessage = "";
                     }
                     else if(write)
                     {
-                        serverMessage.Add(tmpMessage);
+                        serverMessage += tmpMessage + "$";
                     }
                 }
             }

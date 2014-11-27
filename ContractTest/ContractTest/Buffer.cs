@@ -17,16 +17,14 @@ namespace Inf3Project
         /*
          * variables 
          */
-        private List<List<String>> bufferListList;
-        private Parser parser;
+        private List<String> bufferList;
 
         /*
          * constructors 
          */
         public Buffer()
         {
-            parser = new Parser(this);
-            bufferListList = new List<List<String>>();
+            bufferList = new List<String>();
         }
 
         /*
@@ -35,7 +33,7 @@ namespace Inf3Project
         public Boolean bufferHasContent()
         {
             Boolean tmp = false;
-            if (bufferListList != null && bufferListList.Count > 0)
+            if (bufferList != null && bufferList.Count > 0)
             {
                 tmp = true ;
             }
@@ -43,31 +41,36 @@ namespace Inf3Project
         }
 
         //creates a one-message element of each server-push for the buffer
-        public void addMessageToBuffer(List<String> message)
+        public void addMessageToBuffer(String message)
         {
-            lock (bufferListList)
+            lock (bufferList)
             {
-                if (bufferListList.Count() < 15)
-                {
-                    bufferListList.Add(message);
+                if (bufferList.Count() < 15)
+                {    
+                    Console.WriteLine("## old count list -- " + this.bufferList.Count);
+                    Console.WriteLine("## add -- " + message);
+                    bufferList.Add(message);
+                    Console.WriteLine("## new count list -- " + this.bufferList.Count);
                 }
                 else
                 {
-                    throw new Exception("BufferOverFlow");
+                    throw new Exception("Buffer Overflow");
                 }
             }
         }
 
-        public List<String> getMessageFromBuffer()
+        public String getMessageFromBuffer()
         {
-            
-            List<String> tmp = new List<string>();
-            lock (bufferListList)
+            String tmp = "";
+            lock (bufferList)
             {
                 if (bufferHasContent())
                 {
-                    tmp = new List<String>(bufferListList.ElementAt(0));
-                    bufferListList.RemoveAt(0);
+                    tmp = bufferList.ElementAt(0);
+                    Console.WriteLine("## old count list -- " + this.bufferList.Count);
+                    Console.WriteLine("## add -- " + tmp);
+                    bufferList.RemoveAt(0);
+                    Console.WriteLine("## new count list -- " + this.bufferList.Count);
                 }
             }
             return tmp;

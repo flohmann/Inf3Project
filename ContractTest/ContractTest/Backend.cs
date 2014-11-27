@@ -69,6 +69,7 @@ namespace Frontend
         {
 
             players[p.getId()] = p;
+            //here appears an error - try to fix it :)
             m.repaint();
         }
 
