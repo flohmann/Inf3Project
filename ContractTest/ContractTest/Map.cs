@@ -8,9 +8,15 @@ namespace Inf3Project
 {
     public class Map
     {
+        private Mapcells[][] cells;
         public int width;
         public int height;
 
+
+        public Map(int width, int height, Mapcells [][] cells)
+        {
+           cells = new Mapcells[width][];
+        }
         public int Width{
             get { return this.width; }
             set{this.width = value;}

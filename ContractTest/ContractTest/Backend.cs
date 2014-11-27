@@ -77,7 +77,7 @@ namespace Frontend
 
         }
 
-        public void storeDragon(int id, String type, Boolean busy, String desc, int x, int y)
+        public void storeDragon(Dragon d)
         {
             Contract.Requires(d != null);
 

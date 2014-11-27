@@ -9,7 +9,24 @@ namespace Inf3Project
     {
         private int row;      
         private int column;
+        private bool walkable;
+        private bool huntable;
+        private bool forest;
+        private bool water;
+        private bool wall;
 
+
+        private Mapcells(int row, int column, bool walkable, bool huntable, bool forest, bool water, bool wall)
+        {
+            this.row = row;
+            this.column = column;
+            this.walkable = walkable;
+            this.huntable = huntable;
+            this.forest = forest;
+            this.water = water;
+            this.wall = wall;
+        }
+        
 
 
 
