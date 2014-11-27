@@ -20,7 +20,6 @@ namespace Inf3Project
          */
         private String ip;
         private int port = 666;
-        public Buffer buffer;
         private StreamWriter sw;
         private StreamReader sr;
         private TcpClient tcpClient;
@@ -31,11 +30,10 @@ namespace Inf3Project
          */
         public Connector(String ip, int port)
         {
-            buffer = new Buffer();
             setIp(ip);
             setPort(port);
             connectToServer();
-            Receiver rec = new Receiver(tcpClient, sr, this);
+            Receiver rec = new Receiver(tcpClient, sr);
             Sender sender = new Sender(tcpClient, sw);
             m.initGUI();
         }
@@ -59,16 +57,9 @@ namespace Inf3Project
             }
         }
 
-        //send message to buffer
-        public void addMessageToBuffer(List<String> msg)
-        {
-            buffer.addMessageToBuffer(msg);
-        }
-
         //opens a tcp connection to the server
         public void connectToServer()
         {
-            //Contract.Requires(port >= 0 && port <= 65535);
             try
             {
                 tcpClient = new TcpClient();
@@ -83,17 +74,7 @@ namespace Inf3Project
             {
                 Console.WriteLine(e);
             }
-            //Contract.Requires(ip != null && ip.Length > 6 && ip.Length < 16);
         }
 
-        private TcpClient getTcpClient()
-        {
-            return this.tcpClient;
-        }
-
-        public Buffer getBuffer()
-        {
-            return buffer;
-        }
     }
 }

@@ -27,7 +27,6 @@ namespace Inf3Project
         private int x = -1;
         private int y = -1;
         private int points = -1;
-        private int ver = -1;
         private int width;
         private int height;
         private int row;
@@ -39,6 +38,7 @@ namespace Inf3Project
         private bool wall;
         private bool accepted;
         private bool delete = false;
+        private int ver = -1;
         private DateTime time;
 
         public Parser(Buffer buffer)
@@ -57,9 +57,7 @@ namespace Inf3Project
             {
                 if (buffer.bufferHasContent())
                 {
-                    
                     msg = buffer.getMessageFromBuffer();
-                    Console.WriteLine("parser drin");
                     removeFrame();
                 }
             }
@@ -68,6 +66,13 @@ namespace Inf3Project
 
         private void removeFrame()
         {
+            Console.WriteLine("removeFrame");
+            List<String> tmpBuf = buffer.getMessageFromBuffer();
+            for (int i = 0; i < tmpBuf.Count; i++)
+            {
+                Console.WriteLine(tmpBuf[i]);
+            }
+
             //delete the begin:x and end:x frame
             String[] tmp = msg[0].Split(':');
             int value;
@@ -257,7 +262,6 @@ namespace Inf3Project
             createMap();
         }
 
-
         private void parseCells()
         {
             String[] tmp = msg[0].Split(':');
@@ -292,8 +296,6 @@ namespace Inf3Project
             }
             throw new Exception("No Cells");
         }
-
-
 
         private void parseProperty()
         {
@@ -497,9 +499,6 @@ namespace Inf3Project
             this.y = -1;
             this.points = -1;
         }
-
-      
-
 
     }
 }

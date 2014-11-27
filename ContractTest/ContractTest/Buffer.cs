@@ -17,7 +17,7 @@ namespace Inf3Project
         /*
          * variables 
          */
-        private List<List<String>> buffer;
+        private List<List<String>> bufferListList;
         private Parser parser;
 
         /*
@@ -26,7 +26,7 @@ namespace Inf3Project
         public Buffer()
         {
             parser = new Parser(this);
-            buffer = new List<List<String>>();
+            bufferListList = new List<List<String>>();
         }
 
         /*
@@ -35,51 +35,39 @@ namespace Inf3Project
         public Boolean bufferHasContent()
         {
             Boolean tmp = false;
-
-            if (buffer != null && buffer.Count > 0)
+            if (bufferListList != null && bufferListList.Count > 0)
             {
-   tmp = true ;
+                tmp = true ;
             }
-         
-
             return tmp;
-        }
-
-        public int getCount()
-        {
-            return buffer.Count;
         }
 
         //creates a one-message element of each server-push for the buffer
         public void addMessageToBuffer(List<String> message)
         {
-            lock (buffer)
+            lock (bufferListList)
             {
-                if (buffer.Count() < 15)
+                if (bufferListList.Count() < 15)
                 {
-
-                    message.Add("");
-                    buffer.Add(message);
-                   
-
+                    bufferListList.Add(message);
                 }
                 else
                 {
-                    throw new System.Exception("BufferOverFlow");
+                    throw new Exception("BufferOverFlow");
                 }
             }
         }
 
         public List<String> getMessageFromBuffer()
         {
-            Contract.Requires(buffer.Count > 0);
+            
             List<String> tmp = new List<string>();
-            lock (buffer)
+            lock (bufferListList)
             {
                 if (bufferHasContent())
                 {
-                    tmp = (buffer.ElementAt(0));
-                    buffer.RemoveAt(0);
+                    tmp = new List<String>(bufferListList.ElementAt(0));
+                    bufferListList.RemoveAt(0);
                 }
             }
             return tmp;
