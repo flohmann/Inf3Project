@@ -17,16 +17,14 @@ namespace Inf3Project
         /*
          * variables 
          */
-        private List<List<String>> buffer;
-        private Parser parser;
+        private List<String> bufferList;
 
         /*
          * constructors 
          */
         public Buffer()
         {
-            parser = new Parser(this);
-            buffer = new List<List<String>>();
+            bufferList = new List<String>();
         }
 
         /*
@@ -35,43 +33,44 @@ namespace Inf3Project
         public Boolean bufferHasContent()
         {
             Boolean tmp = false;
-            Contract.Requires(buffer.Count >= 0);
-            tmp = (buffer != null && buffer.Count > 0);
-            Contract.Ensures(buffer.Count == 0);
+            if (bufferList != null && bufferList.Count > 0)
+            {
+                tmp = true ;
+            }
             return tmp;
         }
 
-        public int getCount()
-        {
-            return buffer.Count;
-        }
-
         //creates a one-message element of each server-push for the buffer
-        public void addMessageToBuffer(List<String> message)
+        public void addMessageToBuffer(String message)
         {
-            lock (buffer)
+            lock (bufferList)
             {
-                if (buffer.Count() < 15)
-                {
-                    buffer.Add(message);
+                if (bufferList.Count() < 15)
+                {    
+                    Console.WriteLine("## old count list -- " + this.bufferList.Count);
+                    Console.WriteLine("## add -- " + message);
+                    bufferList.Add(message);
+                    Console.WriteLine("## new count list -- " + this.bufferList.Count);
                 }
                 else
                 {
-                    throw new System.Exception("BufferOverFlow");
+                    throw new Exception("Buffer Overflow");
                 }
             }
         }
 
-        public List<String> getMessageFromBuffer()
+        public String getMessageFromBuffer()
         {
-            Contract.Requires(buffer.Count > 0);
-            List<String> tmp = new List<string>();
-            lock (buffer)
+            String tmp = "";
+            lock (bufferList)
             {
                 if (bufferHasContent())
                 {
-                    tmp = (buffer.ElementAt(0));
-                    buffer.RemoveAt(0);
+                    tmp = bufferList.ElementAt(0);
+                    Console.WriteLine("## old count list -- " + this.bufferList.Count);
+                    Console.WriteLine("## add -- " + tmp);
+                    bufferList.RemoveAt(0);
+                    Console.WriteLine("## new count list -- " + this.bufferList.Count);
                 }
             }
             return tmp;

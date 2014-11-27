@@ -13,9 +13,9 @@ namespace Inf3Project
         public int height;
 
 
-        public Map(int width, int height, Mapcells [][] cells)
+        public Map(int width, int height)
         {
-           cells = new Mapcells[width][];
+           //cells = new Mapcells[width][];
         }
         public int Width{
             get { return this.width; }

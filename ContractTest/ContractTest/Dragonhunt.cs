@@ -11,7 +11,8 @@ namespace Inf3Project
         private eDragonhunt enumDragonhunt;
 
         public Dragonhunt(Int32 id, Player player, Opponent opponent, Boolean isAccepted)
-            : base(opponent, isAccepted){
+            : base(opponent, isAccepted, "Dragonhunt")
+        {
         
 
         }

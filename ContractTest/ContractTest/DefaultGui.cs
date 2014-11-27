@@ -68,7 +68,7 @@ namespace Frontend
 
         public void repaint()
         {
-            Contract.Requires(mapcell.getCell() != null);
+            Console.WriteLine("kommt an");
         }
 
         private void chat_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
@@ -158,19 +158,34 @@ namespace Frontend
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        //private void board_PaintEntities(object sender, System.Windows.Forms.PaintEventArgs e)
+        //{
+        //    List<IPositionable> dragons = this.ba.getDragons();
+        //    foreach (IPositionable dragon in dragons)
+        //    {
+        //        this.drawDragon(e.Graphics, dragon);
+        //    }
+        //    List<IPositionable> players = this.ba.getPlayers();
+        //    foreach (IPositionable player in players)
+        //    {
+        //        this.drawPlayer(e.Graphics, player);
+        //    }
+        //}
+
         private void board_PaintEntities(object sender, System.Windows.Forms.PaintEventArgs e)
         {
-            List<IPositionable> dragons = this.ba.getDragons();
+            Hashtable dragons = this.ba.getDragons();
             foreach (IPositionable dragon in dragons)
             {
                 this.drawDragon(e.Graphics, dragon);
             }
-            List<IPositionable> players = this.ba.getPlayers();
+            Hashtable players = this.ba.getPlayers();
             foreach (IPositionable player in players)
             {
                 this.drawPlayer(e.Graphics, player);
             }
         }
+
 
         /// <summary>
         /// Draws a tile of the map on a graphics object.

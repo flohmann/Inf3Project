@@ -16,19 +16,18 @@ namespace Inf3Project
          */
         private StreamReader sr;
         private TcpClient tcpClient;
-        private List<String> serverMessage;
-        private Connector connector;
+        private Buffer buffer;
+        private Parser parser;
 
         /*
          * constructors
          */
-        public Receiver(TcpClient tcpClient, StreamReader sr, Connector connector)
+        public Receiver(TcpClient tcpClient, StreamReader sr)
         {
             this.tcpClient = tcpClient;
-            this.connector = connector;
-
+            buffer = new Buffer();
+            parser = new Parser(buffer); 
             this.sr = sr;
-            serverMessage = new List<String>();
             receive();
         }
 
@@ -44,35 +43,33 @@ namespace Inf3Project
 
         private void readStreamThread()
         {
-            String tmpMessage;
+            //repaired method - pls don't touch - easily frightened :p
+            String tmpMessage = "";
+            String serverMessage = "";
             Boolean write = false;
-            Int32 messageId = -1;
+            int value;
             while (tcpClient.Connected)
             {
                 tmpMessage = sr.ReadLine().ToString();
-                Console.WriteLine(tmpMessage);
-
                 String[] tmp = tmpMessage.Split(':');
-                int value;
-
-                if ((tmp[0].Equals("begin")) && (Int32.TryParse(tmp[1], out value)))
+                if((tmp[0].Equals("begin")) && (Int32.TryParse(tmp[1], out value)))
                 {
-                    messageId = value;
                     write = true;
-                    if (write)
+                    serverMessage += tmpMessage + "$";
+                    value = Int32.Parse(tmp[1]);
+                } 
+                else
+                {
+                    if((tmp[0].Equals("end")) && (Int32.TryParse(tmp[1], out value)))
                     {
-                        serverMessage.Add(tmpMessage);
+                        serverMessage += tmpMessage;
+                        buffer.addMessageToBuffer(serverMessage);
+                        write = false;
+                        serverMessage = "";
                     }
-                    if ((tmp[0].Equals("end")) && (Int32.TryParse(tmp[1], out value)))
+                    else if(write)
                     {
-                        if (value == messageId)
-                        {
-                            while(connector.buffer.getCount()<15){
-                            connector.addMessageToBuffer(new List<String>(this.serverMessage));
-                            write = false;
-                            serverMessage.Clear();
-                            }
-                        }
+                        serverMessage += tmpMessage + "$";
                     }
                 }
             }
