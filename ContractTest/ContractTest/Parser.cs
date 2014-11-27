@@ -38,7 +38,7 @@ namespace Inf3Project
         private bool water;
         private bool wall;
         private bool accepted;
-
+        private bool delete = false;
         public Parser(Buffer buffer)
         {
             backend = new Backend();
@@ -76,18 +76,8 @@ namespace Inf3Project
                     msg.RemoveAt(0);
                     msg.RemoveAt(msg.Count - 1);
 
-                    //delete the begin:upd and end:udp if existing
-                    //tmp = msg[0].Split(':');
-                    //if ((tmp[0].Equals("begin")) && (tmp[1].Equals("upd")))
-                    //{
-                    //    tmp = msg[msg.Count() - 1].Split(':');
-                    //    if ((tmp[0].Equals("end")) && (tmp[1].Equals("upd")))
-                    //    {
-                    //        msg.RemoveAt(0);
-                    //        msg.RemoveAt(msg.Count - 1);
-                    //    }
-                    //}
-                    getEBNF();
+                   
+                    getState();
                 } 
                 else
                 {
@@ -97,6 +87,37 @@ namespace Inf3Project
             else
             {
                 throw new System.FormatException("parser.removeFrame() - no begin:x found");
+            }
+        }
+        private void getState()
+        { 
+          //  delete the begin:upd and end:udp if existing
+            String[] tmp = msg[0].Split(':');
+
+            if ((tmp[0].Equals("begin")) && (tmp[1].Equals("upd")))
+            {
+                tmp = msg[msg.Count() - 1].Split(':');
+                if ((tmp[0].Equals("end")) && (tmp[1].Equals("upd")))
+                {
+                    delete = false;
+                    msg.RemoveAt(0);
+                    msg.RemoveAt(msg.Count - 1);
+                    getEBNF();
+                }
+            }
+            else
+            {
+                if ((tmp[0].Equals("begin")) && (tmp[1].Equals("del")))
+                {
+                    tmp = msg[msg.Count() - 1].Split(':');
+                    if ((tmp[0].Equals("end")) && (tmp[1].Equals("del")))
+                    {
+                        delete = true;
+                        msg.RemoveAt(0);
+                        msg.RemoveAt(msg.Count - 1);
+                        getEBNF();
+                    }
+                }
             }
         }
 
@@ -116,16 +137,18 @@ namespace Inf3Project
             else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("server"))))
             {
                 msg.RemoveAt(0);
-              //  parseServer();
+                //  parseServer();
             }
             else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("challenge"))))
             {
                 msg.RemoveAt(0);
                 parseChallenge();
+                
             }
             //every possible ENBF command needs its own if
-        }
 
+        }
+       
         public void parseEntity()
         {
             String[] tmp = msg[0].Split(':');
@@ -171,6 +194,7 @@ namespace Inf3Project
                                     {
                                         this.points = Int32.Parse(tmp[1]);
                                         msg.RemoveAt(0);
+                                            
                                         createPlayer();
                                     }
                                     else
@@ -380,8 +404,18 @@ namespace Inf3Project
             if ((id >= 0) && (type != "") && (x < 0) && (y < 0) && (points < 0))
             {
                 Player p = new Player(id, x, y, type, points, desc, busy);
-                backend.storePlayer(p);
-                clearVars();
+                if (delete)
+                {
+                    backend.storePlayer(p);
+                    clearVars();
+                }
+                else
+                {
+                    backend.deletePlayer(p);
+                    clearVars();
+                }
+
+               
             }
         }
 
@@ -391,8 +425,16 @@ namespace Inf3Project
             if ((id >= 0) && (type != "") && (x < 0) && (y < 0))
             {
                 Dragon d = new Dragon(id, x, y, type, busy, desc);
-                backend.storeDragon(d);
-                clearVars();
+                if (delete)
+                {
+                    backend.storeDragon(d);
+                    clearVars();
+                }
+                else
+                {
+                    backend.deleteDragon(d);
+                    clearVars();
+                }
             }
         }
 
@@ -422,10 +464,7 @@ namespace Inf3Project
             this.points = -1;
         }
 
-        private void convertDragon(List<String> msg)
-        {
-            //content here
-        }
+      
 
 
     }

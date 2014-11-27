@@ -71,25 +71,20 @@ namespace Frontend
 
         public void deletePlayer(Player p)
         {
-            Contract.Requires(p != null);
 
-            Contract.Ensures(!players.Contains(p));
+            players.Remove(p.getId);
 
         }
 
         public void storeDragon(Dragon d)
         {
-            Contract.Requires(d != null);
-
-            Contract.Ensures(dragons.Contains(d));
+            dragons[d.getId()] = d;
 
         }
 
         public void deleteDragon(Dragon d)
         {
-            Contract.Requires(d != null);
-
-            Contract.Ensures(!dragons.Contains(d));
+            dragons.Remove(d.getId());
 
         }
 
