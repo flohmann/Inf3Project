@@ -50,30 +50,44 @@ namespace Inf3Project
             while (tcpClient.Connected)
             {
                 tmpMessage = sr.ReadLine().ToString();
-                Console.WriteLine(tmpMessage);
+                //Console.WriteLine(tmpMessage);
 
                 String[] tmp = tmpMessage.Split(':');
                 int value;
 
                 if ((tmp[0].Equals("begin")) && (Int32.TryParse(tmp[1], out value)))
                 {
+                    value = Int32.Parse(tmp[1]);
                     messageId = value;
-                    write = true;
-                    if (write)
-                    {
+                    
+                    do{
                         serverMessage.Add(tmpMessage);
-                    }
-                    if ((tmp[0].Equals("end")) && (Int32.TryParse(tmp[1], out value)))
+                        
+
+                    }while (!(tmp[0].Equals("end")));
+                } 
+
+                if ((tmp[0].Equals("end")) && (Int32.TryParse(tmp[1], out value)))
+                {
+
+                    if (value == messageId)
                     {
-                        if (value == messageId)
+                        for (int i = 0; i < serverMessage.Count; i++)
                         {
-                            while(connector.buffer.getCount()<15){
-                            connector.addMessageToBuffer(new List<String>(this.serverMessage));
+                            Console.WriteLine(serverMessage[i]);
+                        }
+                            
+                        if (connector.buffer.getCount() < 15)
+                        {
+                            connector.addMessageToBuffer(this.serverMessage);
                             write = false;
                             serverMessage.Clear();
-                            }
                         }
                     }
+
+
+
+
                 }
             }
         }

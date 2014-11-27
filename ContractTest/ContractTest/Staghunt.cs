@@ -9,7 +9,7 @@ namespace Inf3Project
     class Staghunt : Challenge
     {
         public Staghunt(Opponent opponent, Boolean isAccepted)
-            : base(opponent, isAccepted){
+            : base(opponent, isAccepted, "Staghunt"){
 
         } 
     }

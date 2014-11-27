@@ -35,9 +35,13 @@ namespace Inf3Project
         public Boolean bufferHasContent()
         {
             Boolean tmp = false;
-            Contract.Requires(buffer.Count >= 0);
-            tmp = (buffer != null && buffer.Count > 0);
-            Contract.Ensures(buffer.Count == 0);
+
+            if (buffer != null && buffer.Count > 0)
+            {
+   tmp = true ;
+            }
+         
+
             return tmp;
         }
 
@@ -53,7 +57,11 @@ namespace Inf3Project
             {
                 if (buffer.Count() < 15)
                 {
+
+                    message.Add("");
                     buffer.Add(message);
+                   
+
                 }
                 else
                 {

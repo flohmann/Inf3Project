@@ -34,6 +34,8 @@ namespace Frontend
             dragons = new Hashtable();
         }
 
+      
+
         public void sendCommandToConnector(String command)
         {
             Contract.Requires(command != null);
@@ -67,18 +69,20 @@ namespace Frontend
         {
 
             players[p.getId()] = p;
+            m.repaint();
         }
 
         public void deletePlayer(Player p)
         {
 
-            players.Remove(p.getId);
+            players.Remove(p.getId());
 
         }
 
         public void storeDragon(Dragon d)
         {
             dragons[d.getId()] = d;
+            m.repaint();
 
         }
 
@@ -118,7 +122,7 @@ namespace Frontend
             if (message != null || message.Length != 0)
             {
                 this.chatMsg = message;
-                m.sendChatMessage();
+                //m.sendChatMessage();
 
             }
 
@@ -140,15 +144,31 @@ namespace Frontend
             return receivedMsg;
         }
 
-        public List<IPositionable> getDragons() {
-            List<IPositionable> dragons = new List<IPositionable>();
-            dragons.Add(new Entity(111, 0, 1, "dragon"));
+        public void giveTime(DateTime time)
+        {
+            Console.WriteLine("Time: ", time.ToString("hh:mm:ss.fff tt"));
+
+        }
+
+        //public List<IPositionable> getDragons() {
+        //    List<IPositionable> dragons = new List<IPositionable>();
+        //    //dragons.Add(new Entity(111, 0, 1, "dragon"));
+        //    return dragons;
+        //}
+
+        public Hashtable getDragons()
+        {
+         
             return dragons;
         }
        
-        public List<IPositionable> getPlayers() {
-            List<IPositionable> players = new List<IPositionable>();
-            players.Add(new Entity(01, 5, 5, "player"));
+        //public List<IPositionable> getPlayers() {
+        //    List<IPositionable> players = new List<IPositionable>();
+        //    //players.Add(new Entity(01, 5, 5, "player"));
+        //    return players;
+        //}
+
+        public Hashtable getPlayers() {
             return players;
         }
 

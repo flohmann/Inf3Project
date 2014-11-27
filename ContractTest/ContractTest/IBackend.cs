@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace Frontend
 {
@@ -15,12 +16,12 @@ namespace Frontend
         /// Method to get an arbitrary collection of dragons
         /// </summary>
         /// <returns>a list of dragons that are currently on the map</returns>
-        List<IPositionable> getDragons();
+       Hashtable getDragons();
         /// <summary>
         /// Method to get an arbitrary collection of players
         /// </summary>
         /// <returns>list of players that are currently on the map</returns>
-        List<IPositionable> getPlayers();
+       Hashtable getPlayers();
         /// <summary>
         /// Method to get a 2d-grid-representation of the map. The map doesn't actually has to be a 2d-array, but you should
         /// somehow be able to convert it into one.

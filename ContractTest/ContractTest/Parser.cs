@@ -39,6 +39,8 @@ namespace Inf3Project
         private bool wall;
         private bool accepted;
         private bool delete = false;
+        private DateTime time;
+
         public Parser(Buffer buffer)
         {
             backend = new Backend();
@@ -55,7 +57,9 @@ namespace Inf3Project
             {
                 if (buffer.bufferHasContent())
                 {
+                    
                     msg = buffer.getMessageFromBuffer();
+                    Console.WriteLine("parser drin");
                     removeFrame();
                 }
             }
@@ -105,19 +109,19 @@ namespace Inf3Project
                     getEBNF();
                 }
             }
-            else
+            else if ((tmp[0].Equals("begin")) && (tmp[1].Equals("del")))
             {
-                if ((tmp[0].Equals("begin")) && (tmp[1].Equals("del")))
+                tmp = msg[msg.Count() - 1].Split(':');
+                if ((tmp[0].Equals("end")) && (tmp[1].Equals("del")))
                 {
-                    tmp = msg[msg.Count() - 1].Split(':');
-                    if ((tmp[0].Equals("end")) && (tmp[1].Equals("del")))
-                    {
-                        delete = true;
-                        msg.RemoveAt(0);
-                        msg.RemoveAt(msg.Count - 1);
-                        getEBNF();
-                    }
+                    delete = true;
+                    msg.RemoveAt(0);
+                    msg.RemoveAt(msg.Count - 1);
+                    getEBNF();
                 }
+            }
+            else { 
+                getEBNF(); 
             }
         }
 
@@ -144,6 +148,18 @@ namespace Inf3Project
                 msg.RemoveAt(0);
                 parseChallenge();
                 
+            }
+            else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("time"))))
+            {
+                msg.RemoveAt(0);
+                parseTime();
+
+            }
+            else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("cells"))))
+            {
+                msg.RemoveAt(0);
+                parseCells();
+
             }
             //every possible ENBF command needs its own if
 
@@ -268,9 +284,9 @@ namespace Inf3Project
                         }
                     }
                 }
-                if ((tmp[0].Equals("end")) && ((tmp[1].Equals("cell"))))
+                if (!(tmp[0].Equals("end")) && (!(tmp[1].Equals("cell"))))
                 {
-                    parseMap();
+                    throw new Exception("No Cells");
                 }
 
             }
@@ -353,6 +369,24 @@ namespace Inf3Project
             }
 
             throw new Exception("No Property");
+        }
+    
+        private void parseTime()
+        {
+            String[] tmp = msg[0].Split(':');
+
+            if (tmp[0].Equals("time"))
+            {
+                this.id = Int32.Parse(tmp[1]);
+                msg.RemoveAt(0);
+                if ((tmp[0].Equals("end")) && ((tmp[1].Equals("time"))))
+                {
+                    this.time = DateTime.Parse(tmp[1]);
+                    msg.RemoveAt(0);
+                    backend.giveTime(time);
+                }
+                throw new Exception("No Time");
+            }
         }
 
         private void parseChallenge()
