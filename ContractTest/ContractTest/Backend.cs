@@ -177,21 +177,21 @@ namespace Frontend
         //    return players;
         //}
 
-        private int getOnline()
+        public int getOnline()
         {
             return online;
         }
 
-        private void setOnline(int online)
+        public void setOnline(int online)
         {
             this.online = online;
         }
 
-        private void setYourId(int yourId)
+        public void setYourId(int yourId)
         {
             this.yourId = yourId;
         }
-        private int getYourId()
+        public int getYourId()
         {
             return yourId;
         }

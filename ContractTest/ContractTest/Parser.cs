@@ -469,7 +469,7 @@ namespace Inf3Project
             } if ((tmp[0].Equals("end")) && ((tmp[1].Equals("challenge"))))
             {
                 msg.RemoveAt(0);
-                backend.setYourId(yourId); //BACKEND METHODS FOR GETTER AND SETTER YOURID
+                backend.setYourId(this.yourId);
             }
             else
             {
