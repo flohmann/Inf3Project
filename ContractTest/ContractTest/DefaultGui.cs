@@ -54,6 +54,7 @@ namespace Frontend
 
             int map_XKoord = backend.getMap()[0].Length;
             int map_YKoord = backend.getMap().Length;
+            
         }
 
         /// <summary>
@@ -68,7 +69,10 @@ namespace Frontend
 
         public void repaint()
         {
-            Console.WriteLine("kommt an");
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint |
+                    ControlStyles.OptimizedDoubleBuffer, true);
+            //Console.WriteLine("kommt an");
+            this.UpdateStyles();
         }
 
         private void chat_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)

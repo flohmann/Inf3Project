@@ -40,6 +40,7 @@ namespace Inf3Project
         private bool delete = false;
         private int ver = -1;
         private DateTime time;
+        private int yourId;
 
         public Parser(Buffer buffer)
         {
@@ -175,6 +176,14 @@ namespace Inf3Project
                 msg.RemoveAt(0);
                 msg.RemoveAt(msg.Count - 1);
                 parseCells();
+
+            }
+
+            else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("yourId"))))
+            {
+                msg.RemoveAt(0);
+                msg.RemoveAt(msg.Count - 1);
+                parserYourId();
 
             }
             //every possible ENBF command needs its own if
@@ -449,6 +458,25 @@ namespace Inf3Project
             throw new Exception("No Challenge");
         }
 
+
+        private void parseYourId()
+        {
+            String[] tmp = msg[0].Split(':');
+
+            if (tmp[0].Equals("id"))
+            {
+                this.yourId = Int32.Parse(tmp[1]);
+                msg.RemoveAt(0);
+            } if ((tmp[0].Equals("end")) && ((tmp[1].Equals("challenge"))))
+            {
+                msg.RemoveAt(0);
+                backend.setYourId(yourId); //BACKEND METHODS FOR GETTER AND SETTER YOURID
+            }
+            else
+            {
+                throw new Exception("There is no id");
+            }
+        }
         private void createPlayer()
         {
             //used variables - int id, String type, bool busy, String desc, int x, int y, int points
