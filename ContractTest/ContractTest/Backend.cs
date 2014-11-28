@@ -18,24 +18,25 @@ namespace Frontend
     /// </summary>
     public class Backend : IBackend
     {
-        private List<Player> players;
-        private List<Dragon> dragons;
+        private Hashtable players;
+        private Hashtable dragons;
         private ArrayList challenges;
         private GUIManager m;
         private String chatMsg="";
         private String commandMsg="";
         private String receivedMsg="";
-
+        private int yourId;
+        private int online;
          
 
         public Backend()
         {
-            players = new List<Player>();
-            dragons = new List<Dragon>();
+            players = new Hashtable();
+            dragons = new Hashtable();
             m = new GUIManager(this);
         }
 
-      
+        
 
         public void sendCommandToConnector(String command)
         {
@@ -69,47 +70,29 @@ namespace Frontend
         public void storePlayer(Player p)
         {
 
-            players.Add(p);
+            players[p.getId()] = p;
             //here appears an error - try to fix it :)
-            m.repaint();
-            
+           // m.repaint();
         }
 
         public void deletePlayer(Player p)
         {
-            for (int i = 0; i < players.Count; i++)
-            {
-                if (players[i].getId() == p.getId())
-                {
-                    players.RemoveAt(i);
-                }
-                else Console.WriteLine("no Player with this id ");
 
-            }
-                
+            players.Remove(p.getId());
 
         }
 
         public void storeDragon(Dragon d)
         {
-            dragons.Add(d);
+            dragons[d.getId()] = d;
             m.repaint();
-       
 
         }
 
         public void deleteDragon(Dragon d)
         {
-            for (int i = 0; i < dragons.Count; i++)
-            {
-                if (dragons[i].getId() == d.getId())
-                {
-                    dragons.RemoveAt(i);
-                }
-                else Console.WriteLine("no Dragon with this id ");
+            dragons.Remove(d.getId());
 
-            }
-                
         }
 
         public void setMap(Map m)
@@ -176,28 +159,46 @@ namespace Frontend
 
         }
 
-       
+        //public List<IPositionable> getDragons() {
+        //    List<IPositionable> dragons = new List<IPositionable>();
+        //    //dragons.Add(new Entity(111, 0, 1, "dragon"));
+        //    return dragons;
+        //}
 
-        public List<IPositionable> getDragons()
+        public Hashtable getDragons()
         {
-            List<IPositionable> dragon = new List<IPositionable>();
-            foreach (Dragon d in dragons)
-            {
-                dragon.Add(d);
-            }
-            return dragon;
+         
+            return dragons;
         }
        
-      
-        public List<IPositionable> getPlayers()
+        //public List<IPositionable> getPlayers() {
+        //    List<IPositionable> players = new List<IPositionable>();
+        //    //players.Add(new Entity(01, 5, 5, "player"));
+        //    return players;
+        //}
+
+        public int getOnline()
         {
-            List<IPositionable> player = new List<IPositionable>();
-            foreach (Player p in players)
-            {
-                player.Add(p);
-            }
-          
-            return player;
+            return online;
+        }
+
+        public void setOnline(int online)
+        {
+            this.online = online;
+        }
+
+        public void setYourId(int yourId)
+        {
+            this.yourId = yourId;
+        }
+        public int getYourId()
+        {
+            return yourId;
+        }
+
+        public Hashtable getPlayers()
+        {
+            return players;
         }
 
         public ArrayList getChallenges()
@@ -246,5 +247,6 @@ namespace Frontend
             return map;
         }
 
+    
     }
 }

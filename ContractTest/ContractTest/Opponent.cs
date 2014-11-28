@@ -12,11 +12,13 @@ namespace Inf3Project
         private Int32 opponentId;
         private String desc;
         private int points;
+        private int total;
 
-        public Opponent(Int32 id, String desc, int points)
+        public Opponent(Int32 id, String desc, int total, int points)
         {
             this.opponentId = id;
             this.desc = desc;
+            this.total = total;
             this.points = points;
         }
 
@@ -33,6 +35,11 @@ namespace Inf3Project
         public String getDesc()
         {
             return desc;
+        }
+
+        public int getTotal()
+        {
+            return total;
         }
        
     
