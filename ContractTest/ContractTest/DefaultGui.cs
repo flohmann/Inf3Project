@@ -73,7 +73,7 @@ namespace Frontend
 
         public void repaint()
         {
-            Console.WriteLine("kommt an");
+     
    
             this.Refresh();
             
@@ -159,7 +159,7 @@ namespace Frontend
                 }
             }
             buffer.Render();
-            Console.WriteLine("board_paintmap drin");
+           
         }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace Frontend
             {
                 this.drawPlayer(e.Graphics, player);
             }
-            Console.WriteLine("board_paintentiti drin");
+          
         }
 
   
