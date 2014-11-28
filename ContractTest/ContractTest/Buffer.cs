@@ -68,7 +68,7 @@ namespace Inf3Project
                 {
                     tmp = bufferList.ElementAt(0);
                     Console.WriteLine("## old count list -- " + this.bufferList.Count);
-                    Console.WriteLine("## add -- " + tmp);
+                    Console.WriteLine("## remove -- " + tmp);
                     bufferList.RemoveAt(0);
                     Console.WriteLine("## new count list -- " + this.bufferList.Count);
                 }

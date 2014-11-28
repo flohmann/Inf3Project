@@ -20,6 +20,7 @@ namespace Frontend
     {
         private List<Player> players;
         private List<Dragon> dragons;
+        private ITile[][] map;
         private ArrayList challenges;
         private GUIManager m;
         private String chatMsg="";
@@ -119,12 +120,6 @@ namespace Frontend
             Contract.Ensures(m.width > 0);
         }
 
-        public void giveTime()
-        {
-            DateTime dateValue = DateTime.Now;
-            Console.WriteLine("Time: ", dateValue.ToString("hh:mm:ss.fff tt"));
-        }
-
         public void sendCommand(string command)
         {
             if (command != null || command.Length != 0)
@@ -172,8 +167,6 @@ namespace Frontend
             Console.WriteLine("Time: ", time.ToString("hh:mm:ss.fff tt"));
 
         }
-
-       
 
         public List<IPositionable> getDragons()
         {
@@ -224,7 +217,7 @@ namespace Frontend
 
         public ITile[][] getMap()
         {
-            int size = 10;
+            int size = 20;
             // init
             ITile[][] map = new ITile[size][];
             for (int i = 0; i < size; i++)

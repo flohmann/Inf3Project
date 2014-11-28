@@ -73,9 +73,8 @@ namespace Frontend
 
         public void repaint()
         {
-     
-   
-            this.Refresh();
+            this.board.Refresh();
+          
             
         }        
 
@@ -147,18 +146,22 @@ namespace Frontend
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void board_PaintMap(object sender, System.Windows.Forms.PaintEventArgs e) {
-            Size tileSize = this.getTileSize();
-            ITile[][] cells = this.ba.getMap();
-            // validity checked beforehand in getTileSize
-            Debug.Assert(cells != null);
-            BufferedGraphics buffer = BufferedGraphicsManager.Current.Allocate(this.board.CreateGraphics(), this.board.DisplayRectangle);
-            Graphics g = this.CreateGraphics();
-            for(int x = 0; x < cells.Length; x++) {
-                for(int y = 0; y < cells[x].Length; y++) {
-                    this.drawMapTile(buffer.Graphics, cells[x][y], x * tileSize.Width, y * tileSize.Height, tileSize.Width, tileSize.Height);
+          
+                Size tileSize = this.getTileSize();
+                ITile[][] cells = this.ba.getMap();
+                // validity checked beforehand in getTileSize
+                Debug.Assert(cells != null);
+                BufferedGraphics buffer = BufferedGraphicsManager.Current.Allocate(this.board.CreateGraphics(), this.board.DisplayRectangle);
+                Graphics g = this.CreateGraphics();
+                for (int x = 0; x < cells.Length; x++)
+                {
+                    for (int y = 0; y < cells[x].Length; y++)
+                    {
+                        this.drawMapTile(buffer.Graphics, cells[x][y], x * tileSize.Width, y * tileSize.Height, tileSize.Width, tileSize.Height);
+                    }
                 }
-            }
-            buffer.Render();
+                buffer.Render();
+           
            
         }
 
@@ -203,47 +206,49 @@ namespace Frontend
         protected void drawMapTile(Graphics g, ITile tile, int absX, int absY, int width, int height)
         {
             //Color colour = Color.BurlyWood;
-
-            TextureBrush tb;
-            if (tile.isForest())
-            {
-                if (tile.isHuntable())
-                {
-                    //colour = Color.YellowGreen;
-                    Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\grass.bmp");
-                    tb = new TextureBrush(myBitmap);
-                    g.FillRectangle(tb, absX, absY, width, height);
-                }
-                else
-                {
-                    //colour = Color.Green;
-                    
-               
-                    Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\forest.bmp");
-                    tb = new TextureBrush(myBitmap);
-                    g.FillRectangle(tb, absX, absY, width, height);
-                }
-            }
-            else if (tile.isWater())
-            {
-                //colour = Color.Blue;
-                Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\water.bmp");
-                tb = new TextureBrush(myBitmap);
-                g.FillRectangle(tb, absX, absY, width, height);
-            }
-            else if (!tile.isWalkable())
-            {
-                //colour = Color.DimGray;
-
-                Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\cement.bmp");
-                tb = new TextureBrush(myBitmap);
-                g.FillRectangle(tb, absX, absY, width, height);
-            }
             
-            //g.FillRectangle(new SolidBrush(colour), absX, absY, width, height);
-            g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), new Rectangle(absX, absY, width, height));
-        }
+                TextureBrush tb;
+    
+                if (tile.isForest())
+                {
+                    if (tile.isHuntable())
+                    {
+                        //colour = Color.YellowGreen;
+                        Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\grass.bmp");
+                        tb = new TextureBrush(myBitmap);
+                        g.FillRectangle(tb, absX, absY, width, height);
+                    }
+                    else
+                    {
+                        //colour = Color.Green;
 
+
+                        Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\forest.bmp");
+                        tb = new TextureBrush(myBitmap);
+                        g.FillRectangle(tb, absX, absY, width, height);
+                    }
+                }
+                else if (tile.isWater())
+                {
+                    //colour = Color.Blue;
+                    Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\water.bmp");
+                    tb = new TextureBrush(myBitmap);
+                    g.FillRectangle(tb, absX, absY, width, height);
+                }
+                else if (!tile.isWalkable())
+                {
+                    //colour = Color.DimGray;
+
+                    Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\cement.bmp");
+                    tb = new TextureBrush(myBitmap);
+                    g.FillRectangle(tb, absX, absY, width, height);
+                }
+
+                //g.FillRectangle(new SolidBrush(colour), absX, absY, width, height);
+                g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), new Rectangle(absX, absY, width, height));
+
+          
+        }
         /// <summary>
         /// Draws a player on the graphics.
         /// By default, players will be represented by a centered dark-yellow rectangle that takes up half of the cells size.
