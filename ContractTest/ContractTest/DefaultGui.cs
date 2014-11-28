@@ -169,33 +169,20 @@ namespace Frontend
         /// <param name="e"></param>
         private void board_PaintEntities(object sender, System.Windows.Forms.PaintEventArgs e)
         {
-            List<IPositionable> dragons = this.m.getDragons();
+            List<IPositionable> dragons = this.ba.getDragons();
             foreach (IPositionable dragon in dragons)
             {
                 this.drawDragon(e.Graphics, dragon);
             }
-            List<IPositionable> players = this.m.getPlayers();
+            List<IPositionable> players = this.ba.getPlayers();
             foreach (IPositionable player in players)
             {
                 this.drawPlayer(e.Graphics, player);
             }
+            Console.WriteLine("board_paintentiti drin");
         }
 
-        //private void board_PaintEntities(object sender, System.Windows.Forms.PaintEventArgs e)
-        //{
-        //    Hashtable dragons = this.ba.getDragons();
-        //    foreach (Dragon dragon in dragons)
-        //    {
-        //        this.drawDragon(e.Graphics, dragon);
-        //    }
-        //    Hashtable players = this.ba.getPlayers();
-        //    foreach (Hashtable player in players)
-        //    {
-        //        this.drawPlayer(e.Graphics, player);
-        //    }
-        //    Console.WriteLine("boad_painentiti drin");
-        //}
-
+  
 
         /// <summary>
         /// Draws a tile of the map on a graphics object.

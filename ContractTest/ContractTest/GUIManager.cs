@@ -64,28 +64,6 @@ namespace Frontend
         }
 
 
-       
-        public List<IPositionable> getDragons()
-        {
-            List<IPositionable> dragons = new List<IPositionable>();
-            foreach (Dragon dragon in ba.getDragons())
-            {
-                dragons.Add(dragon);
-            }
-            return dragons;
-
-        }
-
-        public List<IPositionable> getPlayers()
-        {
-            List<IPositionable> players = new List<IPositionable>();
-            foreach (Player player in ba.getPlayers())
-            {
-                players.Add(player);
-            }
-            return players;
-        }
-
         internal void sendChatMessage()
         {
 

@@ -18,8 +18,8 @@ namespace Frontend
     /// </summary>
     public class Backend : IBackend
     {
-        private Hashtable players;
-        private Hashtable dragons;
+        private List<Player> players;
+        private List<Dragon> dragons;
         private ArrayList challenges;
         private GUIManager m;
         private String chatMsg="";
@@ -30,8 +30,8 @@ namespace Frontend
 
         public Backend()
         {
-            players = new Hashtable();
-            dragons = new Hashtable();
+            players = new List<Player>();
+            dragons = new List<Dragon>();
             m = new GUIManager(this);
         }
 
@@ -69,29 +69,47 @@ namespace Frontend
         public void storePlayer(Player p)
         {
 
-            players[p.getId()] = p;
+            players.Add(p);
             //here appears an error - try to fix it :)
             m.repaint();
+            
         }
 
         public void deletePlayer(Player p)
         {
+            for (int i = 0; i < players.Count; i++)
+            {
+                if (players[i].getId() == p.getId())
+                {
+                    players.RemoveAt(i);
+                }
+                else Console.WriteLine("no Player with this id ");
 
-            players.Remove(p.getId());
+            }
+                
 
         }
 
         public void storeDragon(Dragon d)
         {
-            dragons[d.getId()] = d;
+            dragons.Add(d);
             m.repaint();
+       
 
         }
 
         public void deleteDragon(Dragon d)
         {
-            dragons.Remove(d.getId());
+            for (int i = 0; i < dragons.Count; i++)
+            {
+                if (dragons[i].getId() == d.getId())
+                {
+                    dragons.RemoveAt(i);
+                }
+                else Console.WriteLine("no Dragon with this id ");
 
+            }
+                
         }
 
         public void setMap(Map m)
@@ -158,27 +176,28 @@ namespace Frontend
 
         }
 
-        //public List<IPositionable> getDragons() {
-        //    List<IPositionable> dragons = new List<IPositionable>();
-        //    //dragons.Add(new Entity(111, 0, 1, "dragon"));
-        //    return dragons;
-        //}
+       
 
-        public Hashtable getDragons()
+        public List<IPositionable> getDragons()
         {
-         
-            return dragons;
+            List<IPositionable> dragon = new List<IPositionable>();
+            foreach (Dragon d in dragons)
+            {
+                dragon.Add(d);
+            }
+            return dragon;
         }
        
-        //public List<IPositionable> getPlayers() {
-        //    List<IPositionable> players = new List<IPositionable>();
-        //    //players.Add(new Entity(01, 5, 5, "player"));
-        //    return players;
-        //}
-
-        public Hashtable getPlayers()
+      
+        public List<IPositionable> getPlayers()
         {
-            return players;
+            List<IPositionable> player = new List<IPositionable>();
+            foreach (Player p in players)
+            {
+                player.Add(p);
+            }
+          
+            return player;
         }
 
         public ArrayList getChallenges()
