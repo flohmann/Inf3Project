@@ -42,6 +42,14 @@ namespace Inf3Project
         private DateTime time;
         private int yourId;
         private int online;
+        private int round= 0;
+        private bool running = false;
+        private int delay= -1;
+        private String decision = "";
+        private int total = 0;
+        
+
+
         public Parser(Buffer buffer)
         {
             backend = new Backend();
@@ -289,7 +297,7 @@ namespace Inf3Project
                         do{
                         parseCells();
 
-                        //kick end ???? 
+                       
 
                         tmp = msg[0].Split(':');
                         } while (!((tmp[0].Equals("end")) && ((tmp[1].Equals("cells")))));
@@ -468,7 +476,7 @@ namespace Inf3Project
                     }
 
                 }
-                //what call we ?? 
+                
             }
             throw new Exception("No Challenge");
         }
@@ -485,6 +493,7 @@ namespace Inf3Project
             {
                 msg.RemoveAt(0);
                 backend.setYourId(this.yourId);
+                this.clearVars();
             }
             else
             {
@@ -503,6 +512,7 @@ namespace Inf3Project
                 if ((tmp[0].Equals("end")) && ((tmp[1].Equals("online"))))
                 {
                     backend.setOnline(online);
+                    this.clearVars();
 
                 }
                 else
@@ -512,6 +522,98 @@ namespace Inf3Project
             }
         }
         
+        private void parseResult()
+        {
+            String[] tmp = msg[0].Split(':');
+
+            if (tmp[0].Equals("round"))
+            {
+                this.round = Int32.Parse(tmp[1]);
+                msg.RemoveAt(0);
+		tmp = msg[0].Split(':');
+	    	if (tmp[0].Equals("running"))
+		{
+		  if (tmp[1].Equals("true"))
+               	  {
+                  this.running = true;
+                  }
+                  else
+                  {
+                  this.running = false;
+                  }
+		  msg.RemoveAt(0);
+                  tmp = msg[0].Split(':');
+		  if(tmp[0].Equals("delay")){
+			this.delay = Int32.Parse(tmp[1]);
+                	msg.RemoveAt(0);
+			tmp = msg[0].Split(':');		  
+			if((tmp[0].Equals("begin")) && (tmp[1].Equals("opponents"))){
+				parseOpponent();
+			}
+
+                   if ((tmp[0].Equals("end")) && ((tmp[1].Equals("result"))))
+            {
+                clearVars();
+            }
+
+            else {throw new Exception("No Result");}
+
+		  }	  
+		}
+	    }	
+            else
+                throw new Exception("No Result");
+        }
+
+
+        private void parseOpponent()
+        {
+            String[] tmp = msg[0].Split(':');
+            while (!(tmp[0].Equals("end") && tmp[1].Equals("opponent")))
+            {
+                tmp = msg[0].Split(':');
+                if (tmp[0].Equals("id"))
+                {
+                    this.id = Int32.Parse(tmp[1]);
+                    msg.RemoveAt(0);
+                    tmp = msg[0].Split(':');
+                    if (tmp[0].Equals("decision"))
+                    {
+                        this.decision = tmp[1];
+                        msg.RemoveAt(0);
+                        tmp = msg[0].Split(':');
+                        if (tmp[0].Equals("points"))
+                        {
+                            this.points = Int32.Parse(tmp[1]);
+                            msg.RemoveAt(0);
+                            tmp = msg[0].Split(':');
+                            if (tmp[0].Equals("total"))
+                            {
+                                this.total = Int32.Parse(tmp[1]);
+                                msg.RemoveAt(0);
+                                tmp = msg[0].Split(':');
+                                if (tmp[0].Equals("end") && tmp[1].Equals("opponent"))
+                                {
+
+                                    Opponent o = new Opponent(id, decision, points, total);
+                                    clearVars();
+                                    }
+                                else
+                                {
+                                    throw new Exception("NO OPPONENT");
+                                }
+                            }
+                        }
+
+                    }
+                }
+                else
+                {
+                    throw new Exception("NO OPPONENT");
+                }
+            }
+        }
+
                 
         private void createPlayer()
         {
@@ -592,6 +694,11 @@ namespace Inf3Project
             this.delete = false;
             this.ver = -1;
             this.online = 0;
+           this.round= 0;
+        this.running = false;
+        this.delay= -1;
+        this.decision = "";
+        this.total = 0;
         }
 
 
