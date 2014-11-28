@@ -23,7 +23,7 @@ namespace Inf3Project
         private StreamWriter sw;
         private StreamReader sr;
         private TcpClient tcpClient;
-        private GUIManager m = new GUIManager();
+     
 
         /*
          * constructors 
@@ -35,7 +35,7 @@ namespace Inf3Project
             connectToServer();
             Receiver rec = new Receiver(tcpClient, sr);
             Sender sender = new Sender(tcpClient, sw);
-            m.initGUI();
+           
         }
 
         /*

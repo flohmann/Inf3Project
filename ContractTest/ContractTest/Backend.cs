@@ -25,16 +25,18 @@ namespace Frontend
         private String chatMsg="";
         private String commandMsg="";
         private String receivedMsg="";
-
+        private int yourId;
+        private int online;
          
 
         public Backend()
         {
             players = new Hashtable();
             dragons = new Hashtable();
+            m = new GUIManager(this);
         }
 
-      
+        
 
         public void sendCommandToConnector(String command)
         {
@@ -70,7 +72,7 @@ namespace Frontend
 
             players[p.getId()] = p;
             //here appears an error - try to fix it :)
-            m.repaint();
+           // m.repaint();
         }
 
         public void deletePlayer(Player p)
@@ -175,7 +177,27 @@ namespace Frontend
         //    return players;
         //}
 
-        public Hashtable getPlayers() {
+        public int getOnline()
+        {
+            return online;
+        }
+
+        public void setOnline(int online)
+        {
+            this.online = online;
+        }
+
+        public void setYourId(int yourId)
+        {
+            this.yourId = yourId;
+        }
+        public int getYourId()
+        {
+            return yourId;
+        }
+
+        public Hashtable getPlayers()
+        {
             return players;
         }
 
@@ -225,5 +247,6 @@ namespace Frontend
             return map;
         }
 
+    
     }
 }
