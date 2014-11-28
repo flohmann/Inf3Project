@@ -40,7 +40,8 @@ namespace Inf3Project
         private bool delete = false;
         private int ver = -1;
         private DateTime time;
-
+        private int yourId;
+        private int online;
         public Parser(Buffer buffer)
         {
             backend = new Backend();
@@ -144,6 +145,13 @@ namespace Inf3Project
                 msg.RemoveAt(msg.Count - 1);
                 parseEntity();
             }
+
+            else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("ents"))))
+            {
+                msg.RemoveAt(0);
+                msg.RemoveAt(msg.Count - 1);
+                getEBNF();
+            }
             else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("map"))))
             {
                 msg.RemoveAt(0);
@@ -161,7 +169,7 @@ namespace Inf3Project
                 msg.RemoveAt(0);
                 msg.RemoveAt(msg.Count - 1);
                 parseChallenge();
-                
+
             }
             else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("time"))))
             {
@@ -175,6 +183,22 @@ namespace Inf3Project
                 msg.RemoveAt(0);
                 msg.RemoveAt(msg.Count - 1);
                 parseCells();
+
+            }
+
+            else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("yourId"))))
+            {
+                msg.RemoveAt(0);
+                msg.RemoveAt(msg.Count - 1);
+                parseYourId();
+
+            }
+
+            else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("online"))))
+            {
+                msg.RemoveAt(0);
+                msg.RemoveAt(msg.Count - 1);
+                parseOnline();
 
             }
             //every possible ENBF command needs its own if
@@ -449,6 +473,46 @@ namespace Inf3Project
             throw new Exception("No Challenge");
         }
 
+        private void parseYourId()
+        {
+            String[] tmp = msg[0].Split(':');
+
+            if (tmp[0].Equals("id"))
+            {
+                this.yourId = Int32.Parse(tmp[1]);
+                msg.RemoveAt(0);
+            } if ((tmp[0].Equals("end")) && ((tmp[1].Equals("challenge"))))
+            {
+                msg.RemoveAt(0);
+                backend.setYourId(this.yourId);
+            }
+            else
+            {
+                throw new Exception("There is no id");
+            }
+        }
+        private void parseOnline()
+        {
+            String[] tmp = msg[0].Split(':');
+
+            if (tmp[0].Equals("online"))
+            {
+                this.online = Int32.Parse(tmp[1]);
+                msg.RemoveAt(0);
+                tmp = msg[0].Split(':');
+                if ((tmp[0].Equals("end")) && ((tmp[1].Equals("online"))))
+                {
+                    backend.setOnline(online);
+
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
+            }
+        }
+        
+                
         private void createPlayer()
         {
             //used variables - int id, String type, bool busy, String desc, int x, int y, int points
@@ -527,6 +591,7 @@ namespace Inf3Project
             this.accepted = false;
             this.delete = false;
             this.ver = -1;
+            this.online = 0;
         }
 
 
