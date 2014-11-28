@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Collections;
 using Inf3Project;
+using System.Threading;
 
 namespace Frontend
 {
@@ -34,16 +35,19 @@ namespace Frontend
         private MapCell mapcell;
         private Int32 xPos;
         private Int32 yPos;
-        private readonly Action message;
+        public delegate void AddListItem();
+        public AddListItem myDelegate;
+ 
+
         public DefaultGui(IBackend backend) : base()
         {
-
+         
             if (backend == null)
             {
                 throw new ArgumentNullException("invalid value for 'backend': null");
             }
             this.ba = backend;
-                
+            myDelegate = new AddListItem(repaint);
             InitializeComponent();
             // we usually don't have a console in a form-project. This enables us to see debug-output anyway
             AllocConsole();
@@ -54,6 +58,7 @@ namespace Frontend
 
             int map_XKoord = backend.getMap()[0].Length;
             int map_YKoord = backend.getMap().Length;
+           
         }
 
         /// <summary>
@@ -69,7 +74,10 @@ namespace Frontend
         public void repaint()
         {
             Console.WriteLine("kommt an");
-        }
+   
+            this.Refresh();
+            
+        }        
 
         private void chat_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
@@ -151,6 +159,7 @@ namespace Frontend
                 }
             }
             buffer.Render();
+            Console.WriteLine("board_paintmap drin");
         }
 
         /// <summary>
@@ -158,33 +167,34 @@ namespace Frontend
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        //private void board_PaintEntities(object sender, System.Windows.Forms.PaintEventArgs e)
-        //{
-        //    List<IPositionable> dragons = this.ba.getDragons();
-        //    foreach (IPositionable dragon in dragons)
-        //    {
-        //        this.drawDragon(e.Graphics, dragon);
-        //    }
-        //    List<IPositionable> players = this.ba.getPlayers();
-        //    foreach (IPositionable player in players)
-        //    {
-        //        this.drawPlayer(e.Graphics, player);
-        //    }
-        //}
-
         private void board_PaintEntities(object sender, System.Windows.Forms.PaintEventArgs e)
         {
-            Hashtable dragons = this.ba.getDragons();
+            List<IPositionable> dragons = this.m.getDragons();
             foreach (IPositionable dragon in dragons)
             {
                 this.drawDragon(e.Graphics, dragon);
             }
-            Hashtable players = this.ba.getPlayers();
+            List<IPositionable> players = this.m.getPlayers();
             foreach (IPositionable player in players)
             {
                 this.drawPlayer(e.Graphics, player);
             }
         }
+
+        //private void board_PaintEntities(object sender, System.Windows.Forms.PaintEventArgs e)
+        //{
+        //    Hashtable dragons = this.ba.getDragons();
+        //    foreach (Dragon dragon in dragons)
+        //    {
+        //        this.drawDragon(e.Graphics, dragon);
+        //    }
+        //    Hashtable players = this.ba.getPlayers();
+        //    foreach (Hashtable player in players)
+        //    {
+        //        this.drawPlayer(e.Graphics, player);
+        //    }
+        //    Console.WriteLine("boad_painentiti drin");
+        //}
 
 
         /// <summary>
@@ -312,12 +322,12 @@ namespace Frontend
         /// </summary>
         /// <param name="sender">the source of the message</param>
         /// <param name="message">the message itself</param>
-       
-        public void sendChatMessage()
-        {
-            this.Invoke(message);
-            m.sendChatMessage();
-        }
+ 
+        //public void sendChatMessage()
+        //{
+        //    this.Invoke(message);
+        //    m.sendChatMessage();
+        //}
         public void appendChatMessage(String sender, String message)
         {
             try

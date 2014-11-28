@@ -17,7 +17,14 @@ namespace Frontend
         private IBackend ba;
         private Thread GuiThread;
 
-      
+        public GUIManager(IBackend ba)
+        {
+            
+            this.ba = ba;
+            gui = new DefaultGui(ba);
+            initGUI();
+        }
+
         public void initGUI()
         {
             GuiThread = new Thread(GUIThreadStarter);
@@ -30,7 +37,7 @@ namespace Frontend
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(true);
-            Application.Run(gui = new DefaultGui(ba = new Backend()));
+            Application.Run(gui);
 
         }
 
@@ -47,12 +54,13 @@ namespace Frontend
         public void sendChatMessage(String sender, String message)
         {
             ba.setChatMsg(sender + ": " + message + "\r\n");
-            gui.sendChatMessage();
+            //gui.sendChatMessage();
         }
 
         public void repaint()
         {
-            gui.repaint();
+            gui.Invoke(gui.myDelegate);
+
         }
 
 
