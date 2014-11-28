@@ -33,6 +33,7 @@ namespace Frontend
         {
             players = new Hashtable();
             dragons = new Hashtable();
+            m = new GUIManager(this);
         }
 
         
@@ -176,7 +177,8 @@ namespace Frontend
         //    return players;
         //}
 
-        public Hashtable getPlayers() {
+        public Hashtable getPlayers()
+        {
             return players;
         }
 
