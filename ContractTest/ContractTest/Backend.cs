@@ -26,7 +26,7 @@ namespace Frontend
         private String commandMsg="";
         private String receivedMsg="";
         private int yourId;
-
+        private int online;
          
 
         public Backend()
@@ -176,6 +176,25 @@ namespace Frontend
         //    //players.Add(new Entity(01, 5, 5, "player"));
         //    return players;
         //}
+
+        private int getOnline()
+        {
+            return online;
+        }
+
+        private void setOnline(int online)
+        {
+            this.online = online;
+        }
+
+        private void setYourId(int yourId)
+        {
+            this.yourId = yourId;
+        }
+        private int getYourId()
+        {
+            return yourId;
+        }
 
         public Hashtable getPlayers()
         {

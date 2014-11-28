@@ -458,7 +458,6 @@ namespace Inf3Project
             throw new Exception("No Challenge");
         }
 
-
         private void parseYourId()
         {
             String[] tmp = msg[0].Split(':');
@@ -477,6 +476,7 @@ namespace Inf3Project
                 throw new Exception("There is no id");
             }
         }
+       
         private void createPlayer()
         {
             //used variables - int id, String type, bool busy, String desc, int x, int y, int points
