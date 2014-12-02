@@ -88,43 +88,43 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buffer.cs" />
-    <Compile Include="Challenge.cs" />
-    <Compile Include="Dragonhunt.cs" />
+    <Compile Include="Minigames\Challenge.cs" />
+    <Compile Include="Minigames\Dragonhunt.cs" />
     <Compile Include="Enum\eDragonhunt.cs" />
     <Compile Include="Enum\eStagehunt.cs" />
     <Compile Include="Enum\eSkirmish.cs" />
-    <Compile Include="Connector.cs" />
-    <Compile Include="DefaultGui.cs">
+    <Compile Include="TCP\Connector.cs" />
+    <Compile Include="Game\DefaultGui.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DefaultGui.Designer.cs">
+    <Compile Include="Game\DefaultGui.Designer.cs">
       <DependentUpon>DefaultGui.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUIManager.cs" />
-    <Compile Include="IBackend.cs" />
-    <Compile Include="IPositionable.cs" />
-    <Compile Include="ITile.cs" />
+    <Compile Include="Game\GUIManager.cs" />
+    <Compile Include="Game\IBackend.cs" />
+    <Compile Include="Gambler\IPositionable.cs" />
+    <Compile Include="Minigames\ITile.cs" />
     <Compile Include="Map.cs" />
-    <Compile Include="Dragon.cs" />
+    <Compile Include="Gambler\Dragon.cs" />
     <Compile Include="Mapcells.cs" />
     <Compile Include="Enum\eMinigames.cs" />
-    <Compile Include="Opponent.cs" />
+    <Compile Include="Gambler\Opponent.cs" />
     <Compile Include="Parser.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Gambler\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Backend.cs" />
+    <Compile Include="Game\Backend.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Skirmish.cs" />
-    <Compile Include="Staghunt.cs" />
-    <Compile Include="Receiver.cs" />
-    <Compile Include="Sender.cs" />
-    <Compile Include="test\Entity.cs" />
-    <Compile Include="test\MapCell.cs" />
+    <Compile Include="Minigames\Skirmish.cs" />
+    <Compile Include="Minigames\Staghunt.cs" />
+    <Compile Include="TCP\Receiver.cs" />
+    <Compile Include="TCP\Sender.cs" />
+    <Compile Include="Gambler\Entity.cs" />
+    <Compile Include="Minigames\MapCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -133,7 +133,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DefaultGui.resx">
+    <EmbeddedResource Include="Game\DefaultGui.resx">
       <DependentUpon>DefaultGui.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
