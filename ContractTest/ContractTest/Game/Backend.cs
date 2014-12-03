@@ -68,15 +68,17 @@ namespace Frontend
             sendCommand("ask:mv:up");
         }
 
-
+        //store the Player in a List and Update when the same Player appears
         public void storePlayer(Player p)
         {
-           
+
+            deletePlayer(p);
+
             players.Add(p);
-            //here appears an error - try to fix it :)
             m.repaint();
         }
-
+        
+        // delete the Player
         public void deletePlayer(Player p)
         {
             for (int i = 0; i < players.Count; i++)
@@ -85,19 +87,23 @@ namespace Frontend
                 {
                     players.RemoveAt(i);
                 }
-                else Console.WriteLine();
+                else Console.WriteLine("Update");
             }
                 
 
         }
-
+        //store the Dragon in a List and Update when the same Dragon appears
         public void storeDragon(Dragon d)
         {
+
+            deleteDragon(d);
+
             dragons.Add(d);
             m.repaint();
 
         }
 
+        // Delete the Dragon
         public void deleteDragon(Dragon d)
         {
             for (int i = 0; i < dragons.Count; i++)
@@ -106,7 +112,7 @@ namespace Frontend
                 {
                     dragons.RemoveAt(i);
                 }
-                else Console.WriteLine();
+                else Console.WriteLine("Update");
             }
 
         }
