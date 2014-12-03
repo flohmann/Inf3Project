@@ -71,7 +71,7 @@ namespace Frontend
 
         public void storePlayer(Player p)
         {
-
+           
             players.Add(p);
             //here appears an error - try to fix it :)
             m.repaint();
