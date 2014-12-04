@@ -412,9 +412,9 @@ namespace Inf3Project
                 }
                 msg.RemoveAt(0);
             }
-            if ((tmp[0].Equals("end")) && ((tmp[1].Equals("props"))))
+            if (!(tmp[0].Equals("end")) && ((tmp[1].Equals("props"))))
             {
-                parseCells();
+                throw new Exception("No Property");
             }
 
             throw new Exception("No Property");

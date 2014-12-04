@@ -20,7 +20,7 @@ namespace Frontend
     {
         private List<Player> players;
         private List<Dragon> dragons;
-        private ITile[][] map;
+        private ITile[][] mapMemory;
         private ArrayList challenges;
         private GUIManager m;
         private String chatMsg="";
@@ -28,6 +28,7 @@ namespace Frontend
         private String receivedMsg="";
         private int yourId;
         private int online;
+        private bool mapSave=true;
          
 
         public Backend()
@@ -67,15 +68,17 @@ namespace Frontend
             sendCommand("ask:mv:up");
         }
 
-
+        //store the Player in a List and Update when the same Player appears
         public void storePlayer(Player p)
         {
 
+            deletePlayer(p);
+
             players.Add(p);
-            //here appears an error - try to fix it :)
             m.repaint();
         }
-
+        
+        // delete the Player
         public void deletePlayer(Player p)
         {
             for (int i = 0; i < players.Count; i++)
@@ -84,22 +87,23 @@ namespace Frontend
                 {
                     players.RemoveAt(i);
                 }
-                else
-                {
-                    Console.WriteLine();
-                }
+                else Console.WriteLine("Update");
             }
                 
 
         }
-
+        //store the Dragon in a List and Update when the same Dragon appears
         public void storeDragon(Dragon d)
         {
+
+            deleteDragon(d);
+
             dragons.Add(d);
             m.repaint();
 
         }
 
+        // Delete the Dragon
         public void deleteDragon(Dragon d)
         {
             for (int i = 0; i < dragons.Count; i++)
@@ -108,7 +112,7 @@ namespace Frontend
                 {
                     dragons.RemoveAt(i);
                 }
-                else Console.WriteLine();
+                else Console.WriteLine("Update");
             }
 
         }
@@ -220,42 +224,47 @@ namespace Frontend
 
         public ITile[][] getMap()
         {
-            int size = 20;
-            // init
-            ITile[][] map = new ITile[size][];
-            for (int i = 0; i < size; i++)
+            if (mapSave)
             {
-                map[i] = new ITile[size];
-            }
-            Random r = new Random();
-            for (int x = 0; x < size; x++)
-            {
-                for (int y = 0; y < size; y++)
+                int size = 20;
+                // init
+                ITile[][] map = new ITile[size][];
+                for (int i = 0; i < size; i++)
                 {
-                    List<MapCellAttribute> attr = new List<MapCellAttribute>();
-                    switch (r.Next(0, 4))
+                    map[i] = new ITile[size];
+                }
+                Random r = new Random();
+                for (int x = 0; x < size; x++)
+                {
+                    for (int y = 0; y < size; y++)
                     {
-                        case 0:
-                            attr.Add(MapCellAttribute.WATER);
-                            break;
-                        case 1:
-                            attr.Add(MapCellAttribute.HUNTABLE);
-                            attr.Add(MapCellAttribute.FOREST);
-                            break;
-                        case 2:
-                            attr.Add(MapCellAttribute.FOREST);
-                            break;
-                        case 3:
-                            attr.Add(MapCellAttribute.UNWALKABLE);
-                            break;
-                        case 4:
-                            break;
+                        List<MapCellAttribute> attr = new List<MapCellAttribute>();
+                        switch (r.Next(0, 4))
+                        {
+                            case 0:
+                                attr.Add(MapCellAttribute.WATER);
+                                break;
+                            case 1:
+                                attr.Add(MapCellAttribute.HUNTABLE);
+                                attr.Add(MapCellAttribute.FOREST);
+                                break;
+                            case 2:
+                                attr.Add(MapCellAttribute.FOREST);
+                                break;
+                            case 3:
+                                attr.Add(MapCellAttribute.UNWALKABLE);
+                                break;
+                            case 4:
+                                break;
 
+                        }
+                        map[x][y] = new MapCell(x, y, attr);
+                        this.mapMemory = map;
+                        mapSave = false;
                     }
-                    map[x][y] = new MapCell(x, y, attr);
                 }
             }
-            return map;
+            return mapMemory;
         }
 
     
