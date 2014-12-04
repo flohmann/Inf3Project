@@ -43,7 +43,7 @@ namespace Frontend
         String getCommand();
         String getChat();
 
-        void setChatMsg(String chatmsg);
+        void setChatMsg(String name, String text);
         String getChatMsg();
 
         //  void sendChatMsg(String message);

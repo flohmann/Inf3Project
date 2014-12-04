@@ -22,20 +22,24 @@ namespace Frontend
         private List<Dragon> dragons;
         private ITile[][] mapMemory;
         private ArrayList challenges;
-        private GUIManager m;
+        public GUIManager m;
         private String chatMsg="";
         private String commandMsg="";
         private String receivedMsg="";
         private int yourId;
         private int online;
         private bool mapSave=true;
+        private Connector connector;
          
 
-        public Backend()
+        public Backend(Connector con)
         {
+            this.connector = con;
+           
+           
             players = new List<Player>();
             dragons = new List<Dragon>();
-            m = new GUIManager(this);
+            this.m = new GUIManager(this);
         }
 
         
@@ -126,12 +130,14 @@ namespace Frontend
             Contract.Ensures(m.height > 0);
             Contract.Ensures(m.width > 0);
         }
-
+   
         public void sendCommand(string command)
         {
             if (command != null || command.Length != 0)
             {
-                this.commandMsg = command;
+           
+                this.connector.getSender().sendMessageToServer(command);
+
             }
             Console.WriteLine("received command " + command);
             
@@ -146,8 +152,8 @@ namespace Frontend
         {
             if (message != null || message.Length != 0)
             {
-                this.chatMsg = message;
-                //m.sendChatMessage();
+               
+                this.connector.getSender().sendMessageToServer(message);
 
             }
 
@@ -159,9 +165,9 @@ namespace Frontend
             return chatMsg;
         }
 
-        public void setChatMsg(String chatmsg)
+        public void setChatMsg(String name, String text)
         {
-            this.receivedMsg = chatMsg;
+            m.sendChatMessage(name, text);
         }
       
         public String getChatMsg()

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Inf3Project
 {
-    class Sender
+    public class Sender
     {
         /*
          * variables
@@ -45,6 +45,11 @@ namespace Inf3Project
                 sw.Flush();
             }
             
+        }
+        public void sendMessageToServer(String command)
+        {
+            sw.WriteLine(command);
+            sw.Flush();
         }
     }
 }
