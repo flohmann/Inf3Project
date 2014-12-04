@@ -84,7 +84,10 @@ namespace Frontend
                 {
                     players.RemoveAt(i);
                 }
-                else Console.WriteLine();
+                else
+                {
+                    Console.WriteLine();
+                }
             }
                 
 

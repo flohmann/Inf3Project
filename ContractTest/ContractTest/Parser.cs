@@ -657,7 +657,7 @@ namespace Inf3Project
 
         private void createServer()
         {
-            //CREATE SERVER WUUUUUT -F
+          
         }
 
         private void createMap()
