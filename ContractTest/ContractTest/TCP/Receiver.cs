@@ -18,15 +18,17 @@ namespace Inf3Project
         private TcpClient tcpClient;
         private Buffer buffer;
         private Parser parser;
+        internal  Connector connector;
 
         /*
          * constructors
          */
-        public Receiver(TcpClient tcpClient, StreamReader sr)
+        public Receiver(TcpClient tcpClient, StreamReader sr, Connector con)
         {
             this.tcpClient = tcpClient;
+            this.connector = con;
             buffer = new Buffer();
-            parser = new Parser(buffer); 
+            parser = new Parser(buffer, connector); 
             this.sr = sr;
             receive();
         }

@@ -47,14 +47,18 @@ namespace Inf3Project
         private int delay= -1;
         private String decision = "";
         private int total = 0;
+        private Connector connector;
+        private String sender;
+        private String mes;
         
 
 
-        public Parser(Buffer buffer)
+        public Parser(Buffer buffer, Connector con)
         {
-            backend = new Backend();
+            this.connector = con;
+            backend = new Backend(connector);
             this.buffer = buffer;
-
+            
             //create read thread and start it
             Thread readBufferThread = new Thread(new ThreadStart(readBuffer));
             readBufferThread.Start();
@@ -209,8 +213,43 @@ namespace Inf3Project
                 parseOnline();
 
             }
+            else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("mes"))))
+            {
+                msg.RemoveAt(0);
+                msg.RemoveAt(msg.Count - 1);
+                parseChat();
+
+            }
             //every possible ENBF command needs its own if
 
+        }
+
+        public void parseChat()
+        {
+            String[] tmp = msg[0].Split(':');
+
+            if (tmp[0].Equals("srcid"))
+            {
+                msg.RemoveAt(0);
+                tmp = msg[0].Split(':');
+                if (tmp[0].Equals("scr"))
+                {
+                    this.sender = tmp[1];
+                    msg.RemoveAt(0);
+                    tmp = msg[0].Split(':');
+                }
+                if (tmp[0].Equals("txt"))
+                {
+                    this.mes = tmp[1];
+                    msg.RemoveAt(0);
+                    tmp = msg[0].Split(':');
+                }
+                if ((tmp[0].Equals("end")) && ((tmp[1].Equals("mes"))))
+                {
+                    msg.RemoveAt(0);
+                    backend.setChatMsg(sender, mes);
+                }
+            }
         }
        
         public void parseEntity()
@@ -657,7 +696,7 @@ namespace Inf3Project
 
         private void createServer()
         {
-            //CREATE SERVER WUUUUUT -F
+          
         }
 
         private void createMap()

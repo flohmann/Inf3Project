@@ -1,7 +1,7 @@
 #pragma once
-#include "Node.h";
 
-// construktor/destructor, methodes and attributes of Link
+//#include "Node.h"
+//class Node;
 class Link
 {
 public:

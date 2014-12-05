@@ -13,7 +13,7 @@ namespace Frontend
 {
     public class GUIManager
     {
-        private DefaultGui gui;
+        public DefaultGui gui;
         private IBackend ba;
         private Thread GuiThread;
 
@@ -51,11 +51,11 @@ namespace Frontend
             return ba.getChat();
         }
 
-        public void sendChatMessage(String sender, String message)
-        {
-            ba.setChatMsg(sender + ": " + message + "\r\n");
-            //gui.sendChatMessage();
-        }
+        //public void sendChatMessage(String sender, String message)
+        //{
+        //    ba.setChatMsg(sender + ": " + message + "\r\n");
+        //    //gui.sendChatMessage();
+        //}
 
         public void repaint()
         {
@@ -64,10 +64,11 @@ namespace Frontend
         }
 
 
-        internal void sendChatMessage()
+        internal void sendChatMessage(String sender, String text)
         {
+            gui.appendChatMessage(sender, text);
 
-            throw new NotImplementedException();
         }
+           
     }
 }

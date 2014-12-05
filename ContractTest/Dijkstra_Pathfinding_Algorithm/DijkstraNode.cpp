@@ -1,15 +1,11 @@
+#pragma once
 #include "DijkstraNode.h"
-#include "Node.h";
+#include "Node.h"
 
- 
-
-
-//Constructor
-DijkstraNode::DijkstraNode(int x, int y)
+DijkstraNode::DijkstraNode(int x, int y) : Node(x, y)
 {
 }
 
-//Setter and Getter
 void DijkstraNode::setDistance(int distance){
 	if (distance < 0)
 	{

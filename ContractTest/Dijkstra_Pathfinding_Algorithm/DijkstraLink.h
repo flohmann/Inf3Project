@@ -1,8 +1,5 @@
 #pragma once
-#include <limits>;
-#include <climits>;
-#include "Link.h";
-#include "Node.h";
+#include "Node.h"
 
 
 // construktor/destructor, methodes and attributes of DijktraLink
