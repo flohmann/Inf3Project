@@ -1,12 +1,12 @@
 #include "DijkstraNode.h"
 #include <vector>
-
+#include"Link.h"
 #include <stdio.h>
 using namespace std;
 
 
 
-class Link;
+
 class Node
 {
 public:
