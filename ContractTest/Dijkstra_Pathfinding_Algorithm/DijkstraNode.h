@@ -1,6 +1,6 @@
 #include "Node.h"
 
-
+// construktor/destructor, methodes and attributes of DijktraNode
 class DijkstraNode : public Node
 {
 public:

@@ -4,6 +4,9 @@
 #include "Link.h";
 #include "Node.h";
 
+
+// construktor/destructor, methodes and attributes of DijktraLink
+
 class DijkstraLink : public Link
 {
 public:

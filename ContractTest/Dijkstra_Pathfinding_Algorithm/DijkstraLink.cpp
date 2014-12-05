@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "DijkstraLink.h"
 
-
+//Constructors
 DijkstraLink::DijkstraLink(Node north, Node south, Node west, Node east)
 {
 	base:(north, south, west, east);
@@ -16,6 +16,7 @@ DijkstraLink::DijkstraLink(Node north, Node south, Node west, Node east, int dis
 	setDistance(distance);
 }
 
+//Setter and Getter
 void DijkstraLink::setDistance(int distance){
 	if (distance < 0) {
 		printf("Distance must be > 0");

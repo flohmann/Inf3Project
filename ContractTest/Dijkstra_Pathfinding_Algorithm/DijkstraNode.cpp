@@ -1,12 +1,15 @@
 #include "DijkstraNode.h"
 #include "Node.h";
 
+ 
 
 
+//Constructor
 DijkstraNode::DijkstraNode(int x, int y)
 {
 }
 
+//Setter and Getter
 void DijkstraNode::setDistance(int distance){
 	if (distance < 0)
 	{
