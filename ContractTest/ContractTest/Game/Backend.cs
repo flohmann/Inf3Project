@@ -22,20 +22,24 @@ namespace Frontend
         private List<Dragon> dragons;
         private ITile[][] mapMemory;
         private ArrayList challenges;
-        private GUIManager m;
+        public GUIManager m;
         private String chatMsg="";
         private String commandMsg="";
         private String receivedMsg="";
         private int yourId;
         private int online;
         private bool mapSave=true;
+        private Connector connector;
          
 
-        public Backend()
+        public Backend(Connector con)
         {
+            this.connector = con;
+           
+           
             players = new List<Player>();
             dragons = new List<Dragon>();
-            m = new GUIManager(this);
+            this.m = new GUIManager(this);
         }
 
         
@@ -68,15 +72,17 @@ namespace Frontend
             sendCommand("ask:mv:up");
         }
 
-
+        //store the Player in a List and Update when the same Player appears
         public void storePlayer(Player p)
         {
 
+            deletePlayer(p);
+
             players.Add(p);
-            //here appears an error - try to fix it :)
             m.repaint();
         }
-
+        
+        // delete the Player
         public void deletePlayer(Player p)
         {
             for (int i = 0; i < players.Count; i++)
@@ -85,19 +91,23 @@ namespace Frontend
                 {
                     players.RemoveAt(i);
                 }
-                else Console.WriteLine();
+                else Console.WriteLine("Update");
             }
                 
 
         }
-
+        //store the Dragon in a List and Update when the same Dragon appears
         public void storeDragon(Dragon d)
         {
+
+            deleteDragon(d);
+
             dragons.Add(d);
             m.repaint();
 
         }
 
+        // Delete the Dragon
         public void deleteDragon(Dragon d)
         {
             for (int i = 0; i < dragons.Count; i++)
@@ -106,7 +116,7 @@ namespace Frontend
                 {
                     dragons.RemoveAt(i);
                 }
-                else Console.WriteLine();
+                else Console.WriteLine("Update");
             }
 
         }
@@ -120,12 +130,14 @@ namespace Frontend
             Contract.Ensures(m.height > 0);
             Contract.Ensures(m.width > 0);
         }
-
+   
         public void sendCommand(string command)
         {
             if (command != null || command.Length != 0)
             {
-                this.commandMsg = command;
+           
+                this.connector.getSender().sendMessageToServer(command);
+
             }
             Console.WriteLine("received command " + command);
             
@@ -140,8 +152,8 @@ namespace Frontend
         {
             if (message != null || message.Length != 0)
             {
-                this.chatMsg = message;
-                //m.sendChatMessage();
+               
+                this.connector.getSender().sendMessageToServer(message);
 
             }
 
@@ -153,9 +165,9 @@ namespace Frontend
             return chatMsg;
         }
 
-        public void setChatMsg(String chatmsg)
+        public void setChatMsg(String name, String text)
         {
-            this.receivedMsg = chatMsg;
+            m.sendChatMessage(name, text);
         }
       
         public String getChatMsg()

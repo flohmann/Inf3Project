@@ -13,7 +13,7 @@ using Frontend;
 
 namespace Inf3Project
 {
-    class Connector
+    public class Connector
     {
         /*
          * variables 
@@ -23,7 +23,9 @@ namespace Inf3Project
         private StreamWriter sw;
         private StreamReader sr;
         private TcpClient tcpClient;
-     
+        private Receiver rec;
+        private Sender sender;
+
 
         /*
          * constructors 
@@ -33,8 +35,8 @@ namespace Inf3Project
             setIp(ip);
             setPort(port);
             connectToServer();
-            Receiver rec = new Receiver(tcpClient, sr);
-            Sender sender = new Sender(tcpClient, sw);
+            this.rec = new Receiver(tcpClient, sr, this);
+            this.sender = new Sender(tcpClient, sw);
            
         }
 
@@ -74,6 +76,10 @@ namespace Inf3Project
             {
                 Console.WriteLine(e);
             }
+        }
+        public Sender getSender()
+        {
+            return sender;
         }
 
     }
