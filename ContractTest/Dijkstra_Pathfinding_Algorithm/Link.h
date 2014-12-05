@@ -1,6 +1,7 @@
 #pragma once
-#include "Node.h";
 
+//#include "Node.h"
+//class Node;
 class Link
 {
 public:

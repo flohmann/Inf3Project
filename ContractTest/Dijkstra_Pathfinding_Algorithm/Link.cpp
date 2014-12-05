@@ -1,6 +1,9 @@
-#include "stdafx.h"
+#pragma once
+
+#include <vector>
 #include "Link.h"
 
+using namespace std;
 
 Link::Link(Node n, Node s, Node w, Node e)
 {

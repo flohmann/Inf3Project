@@ -10,7 +10,12 @@
 #define WIN32_LEAN_AND_MEAN             // Selten verwendete Teile der Windows-Header nicht einbinden.
 // Windows-Headerdateien:
 #include <windows.h>
-
+#include <vector>
+#include "Graph.h"
+#include "DijkstraGraph.h"
+#include "DijkstraNode.h"
+#include "Node.h"
+#include "Link.h"
 
 
 // TODO: Hier auf zusätzliche Header, die das Programm erfordert, verweisen.

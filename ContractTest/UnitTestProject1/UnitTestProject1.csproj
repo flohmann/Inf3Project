@@ -51,11 +51,18 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Challenge.cs" />
+    <Compile Include="DLLTest.cs" />
     <Compile Include="Dragon.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dijkstra_Pathfinding_Algorithm\Dijkstra_Pathfinding_Algorithm.vcxproj">
+      <Project>{83621a22-46ae-454b-b6b5-c69d8157250d}</Project>
+      <Name>Dijkstra_Pathfinding_Algorithm</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

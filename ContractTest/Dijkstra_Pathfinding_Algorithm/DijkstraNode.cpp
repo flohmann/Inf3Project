@@ -1,9 +1,8 @@
+#pragma once
 #include "DijkstraNode.h"
-#include "Node.h";
+#include "Node.h"
 
-
-
-DijkstraNode::DijkstraNode(int x, int y)
+DijkstraNode::DijkstraNode(int x, int y) : Node(x, y)
 {
 }
 

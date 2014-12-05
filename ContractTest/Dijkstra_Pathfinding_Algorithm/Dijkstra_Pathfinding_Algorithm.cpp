@@ -3,4 +3,6 @@
 
 #include "stdafx.h"
 
-
+int* findPath(int from, int to, int* map, int mapw, int maph, int pathlength){
+	return 0;
+}

@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buffer.cs" />
+    <Compile Include="Game\IPathfinder.cs" />
     <Compile Include="Minigames\Challenge.cs" />
     <Compile Include="Minigames\Dragonhunt.cs" />
     <Compile Include="Enum\eDragonhunt.cs" />

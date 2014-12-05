@@ -1,6 +1,8 @@
-#include "stdafx.h"
-#include "Graph.h";
 
+#pragma once
+
+#include <vector>
+#include "Graph.h"
 
 Graph::Graph()
 {

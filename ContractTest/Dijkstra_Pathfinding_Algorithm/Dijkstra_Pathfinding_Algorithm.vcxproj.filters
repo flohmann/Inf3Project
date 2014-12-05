@@ -18,9 +18,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -39,12 +36,18 @@
     <ClInclude Include="Graph.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="DijkstraGraph.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="testClass.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Dijkstra_Pathfinding_Algorithm.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Dijkstra_Pathfinding_Algorithm.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
@@ -63,6 +66,15 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Graph.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="DijkstraGraph.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="testClass.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Dijkstra_Pathfinding_Algorithm.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
