@@ -5,7 +5,8 @@ using System.Text;
 
 namespace Inf3Project
 {
-    class Mapcells
+
+    public class Mapcells
     {
         private int row;      
         private int column;
@@ -16,7 +17,7 @@ namespace Inf3Project
         private bool wall;
 
 
-        private Mapcells(int row, int column, bool walkable, bool huntable, bool forest, bool water, bool wall)
+        public Mapcells(int row, int column, bool walkable, bool huntable, bool forest, bool water, bool wall)
         {
             this.row = row;
             this.column = column;
@@ -27,9 +28,6 @@ namespace Inf3Project
             this.wall = wall;
         }
         
-
-
-
         public int Row
         {
             get { return this.row; }

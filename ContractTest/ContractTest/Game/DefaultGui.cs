@@ -160,9 +160,7 @@ namespace Frontend
                         this.drawMapTile(buffer.Graphics, cells[x][y], x * tileSize.Width, y * tileSize.Height, tileSize.Width, tileSize.Height);
                     }
                 }
-                buffer.Render();
-           
-           
+                buffer.Render(); 
         }
 
         /// <summary>
@@ -184,8 +182,6 @@ namespace Frontend
             }
           
         }
-
-  
 
         /// <summary>
         /// Draws a tile of the map on a graphics object.
@@ -320,6 +316,7 @@ namespace Frontend
         //    this.Invoke(message);
         //    m.sendChatMessage();
         //}
+        
         public void appendChatMessage(String sender, String message)
         {
             try

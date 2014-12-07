@@ -51,6 +51,5 @@ namespace Frontend
         void moveRight();
         void moveDown();
         void moveUp();
-        
     }
 }

@@ -18,6 +18,8 @@ namespace Frontend
     /// </summary>
     public class Backend : IBackend
     {
+        private bool firstTimeMap = true;
+        private bool firstTimeBoard = true;
         private List<Player> players;
         private List<Dragon> dragons;
         private ITile[][] mapMemory;
@@ -28,28 +30,25 @@ namespace Frontend
         private String receivedMsg="";
         private int yourId;
         private int online;
-        private bool mapSave=true;
+        private Map map;
+        //private bool mapSave=true;
         private Connector connector;
          
-
         public Backend(Connector con)
         {
             this.connector = con;
-           
-           
             players = new List<Player>();
             dragons = new List<Dragon>();
-            this.m = new GUIManager(this);
+            //this.m = new GUIManager(this);
         }
-
-        
 
         public void sendCommandToConnector(String command)
         {
-            Contract.Requires(command != null);
+            //content here
+        }
 
-            
-            //sendMessageToServer is called in Connector
+        public void setMap(Map map){
+            this.map = map;
         }
 
         public void moveLeft()
@@ -75,11 +74,12 @@ namespace Frontend
         //store the Player in a List and Update when the same Player appears
         public void storePlayer(Player p)
         {
-
             deletePlayer(p);
-
             players.Add(p);
-            m.repaint();
+            if (!firstTimeMap)
+            {
+                m.repaint();
+            }
         }
         
         // delete the Player
@@ -99,12 +99,12 @@ namespace Frontend
         //store the Dragon in a List and Update when the same Dragon appears
         public void storeDragon(Dragon d)
         {
-
             deleteDragon(d);
-
             dragons.Add(d);
-            m.repaint();
-
+            if (!firstTimeMap)
+            {
+                m.repaint();
+            }
         }
 
         // Delete the Dragon
@@ -119,16 +119,6 @@ namespace Frontend
                 else Console.WriteLine("Update");
             }
 
-        }
-
-        public void setMap(Map m)
-        {
-            Contract.Requires(m != null);
-            Contract.Requires(m.height > 0);
-            Contract.Requires(m.width > 0);
-
-            Contract.Ensures(m.height > 0);
-            Contract.Ensures(m.width > 0);
         }
    
         public void sendCommand(string command)
@@ -152,11 +142,8 @@ namespace Frontend
         {
             if (message != null || message.Length != 0)
             {
-               
                 this.connector.getSender().sendMessageToServer(message);
-
             }
-
             Console.WriteLine("received chatmessage " + getChat() );
         }
 
@@ -190,6 +177,7 @@ namespace Frontend
             }
             return dragon;
         }
+        
         public List<IPositionable> getPlayers()
         {
             List<IPositionable> player = new List<IPositionable>();
@@ -215,12 +203,11 @@ namespace Frontend
         {
             this.yourId = yourId;
         }
+
         public int getYourId()
         {
             return yourId;
         }
-
-        
 
         public ArrayList getChallenges()
         {
@@ -230,49 +217,56 @@ namespace Frontend
 
         public ITile[][] getMap()
         {
-            if (mapSave)
+            if (firstTimeMap)
             {
-                int size = 20;
-                // init
-                ITile[][] map = new ITile[size][];
-                for (int i = 0; i < size; i++)
+                this.m = new GUIManager(this);
+                firstTimeMap = false;
+            }
+            ITile[][] iTileMap = new ITile[map.height][];
+            for (int x = 0; x < iTileMap.Length; x++)
+            {
+                iTileMap[x] = new ITile[map.width];
+            }
+            for (int i = 0; i < map.height; i++)
+            {
+                for (int j = 0; j < map.width; j++)
                 {
-                    map[i] = new ITile[size];
+                    iTileMap[i][j] = map.cells[i][j];
                 }
-                Random r = new Random();
-                for (int x = 0; x < size; x++)
-                {
-                    for (int y = 0; y < size; y++)
-                    {
-                        List<MapCellAttribute> attr = new List<MapCellAttribute>();
-                        switch (r.Next(0, 4))
-                        {
-                            case 0:
-                                attr.Add(MapCellAttribute.WATER);
-                                break;
-                            case 1:
-                                attr.Add(MapCellAttribute.HUNTABLE);
-                                attr.Add(MapCellAttribute.FOREST);
-                                break;
-                            case 2:
-                                attr.Add(MapCellAttribute.FOREST);
-                                break;
-                            case 3:
-                                attr.Add(MapCellAttribute.UNWALKABLE);
-                                break;
-                            case 4:
-                                break;
+            }
+            this.mapMemory = iTileMap;
 
-                        }
-                        map[x][y] = new MapCell(x, y, attr);
-                        this.mapMemory = map;
-                        mapSave = false;
-                    }
-                }
+            //if (mapSave)
+            //{
+            //    int size = 20;
+            //    // init
+            //    ITile[][] map = new ITile[size][];
+            //    for (int i = 0; i < size; i++)
+            //    {
+            //        map[i] = new ITile[size];
+            //    }
+            //    Random r = new Random();
+            //    for (int x = 0; x < size; x++)
+            //    {
+            //        for (int y = 0; y < size; y++)
+            //        {
+            //          List<MapCellAttribute> attr = new List<MapCellAttribute>();
+
+            //          attr.Add(MapCellAttribute.UNWALKABLE);
+
+            //            }
+            //            map[x][y] = new MapCell(x, y, attr);
+            //            this.mapMemory = map;
+            //            mapSave = false;
+            //        }
+            //    
+            //}
+            if (firstTimeBoard)
+            {
+                firstTimeBoard = false;
+                m.initGUI();
             }
             return mapMemory;
         }
-
-    
     }
 }

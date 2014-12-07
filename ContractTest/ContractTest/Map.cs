@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Frontend;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,24 +9,24 @@ namespace Inf3Project
 {
     public class Map
     {
-        private Mapcells[][] cells;
+        public MapCell[][] cells;
         public int width;
         public int height;
 
-
         public Map(int width, int height)
         {
-           //cells = new Mapcells[width][];
+            this.width = width;
+            this.height = height;
+            cells = new MapCell[width][];
+            for (int i = 0; i < cells.Length; i++)
+            {
+                cells[i] = new MapCell[this.height];
+            }
         }
-        public int Width{
-            get { return this.width; }
-            set{this.width = value;}
-    }
 
-        public int Height
+        public void addCell(MapCell cell)
         {
-            get { return this.height;}
-            set { this.height = value;}
+            cells[cell.getXPosition()][cell.getYPosition()] = cell;
         }
-}
+    }
 }
