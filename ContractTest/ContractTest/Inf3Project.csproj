@@ -149,6 +149,12 @@
     <Content Include="Resources\forest.BMP" />
     <Content Include="Resources\water.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Users\Franziska Lohmann\Desktop\dll\dll\Pathfinder\Pathfinder.vcxproj">
+      <Project>{6a88feb9-1027-45bf-8abe-9378322fc0be}</Project>
+      <Name>Pathfinder</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
