@@ -1,8 +1,8 @@
 #pragma once
 
 #include <vector>
-#include "Link.h"
 
+#include"Node.h"
 using namespace std;
 
 Link::Link(Node n, Node s, Node w, Node e)

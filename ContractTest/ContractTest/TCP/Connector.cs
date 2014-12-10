@@ -37,7 +37,7 @@ namespace Inf3Project
             connectToServer();
             this.rec = new Receiver(tcpClient, sr, this);
             this.sender = new Sender(tcpClient, sw);
-           
+            sender.sendMessageToServer("get:map");
         }
 
         /*
@@ -70,7 +70,6 @@ namespace Inf3Project
                 //connect the streams (write and read)
                 sw = new StreamWriter(tcpClient.GetStream());
                 sr = new StreamReader(tcpClient.GetStream());
-
             }
             catch (Exception e)
             {
@@ -81,6 +80,5 @@ namespace Inf3Project
         {
             return sender;
         }
-
     }
 }

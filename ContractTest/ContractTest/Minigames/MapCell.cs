@@ -35,7 +35,7 @@ namespace Frontend
 
         public bool isWalkable()
         {
-            return !this.attributes.Contains(MapCellAttribute.UNWALKABLE);
+            return this.attributes.Contains(MapCellAttribute.WALKABLE);
         }
 
         public bool isForest()
@@ -54,5 +54,5 @@ namespace Frontend
         }
     }
 
-    public enum MapCellAttribute {UNWALKABLE, WATER, FOREST, HUNTABLE}
+    public enum MapCellAttribute {WALKABLE, WATER, FOREST, HUNTABLE, WALL}
 }

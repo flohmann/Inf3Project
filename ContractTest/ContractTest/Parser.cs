@@ -19,6 +19,9 @@ namespace Inf3Project
         private Backend backend;
         private Buffer buffer;
         List<String> msg;
+        private Connector connector;
+        private String sender;
+        private Map m;
         //the following have to be reset every single time
         private int id = -1;
         private String type = "";
@@ -47,12 +50,8 @@ namespace Inf3Project
         private int delay= -1;
         private String decision = "";
         private int total = 0;
-        private Connector connector;
-        private String sender;
-        private String mes;
+        private String mes = "";
         
-
-
         public Parser(Buffer buffer, Connector con)
         {
             this.connector = con;
@@ -116,6 +115,7 @@ namespace Inf3Project
                 throw new System.FormatException("parser.removeFrame() - no begin:x found");
             }
         }
+        
         private void getState()
         { 
           //  delete the begin:upd and end:udp if existing
@@ -328,21 +328,20 @@ namespace Inf3Project
                 if (tmp[0].Equals("height"))
                 {
                     this.height =Int32.Parse(tmp[1]);
+                    //create new Map
+                    m = new Map(width, height);
+                    backend.setMap(m);
                     msg.RemoveAt(0);
                     tmp = msg[0].Split(':');
 
                     if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("cells"))))
-                    {   
+                    {
                         do{
-                        parseCells();
-
-                       
-
-                        tmp = msg[0].Split(':');
+                            msg.RemoveAt(0);
+                            parseCells();
+                            tmp = msg[0].Split(':');
                         } while (!((tmp[0].Equals("end")) && ((tmp[1].Equals("cells")))));
-
                     }
-
                 }
             }
             createMap();
@@ -353,12 +352,13 @@ namespace Inf3Project
             String[] tmp = msg[0].Split(':');
             if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("cell"))))
             {
-
+                msg.RemoveAt(0);
+                tmp = msg[0].Split(':');
                 if (tmp[0].Equals("row"))
                 {
                     this.row = Int32.Parse(tmp[1]);
                     msg.RemoveAt(0);
-                    tmp = msg[0].Split(':');
+                     tmp = msg[0].Split(':');
                     if (tmp[0].Equals("col"))
                     {
                         this.col = Int32.Parse(tmp[1]);
@@ -366,21 +366,44 @@ namespace Inf3Project
                         tmp = msg[0].Split(':');
                         if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("props"))))
                         {
+                            msg.RemoveAt(0);
                             do
                             {
                                 parseProperty();
                                 tmp = msg[0].Split(':');
                             } while (!((tmp[0].Equals("end")) && ((tmp[1].Equals("props")))));
+                            msg.RemoveAt(0);
                         }
                     }
                 }
-                if (!(tmp[0].Equals("end")) && (!(tmp[1].Equals("cell"))))
+            }
+            if(row >= 0 && col >= 0){
+                List<MapCellAttribute> attributes = new List<MapCellAttribute>();
+                if (walkable)
                 {
-                    throw new Exception("No Cells");
+                    attributes.Add(MapCellAttribute.WALKABLE);
+                }
+                if (huntable)
+                {
+                    attributes.Add(MapCellAttribute.HUNTABLE);
+                }
+                if (forest)
+                {
+                    attributes.Add(MapCellAttribute.FOREST);
+                }
+                if (water)
+                {
+                    attributes.Add(MapCellAttribute.WATER);
+                }
+                if (wall)
+                {
+                    attributes.Add(MapCellAttribute.WALL);
                 }
 
+
+                m.addCell(new MapCell(this.row, this.col, attributes));
             }
-            throw new Exception("No Cells");
+            clearVars();
         }
 
         private void parseProperty()
@@ -388,75 +411,29 @@ namespace Inf3Project
             String[] tmp = msg[0].Split(':');
             if (tmp[0].Equals("WALKABLE"))
             {
-
-                if (tmp[1].Equals("true"))
-                {
-                    this.walkable = true;
-                }
-                else
-                {
-                    this.walkable = false;
-                }
+                this.walkable = true;
                 msg.RemoveAt(0);
             }
-            tmp = msg[0].Split(':');
-            if (tmp[0].Equals("HUNTABLE"))
+            else if (tmp[0].Equals("HUNTABLE"))
             {
-                if (tmp[1].Equals("true"))
-                {
-                    this.huntable = true;
-                }
-                else
-                {
-                    this.huntable = false;
-                }
+                this.huntable = true;
                 msg.RemoveAt(0);
             }
-            tmp = msg[0].Split(':');
-            if (tmp[0].Equals("FOREST"))
+            else if (tmp[0].Equals("FOREST"))
             {
-                if (tmp[1].Equals("true"))
-                {
-                    this.forest = true;
-                }
-                else
-                {
-                    this.forest = false;
-                }
+                this.forest = true;
                 msg.RemoveAt(0);
             }
-            tmp = msg[0].Split(':');
-            if (tmp[0].Equals("WATER"))
+            else if (tmp[0].Equals("WATER"))
             {
-                if (tmp[1].Equals("true"))
-                {
-                    this.water = true;
-                }
-                else
-                {
-                    this.water = false;
-                }
+                this.water = true;
                 msg.RemoveAt(0);
             }
-            tmp = msg[0].Split(':');
-            if (tmp[0].Equals("WALL"))
+            else if (tmp[0].Equals("WALL"))
             {
-                if (tmp[1].Equals("true"))
-                {
-                    this.wall = true;
-                }
-                else
-                {
-                    this.wall = false;
-                }
+                this.wall = true;
                 msg.RemoveAt(0);
             }
-            if (!(tmp[0].Equals("end")) && ((tmp[1].Equals("props"))))
-            {
-                throw new Exception("No Property");
-            }
-
-            throw new Exception("No Property");
         }
     
         private void parseTime()
@@ -539,6 +516,7 @@ namespace Inf3Project
                 throw new Exception("There is no id");
             }
         }
+        
         private void parseOnline()
         {
             String[] tmp = msg[0].Split(':');
@@ -604,7 +582,6 @@ namespace Inf3Project
                 throw new Exception("No Result");
         }
 
-
         private void parseOpponent()
         {
             String[] tmp = msg[0].Split(':');
@@ -652,7 +629,6 @@ namespace Inf3Project
                 }
             }
         }
-
                 
         private void createPlayer()
         {
@@ -701,46 +677,45 @@ namespace Inf3Project
 
         private void createMap()
         {
-            if ((width > 0) && (height > 0)) { 
-            backend.getMap();
-            clearVars();
-        }
+            if ((m.width > 0) && (m.height > 0)) { 
+                backend.getMap();
+                clearVars();
+            }
         }
 
         private void clearVars()
         {
             //at this moment it only clears the variables of the Player
             //needs to be improoved to all vars
-            this.id = -1;
-            this.type = "";
-            this.busy = false;
-            this.desc = "";
-            this.x = -1;
-            this.y = -1;
-            this.points = -1;
-            this.id = -1;
-            this.points = -1;
-            this.width = -1;
-            this.height = -1;
-            this.row = -1;
-            this.col = -1;
-            this.walkable = false;
-            this.huntable = false;
-            this.forest = false;
-            this.water = false;
-            this.wall = false;
-            this.accepted = false;
-            this.delete = false;
-            this.ver = -1;
-            this.online = 0;
-           this.round= 0;
-        this.running = false;
-        this.delay= -1;
-        this.decision = "";
-        this.total = 0;
+            int id = -1;
+            String type = "";
+            bool busy = false;
+            String desc = "";
+            int x = -1;
+             this.y = -1;
+             this.points = -1;
+             this.width = -1;
+             this.height = -1;
+             this.row = -1;
+             this.col = -1;
+             this.walkable = false;
+             this.huntable = false;
+             this.forest = false;
+             this.water = false;
+             this.wall = false;
+             this.accepted = false;
+             this.delete = false;
+             this.ver = -1;
+             time = new DateTime();
+             this.yourId = -1;
+             this.online = -1;
+             this.round = 0;
+             this.running = false;
+             this.delay = -1;
+             this.decision = "";
+             this.total = 0;
+             this.mes = "";
         }
-
-
-      
+ 
     }
 }

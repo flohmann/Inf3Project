@@ -19,14 +19,14 @@ namespace Frontend
 
         public GUIManager(IBackend ba)
         {
-            
             this.ba = ba;
-            gui = new DefaultGui(ba);
-            initGUI();
+            //gui = new DefaultGui(ba);
+            //initGUI();
         }
 
         public void initGUI()
         {
+            gui = new DefaultGui(ba);
             GuiThread = new Thread(GUIThreadStarter);
             GuiThread.Name = "GUI Thread";
             GuiThread.Start();
@@ -60,14 +60,11 @@ namespace Frontend
         public void repaint()
         {
             gui.Invoke(gui.myDelegate);
-
         }
-
 
         internal void sendChatMessage(String sender, String text)
         {
             gui.appendChatMessage(sender, text);
-
         }
            
     }
