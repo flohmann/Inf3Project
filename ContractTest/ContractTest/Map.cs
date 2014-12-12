@@ -10,6 +10,7 @@ namespace Inf3Project
     public class Map
     {
         public MapCell[][] cells;
+        public MapCell cell;
         public int width;
         public int height;
 
@@ -27,6 +28,11 @@ namespace Inf3Project
         public void addCell(MapCell cell)
         {
             cells[cell.getXPosition()][cell.getYPosition()] = cell;
+        }
+
+        public MapCell[][] getCells()
+        {
+            return cells;
         }
     }
 }

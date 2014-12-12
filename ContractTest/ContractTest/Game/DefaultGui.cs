@@ -56,10 +56,21 @@ namespace Frontend
             this.chatInput.KeyPress += chat_KeyPress;
             this.board.KeyPress += board_KeyPress;
 
-            int map_XKoord = backend.getMap()[0].Length;
-            int map_YKoord = backend.getMap().Length;
+            int map_XKoord = backend.getTilesOfMap()[0].Length;
+            int map_YKoord = backend.getTilesOfMap().Length;
            
         }
+
+        protected override CreateParams CreateParams
+        {
+        	get 
+	        { 
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000; // Turn on ES_EX_COMPOSITED
+	    	    return cp;
+	        }
+        }
+        
 
         /// <summary>
         /// Handles keypresses the chatInput-field receives.
@@ -148,7 +159,7 @@ namespace Frontend
         private void board_PaintMap(object sender, System.Windows.Forms.PaintEventArgs e) {
           
                 Size tileSize = this.getTileSize();
-                ITile[][] cells = this.ba.getMap();
+                ITile[][] cells = this.ba.getTilesOfMap();
                 // validity checked beforehand in getTileSize
                 Debug.Assert(cells != null);
                 BufferedGraphics buffer = BufferedGraphicsManager.Current.Allocate(this.board.CreateGraphics(), this.board.DisplayRectangle);
@@ -286,7 +297,7 @@ namespace Frontend
         /// <returns>the size of one tile to fit the whole map on the board</returns>
         protected Size getTileSize()
         {
-            IPositionable[][] cells = this.ba.getMap();
+            IPositionable[][] cells = this.ba.getTilesOfMap();
             if (cells == null)
             {
                 throw new ArgumentNullException("backend returned null as map");

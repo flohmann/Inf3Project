@@ -27,7 +27,7 @@ namespace Frontend
         /// somehow be able to convert it into one.
         /// </summary>
         /// <returns>a 2d-array of ITiles, representing the map</returns>
-        ITile[][] getMap();
+        ITile[][] getTilesOfMap();
         /// <summary>
         /// Sends a command to the server (such as ask:mv:dwn)
         /// </summary>

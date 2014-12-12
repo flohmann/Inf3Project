@@ -9,6 +9,9 @@ using Inf3Project;
 using System.Threading;
 using System.Windows.Forms;
 
+
+
+
 namespace Frontend
 {
     /// <summary>
@@ -25,21 +28,24 @@ namespace Frontend
         private ITile[][] mapMemory;
         private ArrayList challenges;
         public GUIManager m;
-        private String chatMsg="";
-        private String commandMsg="";
-        private String receivedMsg="";
+        private String chatMsg = "";
+        private String commandMsg = "";
+        private String receivedMsg = "";
         private int yourId;
         private int online;
         private Map map;
+        private Pathfinder.FindBestPath p;
+        private bool[][] walkableMap;
         //private bool mapSave=true;
         private Connector connector;
-         
+
         public Backend(Connector con)
         {
             this.connector = con;
             players = new List<Player>();
             dragons = new List<Dragon>();
             //this.m = new GUIManager(this);
+            p = new Pathfinder.FindBestPath();
         }
 
         public void sendCommandToConnector(String command)
@@ -47,8 +53,13 @@ namespace Frontend
             //content here
         }
 
-        public void setMap(Map map){
+        public void setMap(Map map)
+        {
             this.map = map;
+        }
+        public Map getMap()
+        {
+            return map;
         }
 
         public void moveLeft()
@@ -81,7 +92,7 @@ namespace Frontend
                 m.repaint();
             }
         }
-        
+
         // delete the Player
         public void deletePlayer(Player p)
         {
@@ -93,7 +104,7 @@ namespace Frontend
                 }
                 else Console.WriteLine("Update");
             }
-                
+
 
         }
         //store the Dragon in a List and Update when the same Dragon appears
@@ -120,31 +131,35 @@ namespace Frontend
             }
 
         }
-   
+
+        // method send Comand from chatfield to Server 
+
         public void sendCommand(string command)
         {
             if (command != null || command.Length != 0)
             {
-           
+
                 this.connector.getSender().sendMessageToServer(command);
 
             }
             Console.WriteLine("received command " + command);
-            
+
         }
 
+        // 
         public String getCommand()
-        {       
-            return commandMsg;     
+        {
+            return commandMsg;
         }
-        
+
+        // send chatmessage from chatfield to server
         public void sendChat(String message)
         {
             if (message != null || message.Length != 0)
             {
                 this.connector.getSender().sendMessageToServer(message);
             }
-            Console.WriteLine("received chatmessage " + getChat() );
+            Console.WriteLine("received chatmessage " + getChat());
         }
 
         public String getChat()
@@ -156,12 +171,13 @@ namespace Frontend
         {
             m.sendChatMessage(name, text);
         }
-      
+
         public String getChatMsg()
         {
             return receivedMsg;
         }
 
+        
         public void giveTime(DateTime time)
         {
             Console.WriteLine("Time: ", time.ToString("hh:mm:ss.fff tt"));
@@ -177,7 +193,7 @@ namespace Frontend
             }
             return dragon;
         }
-        
+
         public List<IPositionable> getPlayers()
         {
             List<IPositionable> player = new List<IPositionable>();
@@ -211,11 +227,16 @@ namespace Frontend
 
         public ArrayList getChallenges()
         {
-           challenges = new ArrayList();
-           return challenges;
+            challenges = new ArrayList();
+            return challenges;
         }
 
-        public ITile[][] getMap()
+
+        /* 
+         * translate map into 2D ITile array and returns it
+         * initalize Gui
+        */
+        public ITile[][] getTilesOfMap()
         {
             if (firstTimeMap)
             {
@@ -235,32 +256,6 @@ namespace Frontend
                 }
             }
             this.mapMemory = iTileMap;
-
-            //if (mapSave)
-            //{
-            //    int size = 20;
-            //    // init
-            //    ITile[][] map = new ITile[size][];
-            //    for (int i = 0; i < size; i++)
-            //    {
-            //        map[i] = new ITile[size];
-            //    }
-            //    Random r = new Random();
-            //    for (int x = 0; x < size; x++)
-            //    {
-            //        for (int y = 0; y < size; y++)
-            //        {
-            //          List<MapCellAttribute> attr = new List<MapCellAttribute>();
-
-            //          attr.Add(MapCellAttribute.UNWALKABLE);
-
-            //            }
-            //            map[x][y] = new MapCell(x, y, attr);
-            //            this.mapMemory = map;
-            //            mapSave = false;
-            //        }
-            //    
-            //}
             if (firstTimeBoard)
             {
                 firstTimeBoard = false;
@@ -268,5 +263,60 @@ namespace Frontend
             }
             return mapMemory;
         }
+
+
+        /* 
+         * checks every cell of the map if its walkable (true, false) or not
+         * fills the bool 2D array "walkable" with this data
+        */
+        public void setWalkableMap()
+        {
+            this.walkableMap = new bool[map.getCells().Length][];
+            for (int i = 0; i < map.getCells().Length; i++)
+            {
+                walkableMap[i] = new bool[map.getCells()[i].Length];
+                for (int j = 0; j < map.getCells()[i].Length; j++)
+                {
+                    if (map.getCells()[i][j].isWalkable())
+                    {
+                        walkableMap[i][j] = true;
+                    }
+                    else
+                    {
+                        walkableMap[i][j] = false;
+                    }
+                }
+            }
+            // **
+            //to test the pathfinding, can be deleted if it works
+            MapCell[][] mc = map.getCells();
+            this.pathfinder(mc[2][2], mc[5][5]);
+            // **
+        }
+
+        public Boolean[][] getWalkableMap()
+        {
+            return walkableMap;
+        }
+
+        /*
+         * method to call "findPath" from dll 
+         * finds the best Path from start cell to end cell, which were given as parameters
+        */
+        public void pathfinder(MapCell start, MapCell end)
+        {
+             
+            Pathfinder.Tile[] bestPath = p.findPath(walkableMap, start.getXPosition(), start.getYPosition(), end.getXPosition(), end.getYPosition());
+            List<MapCell> cellList = new List<MapCell>();
+            if (bestPath != null)
+            {
+                for (int i = 0; i < bestPath.Length; i++)
+                {
+                    cellList.Add(this.getMap().getCells()[bestPath[i].x][bestPath[i].y]);
+                    // Console.WriteLine(„Pfad:: x:“ + bestPath[i].x + „ y:“ + bestPath[i].y);
+                }
+            }
+        }
+
     }
 }

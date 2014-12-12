@@ -45,19 +45,19 @@ namespace Inf3Project
         private DateTime time;
         private int yourId;
         private int online;
-        private int round= 0;
+        private int round = 0;
         private bool running = false;
-        private int delay= -1;
+        private int delay = -1;
         private String decision = "";
         private int total = 0;
         private String mes = "";
-        
+
         public Parser(Buffer buffer, Connector con)
         {
             this.connector = con;
             backend = new Backend(connector);
             this.buffer = buffer;
-            
+
             //create read thread and start it
             Thread readBufferThread = new Thread(new ThreadStart(readBuffer));
             readBufferThread.Start();
@@ -72,7 +72,7 @@ namespace Inf3Project
             {
                 tmpList.Add(tmp[i]);
             }
-                return tmpList;
+            return tmpList;
         }
 
         public void readBuffer()
@@ -104,21 +104,21 @@ namespace Inf3Project
                     msg.RemoveAt(msg.Count - 1);
 
                     getState();
-                } 
+                }
                 else
                 {
                     throw new System.FormatException("parser.removeFrame() - no end:x found");
                 }
-            } 
+            }
             else
             {
                 throw new System.FormatException("parser.removeFrame() - no begin:x found");
             }
         }
-        
+
         private void getState()
-        { 
-          //  delete the begin:upd and end:udp if existing
+        {
+            //  delete the begin:upd and end:udp if existing
             String[] tmp = msg[0].Split(':');
 
             if ((tmp[0].Equals("begin")) && (tmp[1].Equals("upd")))
@@ -143,8 +143,9 @@ namespace Inf3Project
                     getEBNF();
                 }
             }
-            else { 
-                getEBNF(); 
+            else
+            {
+                getEBNF();
             }
         }
 
@@ -251,7 +252,7 @@ namespace Inf3Project
                 }
             }
         }
-       
+
         public void parseEntity()
         {
             String[] tmp = msg[0].Split(':');
@@ -315,7 +316,7 @@ namespace Inf3Project
                 }
             }
         }
-       
+
         private void parseMap()
         {
             String[] tmp = msg[0].Split(':');
@@ -327,7 +328,7 @@ namespace Inf3Project
                 tmp = msg[0].Split(':');
                 if (tmp[0].Equals("height"))
                 {
-                    this.height =Int32.Parse(tmp[1]);
+                    this.height = Int32.Parse(tmp[1]);
                     //create new Map
                     m = new Map(width, height);
                     backend.setMap(m);
@@ -336,7 +337,8 @@ namespace Inf3Project
 
                     if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("cells"))))
                     {
-                        do{
+                        do
+                        {
                             msg.RemoveAt(0);
                             parseCells();
                             tmp = msg[0].Split(':');
@@ -345,6 +347,8 @@ namespace Inf3Project
                 }
             }
             createMap();
+            backend.setMap(m);
+            backend.setWalkableMap();
         }
 
         private void parseCells()
@@ -358,7 +362,7 @@ namespace Inf3Project
                 {
                     this.row = Int32.Parse(tmp[1]);
                     msg.RemoveAt(0);
-                     tmp = msg[0].Split(':');
+                    tmp = msg[0].Split(':');
                     if (tmp[0].Equals("col"))
                     {
                         this.col = Int32.Parse(tmp[1]);
@@ -377,7 +381,8 @@ namespace Inf3Project
                     }
                 }
             }
-            if(row >= 0 && col >= 0){
+            if (row >= 0 && col >= 0)
+            {
                 List<MapCellAttribute> attributes = new List<MapCellAttribute>();
                 if (walkable)
                 {
@@ -435,7 +440,7 @@ namespace Inf3Project
                 msg.RemoveAt(0);
             }
         }
-    
+
         private void parseTime()
         {
             String[] tmp = msg[0].Split(':');
@@ -488,11 +493,11 @@ namespace Inf3Project
                     if ((tmp[0].Equals("end")) && ((tmp[1].Equals("challenge"))))
                     {
                         msg.RemoveAt(0);
-                        
+
                     }
 
                 }
-                
+
             }
             throw new Exception("No Challenge");
         }
@@ -516,7 +521,7 @@ namespace Inf3Project
                 throw new Exception("There is no id");
             }
         }
-        
+
         private void parseOnline()
         {
             String[] tmp = msg[0].Split(':');
@@ -538,7 +543,7 @@ namespace Inf3Project
                 }
             }
         }
-        
+
         private void parseResult()
         {
             String[] tmp = msg[0].Split(':');
@@ -547,37 +552,39 @@ namespace Inf3Project
             {
                 this.round = Int32.Parse(tmp[1]);
                 msg.RemoveAt(0);
-		tmp = msg[0].Split(':');
-	    	if (tmp[0].Equals("running"))
-		{
-		  if (tmp[1].Equals("true"))
-               	  {
-                  this.running = true;
-                  }
-                  else
-                  {
-                  this.running = false;
-                  }
-		  msg.RemoveAt(0);
-                  tmp = msg[0].Split(':');
-		  if(tmp[0].Equals("delay")){
-			this.delay = Int32.Parse(tmp[1]);
-                	msg.RemoveAt(0);
-			tmp = msg[0].Split(':');		  
-			if((tmp[0].Equals("begin")) && (tmp[1].Equals("opponents"))){
-				parseOpponent();
-			}
+                tmp = msg[0].Split(':');
+                if (tmp[0].Equals("running"))
+                {
+                    if (tmp[1].Equals("true"))
+                    {
+                        this.running = true;
+                    }
+                    else
+                    {
+                        this.running = false;
+                    }
+                    msg.RemoveAt(0);
+                    tmp = msg[0].Split(':');
+                    if (tmp[0].Equals("delay"))
+                    {
+                        this.delay = Int32.Parse(tmp[1]);
+                        msg.RemoveAt(0);
+                        tmp = msg[0].Split(':');
+                        if ((tmp[0].Equals("begin")) && (tmp[1].Equals("opponents")))
+                        {
+                            parseOpponent();
+                        }
 
-                   if ((tmp[0].Equals("end")) && ((tmp[1].Equals("result"))))
-            {
-                clearVars();
+                        if ((tmp[0].Equals("end")) && ((tmp[1].Equals("result"))))
+                        {
+                            clearVars();
+                        }
+
+                        else { throw new Exception("No Result"); }
+
+                    }
+                }
             }
-
-            else {throw new Exception("No Result");}
-
-		  }	  
-		}
-	    }	
             else
                 throw new Exception("No Result");
         }
@@ -613,7 +620,7 @@ namespace Inf3Project
 
                                     Opponent o = new Opponent(id, decision, points, total);
                                     clearVars();
-                                    }
+                                }
                                 else
                                 {
                                     throw new Exception("NO OPPONENT");
@@ -629,7 +636,7 @@ namespace Inf3Project
                 }
             }
         }
-                
+
         private void createPlayer()
         {
             //used variables - int id, String type, bool busy, String desc, int x, int y, int points
@@ -647,7 +654,7 @@ namespace Inf3Project
                     clearVars();
                 }
 
-               
+
             }
         }
 
@@ -672,13 +679,14 @@ namespace Inf3Project
 
         private void createServer()
         {
-          
+
         }
 
         private void createMap()
         {
-            if ((m.width > 0) && (m.height > 0)) { 
-                backend.getMap();
+            if ((m.width > 0) && (m.height > 0))
+            {
+                backend.getTilesOfMap();
                 clearVars();
             }
         }
@@ -687,35 +695,35 @@ namespace Inf3Project
         {
             //at this moment it only clears the variables of the Player
             //needs to be improoved to all vars
-            int id = -1;
-            String type = "";
-            bool busy = false;
-            String desc = "";
-            int x = -1;
-             this.y = -1;
-             this.points = -1;
-             this.width = -1;
-             this.height = -1;
-             this.row = -1;
-             this.col = -1;
-             this.walkable = false;
-             this.huntable = false;
-             this.forest = false;
-             this.water = false;
-             this.wall = false;
-             this.accepted = false;
-             this.delete = false;
-             this.ver = -1;
-             time = new DateTime();
-             this.yourId = -1;
-             this.online = -1;
-             this.round = 0;
-             this.running = false;
-             this.delay = -1;
-             this.decision = "";
-             this.total = 0;
-             this.mes = "";
+            this.id = -1;
+            this.type = "";
+            this.busy = false;
+            this.desc = "";
+            this.x = -1;
+            this.y = -1;
+            this.points = -1;
+            this.width = -1;
+            this.height = -1;
+            this.row = -1;
+            this.col = -1;
+            this.walkable = false;
+            this.huntable = false;
+            this.forest = false;
+            this.water = false;
+            this.wall = false;
+            this.accepted = false;
+            this.delete = false;
+            this.ver = -1;
+            this.time = new DateTime();
+            this.yourId = -1;
+            this.online = -1;
+            this.round = 0;
+            this.running = false;
+            this.delay = -1;
+            this.decision = "";
+            this.total = 0;
+            this.mes = "";
         }
- 
+
     }
 }
