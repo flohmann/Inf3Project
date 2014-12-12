@@ -212,23 +212,23 @@ namespace Frontend
         /// <param name="height">height of the tile in pixels</param>
         protected void drawMapTile(Graphics g, ITile tile, int absX, int absY, int width, int height)
         {
+            //Color colour = Color.BurlyWood;
             
                 TextureBrush tb;
-
-                Bitmap mybitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\sand.jpg");
-                tb = new TextureBrush(mybitmap);
     
                 if (tile.isForest())
                 {
                     if (tile.isHuntable())
                     {
-                     
+                        //colour = Color.YellowGreen;
                         Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\grass.bmp");
                         tb = new TextureBrush(myBitmap);
                         g.FillRectangle(tb, absX, absY, width, height);
                     }
                     else
                     {
+                        //colour = Color.Green;
+
 
                         Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\forest.bmp");
                         tb = new TextureBrush(myBitmap);
@@ -237,22 +237,21 @@ namespace Frontend
                 }
                 else if (tile.isWater())
                 {
-                   
+                    //colour = Color.Blue;
                     Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\water.bmp");
                     tb = new TextureBrush(myBitmap);
                     g.FillRectangle(tb, absX, absY, width, height);
                 }
                 else if (!tile.isWalkable())
                 {
-                  
+                    //colour = Color.DimGray;
 
                     Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\cement.bmp");
                     tb = new TextureBrush(myBitmap);
                     g.FillRectangle(tb, absX, absY, width, height);
                 }
 
-                g.FillRectangle(tb, absX, absY, width, height);
-
+                //g.FillRectangle(new SolidBrush(colour), absX, absY, width, height);
                 g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), new Rectangle(absX, absY, width, height));
 
           
