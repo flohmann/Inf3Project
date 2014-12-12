@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "Node.h"
-
+using namespace std;
 	Node::Node(int x, int y)
 	{
 		this->x = x;

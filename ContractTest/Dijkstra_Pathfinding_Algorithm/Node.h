@@ -9,6 +9,9 @@ using namespace std;
 
 class Node
 {
+//typedef int  Link;
+
+
 public:
 
 
@@ -18,7 +21,7 @@ public:
 	int getX();
 	int getY();
 	int getSize();
-	void addLink(Link li);
+	void  addLink( Link li);
 	vector<Link>  getLinks();
 	vector<Node>  getNeighborNode();
 	~Node();

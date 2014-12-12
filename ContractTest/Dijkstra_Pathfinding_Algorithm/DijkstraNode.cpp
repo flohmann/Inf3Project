@@ -1,6 +1,7 @@
 #pragma once
 #include "DijkstraNode.h"
 #include "Node.h"
+using namespace std;
 
 DijkstraNode::DijkstraNode(int x, int y) : Node(x, y)
 {

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "DijkstraLink.h"
-
+using namespace std;
 //Constructors
 DijkstraLink::DijkstraLink(Node north, Node south, Node west, Node east)
 {

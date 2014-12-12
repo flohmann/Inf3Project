@@ -1,10 +1,11 @@
 #pragma once
 
-//#include "Node.h"
+#include "Node.h"
+using namespace std;
 //class Node;
 class Link
 {
-public:
+	public:
 	Node north;
 	Node south;
 	Node west;

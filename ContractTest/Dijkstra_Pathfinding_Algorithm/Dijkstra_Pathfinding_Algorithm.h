@@ -1,5 +1,5 @@
 #pragma once
-
+using namespace std;
 //Declaring DLL Interface
 extern "C"
 {

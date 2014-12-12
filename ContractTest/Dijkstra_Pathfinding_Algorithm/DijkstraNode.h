@@ -1,6 +1,6 @@
 #pragma once
 #include "Node.h"
-
+using namespace std;
 // construktor/destructor, methodes and attributes of DijktraNode
 class DijkstraNode : public Node
 {
