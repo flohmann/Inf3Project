@@ -34,7 +34,7 @@ namespace Frontend
         private int yourId;
         private int online;
         private Map map;
-        private Pathfinder.FindBestPath p;
+        //private Pathfinder.FindBestPath p;
         private bool[][] walkableMap;
         //private bool mapSave=true;
         private Connector connector;
@@ -45,7 +45,7 @@ namespace Frontend
             players = new List<Player>();
             dragons = new List<Dragon>();
             //this.m = new GUIManager(this);
-            p = new Pathfinder.FindBestPath();
+      //      p = new Pathfinder.FindBestPath();
         }
 
         public void sendCommandToConnector(String command)
@@ -290,7 +290,7 @@ namespace Frontend
             // **
             //to test the pathfinding, can be deleted if it works
             MapCell[][] mc = map.getCells();
-            this.pathfinder(mc[2][2], mc[5][5]);
+         //   this.pathfinder(mc[2][2], mc[5][5]);
             // **
         }
 
@@ -303,7 +303,7 @@ namespace Frontend
          * method to call "findPath" from dll 
          * finds the best Path from start cell to end cell, which were given as parameters
         */
-        public void pathfinder(MapCell start, MapCell end)
+     /* public void pathfinder(MapCell start, MapCell end)
         {
              
             Pathfinder.Tile[] bestPath = p.findPath(walkableMap, start.getXPosition(), start.getYPosition(), end.getXPosition(), end.getYPosition());
@@ -317,6 +317,6 @@ namespace Frontend
                 }
             }
         }
-
+        */
     }
 }

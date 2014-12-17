@@ -1,4 +1,9 @@
-//#include "stdafx.h"
+#include "stdafx.h"
+int main() {
+
+	return 0;
+}
+
 //#include "testClass.h"
 //#include "DijkstraGraph.h";
 //

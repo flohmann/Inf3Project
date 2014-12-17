@@ -1,6 +1,6 @@
 
 #pragma once
-
+#include "stdafx.h"
 #include <vector>
 #include "Graph.h"
 using namespace std;
@@ -37,12 +37,21 @@ int Graph::getAmount(){
 }
 
 Node Graph::getNode(int x, int y){
-	for (Node node : nodeList){
+	Node* n;
+	unsigned i = 0;
+	while (i < nodeList.size() && n == nullptr) {
+		if ((nodeList[i].getX() == x) && (nodeList[i].getY() == y)) {
+			n = &nodeList[i];
+		}
+	}
+	return *n;
+	/*for (Node node : nodeList){
 		if ((node.getX() == x) && (node.getY() == y)) {
 			return node;
 		}
 	}
-	return;
+	return ;*/
+	//
 }
 
 std::vector<Node> Graph::getNodes(){

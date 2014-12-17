@@ -1,4 +1,5 @@
 #pragma once
+#include "stdafx.h"
 #include "DijkstraNode.h"
 #include "Node.h"
 using namespace std;

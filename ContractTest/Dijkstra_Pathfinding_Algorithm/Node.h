@@ -1,4 +1,5 @@
-#include "DijkstraNode.h"
+#pragma once
+//#include "DijkstraNode.h"
 #include <vector>
 #include"Link.h"
 #include <stdio.h>
@@ -21,7 +22,7 @@ public:
 	int getX();
 	int getY();
 	int getSize();
-	void  addLink( Link li);
+	void  addLink( Link& li);
 	vector<Link>  getLinks();
 	vector<Node>  getNeighborNode();
 	~Node();

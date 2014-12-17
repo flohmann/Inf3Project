@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "Node.h"
+#include "stdafx.h"
 using namespace std;
 	Node::Node(int x, int y)
 	{
@@ -16,10 +17,10 @@ using namespace std;
 	}
 
 	int Node::getSize(){
-		return linkList.size;
+		return linkList.size();
 	}
 
-	void Node::addLink(Link li){
+	void Node::addLink(Link& li){
 		if (&li == nullptr){   // looking if the address(&) is null 
 			printf("invalid link");
 		}
@@ -33,16 +34,16 @@ using namespace std;
 
 	std::vector<Node> Node::getNeighborNode(){
 		std::vector<Link> links;
+		std::vector<Node> neighbor;
 		links = getLinks();
-		if (!links.empty) {
+		if (!links.empty()) {
 
-			std::vector<Node> neighbor;	
+			
 			for (Link l : links){
 				neighbor.push_back(l.getOppositeNeighbor(*this)); //pointer(*) on class itself
 			}
-			return neighbor;
 		}
-		return;
+		return neighbor; 
 	}
 
 

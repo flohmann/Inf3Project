@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dijkstra_Pathfinding_Algori
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pathfinder", "..\..\..\Users\Franziska Lohmann\Desktop\dll\dll\Pathfinder\Pathfinder.vcxproj", "{6A88FEB9-1027-45BF-8ABE-9378322FC0BE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Rosetta_Wegfindung", "Rosetta_Wegfindung\Rosetta_Wegfindung.vcxproj", "{86E872EE-067E-4F78-B14B-7ED91DC6D7B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,16 @@ Global
 		{6A88FEB9-1027-45BF-8ABE-9378322FC0BE}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{6A88FEB9-1027-45BF-8ABE-9378322FC0BE}.Release|Win32.ActiveCfg = Release|Win32
 		{6A88FEB9-1027-45BF-8ABE-9378322FC0BE}.Release|Win32.Build.0 = Release|Win32
+		{86E872EE-067E-4F78-B14B-7ED91DC6D7B2}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{86E872EE-067E-4F78-B14B-7ED91DC6D7B2}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{86E872EE-067E-4F78-B14B-7ED91DC6D7B2}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{86E872EE-067E-4F78-B14B-7ED91DC6D7B2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{86E872EE-067E-4F78-B14B-7ED91DC6D7B2}.Debug|Win32.Build.0 = Debug|Win32
+		{86E872EE-067E-4F78-B14B-7ED91DC6D7B2}.Release|Any CPU.ActiveCfg = Release|Win32
+		{86E872EE-067E-4F78-B14B-7ED91DC6D7B2}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{86E872EE-067E-4F78-B14B-7ED91DC6D7B2}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{86E872EE-067E-4F78-B14B-7ED91DC6D7B2}.Release|Win32.ActiveCfg = Release|Win32
+		{86E872EE-067E-4F78-B14B-7ED91DC6D7B2}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

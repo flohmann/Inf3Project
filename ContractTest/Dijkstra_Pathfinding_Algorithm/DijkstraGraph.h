@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "Graph.h"
+#include "DijkstraNode.h"
 
 using namespace std;
 
