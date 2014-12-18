@@ -349,6 +349,7 @@ namespace Inf3Project
             createMap();
             backend.setMap(m);
             backend.setWalkableMap();
+            backend.setWalkable1DMap();
         }
 
         private void parseCells()

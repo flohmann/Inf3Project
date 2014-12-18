@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTes
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dijkstra_Pathfinding_Algorithm", "Dijkstra_Pathfinding_Algorithm\Dijkstra_Pathfinding_Algorithm.vcxproj", "{83621A22-46AE-454B-B6B5-C69D8157250D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pathfinder", "..\..\..\Users\Franziska Lohmann\Desktop\dll\dll\Pathfinder\Pathfinder.vcxproj", "{6A88FEB9-1027-45BF-8ABE-9378322FC0BE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pathfinder_astar", "..\..\..\Users\Franziska Lohmann\Desktop\dll\dll\Pathfinder\Pathfinder.vcxproj", "{6A88FEB9-1027-45BF-8ABE-9378322FC0BE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dijkstra", "Dijkstra\Dijkstra.vcxproj", "{3C745847-35C0-4301-BAF4-7114D6028680}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,16 @@ Global
 		{6A88FEB9-1027-45BF-8ABE-9378322FC0BE}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{6A88FEB9-1027-45BF-8ABE-9378322FC0BE}.Release|Win32.ActiveCfg = Release|Win32
 		{6A88FEB9-1027-45BF-8ABE-9378322FC0BE}.Release|Win32.Build.0 = Release|Win32
+		{3C745847-35C0-4301-BAF4-7114D6028680}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{3C745847-35C0-4301-BAF4-7114D6028680}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{3C745847-35C0-4301-BAF4-7114D6028680}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{3C745847-35C0-4301-BAF4-7114D6028680}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3C745847-35C0-4301-BAF4-7114D6028680}.Debug|Win32.Build.0 = Debug|Win32
+		{3C745847-35C0-4301-BAF4-7114D6028680}.Release|Any CPU.ActiveCfg = Release|Win32
+		{3C745847-35C0-4301-BAF4-7114D6028680}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{3C745847-35C0-4301-BAF4-7114D6028680}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{3C745847-35C0-4301-BAF4-7114D6028680}.Release|Win32.ActiveCfg = Release|Win32
+		{3C745847-35C0-4301-BAF4-7114D6028680}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

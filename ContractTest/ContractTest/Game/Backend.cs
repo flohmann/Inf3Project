@@ -7,8 +7,7 @@ using System.Diagnostics.Contracts;
 using System.Collections;
 using Inf3Project;
 using System.Threading;
-using System.Windows.Forms;
-
+using System.Windows.Forms;using System.Runtime.InteropServices;
 
 
 
@@ -21,6 +20,12 @@ namespace Frontend
     /// </summary>
     public class Backend : IBackend
     {
+        [DllImport("Dijkstra", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void release_Array(IntPtr pArray);
+
+        [DllImport("Dijkstra", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr findPath(int from, int to, int[] map, int mapw, int maph, ref int pathlength);
+
         private bool firstTimeMap = true;
         private bool firstTimeBoard = true;
         private List<Player> players;
@@ -34,8 +39,8 @@ namespace Frontend
         private int yourId;
         private int online;
         private Map map;
-        private Pathfinder.FindBestPath p;
         private bool[][] walkableMap;
+        private int[] walkableMap1D;
         //private bool mapSave=true;
         private Connector connector;
 
@@ -45,7 +50,7 @@ namespace Frontend
             players = new List<Player>();
             dragons = new List<Dragon>();
             //this.m = new GUIManager(this);
-            p = new Pathfinder.FindBestPath();
+            
         }
 
         public void sendCommandToConnector(String command)
@@ -177,7 +182,7 @@ namespace Frontend
             return receivedMsg;
         }
 
-        
+
         public void giveTime(DateTime time)
         {
             Console.WriteLine("Time: ", time.ToString("hh:mm:ss.fff tt"));
@@ -287,11 +292,30 @@ namespace Frontend
                     }
                 }
             }
-            // **
-            //to test the pathfinding, can be deleted if it works
+        }
+
+        public void setWalkable1DMap()
+        {
+            walkableMap1D = new int[map.width * map.height];
+            int counter = 0;
+
+            for (int i=0; i < map.width; i++)
+            {
+                for (int j=0; j < map.height; j++)
+                {
+                    if (map.getCells()[i][j].isWalkable())
+                    {
+                        walkableMap1D[counter] = 1;
+                    }
+                    else
+                    {
+                        walkableMap1D[counter] = 0;
+                    }
+                    counter++;
+                }
+            }
             MapCell[][] mc = map.getCells();
             this.pathfinder(mc[2][2], mc[5][5]);
-            // **
         }
 
         public Boolean[][] getWalkableMap()
@@ -299,13 +323,18 @@ namespace Frontend
             return walkableMap;
         }
 
+        public int[] getWalkable1dMap()
+        {
+            return walkableMap1D;
+        }
+
         /*
          * method to call "findPath" from dll 
          * finds the best Path from start cell to end cell, which were given as parameters
         */
-        public void pathfinder(MapCell start, MapCell end)
+     /*   public void pathfinder(MapCell start, MapCell end)
         {
-             
+
             Pathfinder.Tile[] bestPath = p.findPath(walkableMap, start.getXPosition(), start.getYPosition(), end.getXPosition(), end.getYPosition());
             List<MapCell> cellList = new List<MapCell>();
             if (bestPath != null)
@@ -316,7 +345,21 @@ namespace Frontend
                     // Console.WriteLine(„Pfad:: x:“ + bestPath[i].x + „ y:“ + bestPath[i].y);
                 }
             }
-        }
+        }*/
 
+
+        public void pathfinder(MapCell start, MapCell end)
+        {
+            int begin = start.getYPosition() * map.width + start.getXPosition();
+            int goal = end.getYPosition() * map.width + end.getXPosition();
+            
+            int size = 0;
+            IntPtr ptr = findPath(begin, goal, getWalkable1dMap(), map.width, map.height, ref size);
+            int[] path = new int[size];
+            Marshal.Copy(ptr, path, 0, size);
+
+            release_Array(ptr);
+        }
     }
+
 }
