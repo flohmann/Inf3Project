@@ -146,7 +146,6 @@
     <Content Include="Resources\cement.bmp" />
     <Content Include="Resources\grass.bmp" />
     <Content Include="Resources\forest.BMP" />
-    <Content Include="Resources\sand.jpg" />
     <Content Include="Resources\water.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

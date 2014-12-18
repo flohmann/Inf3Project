@@ -1,5 +1,6 @@
 #pragma once
 
+#include"stdafx.h"
 #include <vector>
 #include "DijkstraGraph.h"
 #include "DijkstraLink.h"
@@ -24,19 +25,20 @@ std::vector<DijkstraNode> DijkstraGraph::getShortestPath(int xStart, int yStart,
 {
 
 	init();
+	vector<DijkstraNode> list;
 	DijkstraNode start = (DijkstraNode)getNode(xStart, yStart);
 	DijkstraNode end = (DijkstraNode)getNode(xEnd, yEnd);
 	if ((&start == NULL) || (&end == NULL))
 	{
-		return;
+		return list;
 	}
 	if (start == end)
 	{
-		return;
+		return list;
 	}
 
 	start.setDistance(0);
-	vector<DijkstraNode> list;
+	
 	for (Node n : getNodes())
 	{
 		list.push_back((DijkstraNode)n);
@@ -55,7 +57,7 @@ std::vector<DijkstraNode> DijkstraGraph::getShortestPath(int xStart, int yStart,
 				vector<DijkstraNode> selectedNode;
 				selected = &x;
 				selectedNode.push_back(*selected);
-				list.erase(selectedNode.begin, selectedNode.end);
+				list.erase(selectedNode.begin(), selectedNode.end());
 			}
 		}
 
@@ -63,7 +65,7 @@ std::vector<DijkstraNode> DijkstraGraph::getShortestPath(int xStart, int yStart,
 		{
 			DijkstraLink dlink = (DijkstraLink)l;
 			DijkstraNode dnode = (DijkstraNode)l.getOppositeNeighbor(*selected);
-			if (find(list.begin, list.end, selected)){
+			if (find(list.begin(), list.end(), selected) == list.end()){
 				if ((selected->getDistance() + dlink.getDistance() < dnode.getDistance()))
 				{
 					dnode.setDistance(selected->getDistance() + dlink.getDistance());
@@ -71,7 +73,7 @@ std::vector<DijkstraNode> DijkstraGraph::getShortestPath(int xStart, int yStart,
 				}
 			}
 		}
-	} while (list.size>0);
+	} while (list.size()>0);
 
 	std::vector<DijkstraNode> ending;
 	DijkstraNode x = end;

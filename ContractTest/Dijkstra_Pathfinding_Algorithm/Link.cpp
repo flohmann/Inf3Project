@@ -1,16 +1,17 @@
 #pragma once
 
+#include"stdafx.h"
 #include <vector>
 
 #include"Node.h"
 using namespace std;
 
-Link::Link(Node n, Node s, Node w, Node e)
+Link::Link(Node& n, Node& s, Node& w, Node& e) : north(n), south(s), west(w), east(e)
 {
-	north = n;
+	/*north = n;
 	south = s;
 	west = w;
-	east = e;
+	east = e;*/
 
 	n.addLink(*this);
 	s.addLink(*this);
@@ -18,7 +19,7 @@ Link::Link(Node n, Node s, Node w, Node e)
 	e.addLink(*this);
 }
 
-Node Link::getOppositeNeighbor(Node n){
+Node& Link::getOppositeNeighbor(Node& n){
 	if (north == n){
 		return south;
 	}
@@ -28,7 +29,8 @@ Node Link::getOppositeNeighbor(Node n){
 	if (east == n){
 		return west;
 	}
-	if (west == n){
+	//if (west == n){
+	else {
 		return east;
 	}
 }

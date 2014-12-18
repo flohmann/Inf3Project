@@ -1,11 +1,11 @@
 #pragma once
-
+#include "stdafx.h"
 #include "DijkstraLink.h"
-
+using namespace std;
 //Constructors
-DijkstraLink::DijkstraLink(Node north, Node south, Node west, Node east)
+DijkstraLink::DijkstraLink(Node north, Node south, Node west, Node east): Link(north, south, west, east)
 {
-	base:(north, south, west, east);
+
 }
 
 DijkstraLink::DijkstraLink(Node north, Node south, Node west, Node east, int distance)
