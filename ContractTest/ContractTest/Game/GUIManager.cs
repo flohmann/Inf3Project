@@ -66,6 +66,11 @@ namespace Frontend
         {
             gui.appendChatMessage(sender, text);
         }
+
+        public void setLock(bool locked)
+        {
+            gui.setLock(locked);
+        }
            
     }
 }

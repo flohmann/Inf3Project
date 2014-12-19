@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pathfinder", "..\..\..\Users\Franziska Lohmann\Desktop\dll\dll\Pathfinder\Pathfinder.vcxproj", "{6A88FEB9-1027-45BF-8ABE-9378322FC0BE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RosettaCode", "..\ContractTest\RosettaCode\RosettaCode.vcxproj", "{FDF8F56D-C975-49B8-ACDF-EFB936414452}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A88FEB9-1027-45BF-8ABE-9378322FC0BE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6A88FEB9-1027-45BF-8ABE-9378322FC0BE}.Debug|Win32.Build.0 = Debug|Win32
+		{6A88FEB9-1027-45BF-8ABE-9378322FC0BE}.Release|Win32.ActiveCfg = Release|Win32
+		{6A88FEB9-1027-45BF-8ABE-9378322FC0BE}.Release|Win32.Build.0 = Release|Win32
+		{FDF8F56D-C975-49B8-ACDF-EFB936414452}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FDF8F56D-C975-49B8-ACDF-EFB936414452}.Debug|Win32.Build.0 = Debug|Win32
+		{FDF8F56D-C975-49B8-ACDF-EFB936414452}.Release|Win32.ActiveCfg = Release|Win32
+		{FDF8F56D-C975-49B8-ACDF-EFB936414452}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

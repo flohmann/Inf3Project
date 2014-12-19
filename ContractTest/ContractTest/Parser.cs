@@ -51,6 +51,7 @@ namespace Inf3Project
         private String decision = "";
         private int total = 0;
         private String mes = "";
+        private bool playerCreated = false;
 
         public Parser(Buffer buffer, Connector con)
         {
@@ -301,8 +302,9 @@ namespace Inf3Project
                                         {
                                             this.points = Int32.Parse(tmp[1]);
                                             msg.RemoveAt(0);
-
+                                            
                                             createPlayer();
+
                                         }
                                     }
                                     else
@@ -349,6 +351,7 @@ namespace Inf3Project
             createMap();
             backend.setMap(m);
             backend.setWalkableMap();
+            backend.setWalkable1DMap();
         }
 
         private void parseCells()

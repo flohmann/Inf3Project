@@ -1,4 +1,6 @@
-﻿namespace Frontend
+﻿using System.Windows.Forms;
+
+namespace Frontend
 {
     partial class DefaultGui
     {
@@ -78,7 +80,10 @@
             this.Text = "Spiel";
             this.ResumeLayout(false);
             this.PerformLayout();
-
+            // 
+            // Mouse Events
+            // 
+            this.board.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Board_Click);
         }
 
         #endregion

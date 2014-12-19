@@ -51,5 +51,9 @@ namespace Frontend
         void moveRight();
         void moveDown();
         void moveUp();
+
+        MapCell getMapCell(int x, int y);
+        MapCell getMyPlayerPos();
+        void pathfinder(MapCell start, MapCell end);
     }
 }

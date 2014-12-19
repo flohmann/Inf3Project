@@ -7,10 +7,8 @@ using System.Diagnostics.Contracts;
 using System.Collections;
 using Inf3Project;
 using System.Threading;
-using System.Windows.Forms;
-
-
-
+using System.Windows.Forms;using System.Runtime.InteropServices;
+using Inf3Project.Observer;
 
 namespace Frontend
 {
@@ -21,6 +19,12 @@ namespace Frontend
     /// </summary>
     public class Backend : IBackend
     {
+        [DllImport("Dijkstra", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void release_Array(IntPtr pArray);
+
+        [DllImport("Dijkstra", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr findPath(int from, int to, int[] map, int mapw, int maph, ref int pathlength);
+
         private bool firstTimeMap = true;
         private bool firstTimeBoard = true;
         private List<Player> players;
@@ -34,18 +38,19 @@ namespace Frontend
         private int yourId;
         private int online;
         private Map map;
-        //private Pathfinder.FindBestPath p;
         private bool[][] walkableMap;
+        private int[] walkableMap1D;
         //private bool mapSave=true;
         private Connector connector;
-
+        private Pathwalker pathwalker;
+        
         public Backend(Connector con)
         {
             this.connector = con;
             players = new List<Player>();
             dragons = new List<Dragon>();
             //this.m = new GUIManager(this);
-      //      p = new Pathfinder.FindBestPath();
+            pathwalker = new Pathwalker();
         }
 
         public void sendCommandToConnector(String command)
@@ -87,6 +92,7 @@ namespace Frontend
         {
             deletePlayer(p);
             players.Add(p);
+
             if (!firstTimeMap)
             {
                 m.repaint();
@@ -177,7 +183,7 @@ namespace Frontend
             return receivedMsg;
         }
 
-        
+
         public void giveTime(DateTime time)
         {
             Console.WriteLine("Time: ", time.ToString("hh:mm:ss.fff tt"));
@@ -287,11 +293,30 @@ namespace Frontend
                     }
                 }
             }
-            // **
-            //to test the pathfinding, can be deleted if it works
-            MapCell[][] mc = map.getCells();
-         //   this.pathfinder(mc[2][2], mc[5][5]);
-            // **
+        }
+
+        public void setWalkable1DMap()
+        {
+            walkableMap1D = new int[map.width * map.height];
+            int counter = 0;
+
+            for (int i=0; i < map.width; i++)
+            {
+                for (int j=0; j < map.height; j++)
+                {
+                    if (map.getCells()[i][j].isWalkable())
+                    {
+                        walkableMap1D[counter] = 1;
+                    }
+                    else
+                    {
+                        walkableMap1D[counter] = 0;
+                    }
+                    counter++;
+                }
+            }
+          //  MapCell[][] mc = map.getCells();
+          //  this.pathfinder(mc[2][2], mc[5][5]);
         }
 
         public Boolean[][] getWalkableMap()
@@ -299,13 +324,15 @@ namespace Frontend
             return walkableMap;
         }
 
-        /*
-         * method to call "findPath" from dll 
-         * finds the best Path from start cell to end cell, which were given as parameters
-        */
-     /* public void pathfinder(MapCell start, MapCell end)
+        public int[] getWalkable1dMap()
         {
-             
+            return walkableMap1D;
+        }
+
+       
+     /*   public void pathfinder(MapCell start, MapCell end)
+        {
+
             Pathfinder.Tile[] bestPath = p.findPath(walkableMap, start.getXPosition(), start.getYPosition(), end.getXPosition(), end.getYPosition());
             List<MapCell> cellList = new List<MapCell>();
             if (bestPath != null)
@@ -316,7 +343,56 @@ namespace Frontend
                     // Console.WriteLine(„Pfad:: x:“ + bestPath[i].x + „ y:“ + bestPath[i].y);
                 }
             }
+        }*/
+
+        /*
+        * method to call "findPath" from dll 
+        * finds the best Path from start cell to end cell, which were given as parameters
+       */
+        public void pathfinder(MapCell start, MapCell end)
+        {
+            m.setLock(true);
+            int begin = start.getYPosition() * map.width + start.getXPosition();
+            int goal = end.getYPosition() * map.width + end.getXPosition();
+
+            int size = 0;
+            IntPtr ptr = findPath(begin, goal, getWalkable1dMap(), map.width, map.height, ref size);
+            
+            int[] path = new int[size];
+            Marshal.Copy(ptr, path, 0, size);
+
+            List<MapCell> cellList = new List<MapCell>();
+            foreach (int item in path)
+            {
+                Console.Write(item + " ");
+                cellList.Add(this.map.getCell(item % map.width, item / map.width));
+            }
+            Console.WriteLine();
+            // HAS TO BE IN THE METHOD OF WALKING THE PATH (WHEN ITS FINISHED)
+            m.setLock(false);
+            release_Array(ptr);
+
+            pathwalker.setCoordinates(cellList);
         }
-        */
+
+        public MapCell getMapCell(int x, int y)
+        {
+            return map.getCell(x, y);
+        }
+
+        public MapCell getMyPlayerPos()
+        {
+            //List<MapCellAttribute> attributes = new List<MapCellAttribute>();
+            //MapCell mp = new MapCell(-1, -1, attributes);
+            //foreach (Player p in players)
+            //{
+            //    if (p.getId() == getYourId()) {
+            //        mp = map.getCell(p.getXPosition(), p.getYPosition());
+            //    }
+            //}
+            //return mp;
+            return map.getCell(players[0].getXPosition(), players[0].getYPosition());
+        }
     }
+
 }
