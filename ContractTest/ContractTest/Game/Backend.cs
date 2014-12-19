@@ -8,8 +8,7 @@ using System.Collections;
 using Inf3Project;
 using System.Threading;
 using System.Windows.Forms;using System.Runtime.InteropServices;
-
-
+using Inf3Project.Observer;
 
 namespace Frontend
 {
@@ -43,14 +42,15 @@ namespace Frontend
         private int[] walkableMap1D;
         //private bool mapSave=true;
         private Connector connector;
-
+        private Pathwalker pathwalker;
+        
         public Backend(Connector con)
         {
             this.connector = con;
             players = new List<Player>();
             dragons = new List<Dragon>();
             //this.m = new GUIManager(this);
-            
+            pathwalker = new Pathwalker();
         }
 
         public void sendCommandToConnector(String command)
@@ -92,6 +92,7 @@ namespace Frontend
         {
             deletePlayer(p);
             players.Add(p);
+
             if (!firstTimeMap)
             {
                 m.repaint();
@@ -314,8 +315,8 @@ namespace Frontend
                     counter++;
                 }
             }
-            MapCell[][] mc = map.getCells();
-            this.pathfinder(mc[2][2], mc[5][5]);
+          //  MapCell[][] mc = map.getCells();
+          //  this.pathfinder(mc[2][2], mc[5][5]);
         }
 
         public Boolean[][] getWalkableMap()
@@ -328,10 +329,7 @@ namespace Frontend
             return walkableMap1D;
         }
 
-        /*
-         * method to call "findPath" from dll 
-         * finds the best Path from start cell to end cell, which were given as parameters
-        */
+       
      /*   public void pathfinder(MapCell start, MapCell end)
         {
 
@@ -347,18 +345,53 @@ namespace Frontend
             }
         }*/
 
-
+        /*
+        * method to call "findPath" from dll 
+        * finds the best Path from start cell to end cell, which were given as parameters
+       */
         public void pathfinder(MapCell start, MapCell end)
         {
+            m.setLock(true);
             int begin = start.getYPosition() * map.width + start.getXPosition();
             int goal = end.getYPosition() * map.width + end.getXPosition();
-            
+
             int size = 0;
             IntPtr ptr = findPath(begin, goal, getWalkable1dMap(), map.width, map.height, ref size);
+            
             int[] path = new int[size];
             Marshal.Copy(ptr, path, 0, size);
 
+            List<MapCell> cellList = new List<MapCell>();
+            foreach (int item in path)
+            {
+                Console.Write(item + " ");
+                cellList.Add(this.map.getCell(item % map.width, item / map.width));
+            }
+            Console.WriteLine();
+            // HAS TO BE IN THE METHOD OF WALKING THE PATH (WHEN ITS FINISHED)
+            m.setLock(false);
             release_Array(ptr);
+
+            pathwalker.setCoordinates(cellList);
+        }
+
+        public MapCell getMapCell(int x, int y)
+        {
+            return map.getCell(x, y);
+        }
+
+        public MapCell getMyPlayerPos()
+        {
+            //List<MapCellAttribute> attributes = new List<MapCellAttribute>();
+            //MapCell mp = new MapCell(-1, -1, attributes);
+            //foreach (Player p in players)
+            //{
+            //    if (p.getId() == getYourId()) {
+            //        mp = map.getCell(p.getXPosition(), p.getYPosition());
+            //    }
+            //}
+            //return mp;
+            return map.getCell(players[0].getXPosition(), players[0].getYPosition());
         }
     }
 

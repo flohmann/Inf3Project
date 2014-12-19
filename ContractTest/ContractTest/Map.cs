@@ -34,5 +34,22 @@ namespace Inf3Project
         {
             return cells;
         }
+
+        public MapCell getCell(int x, int y)
+        {
+            List<MapCellAttribute> attributes = new List<MapCellAttribute>();
+            MapCell mp = new MapCell(-1,-1, attributes);
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    if (cells[i][j].getXPosition() == x && cells[i][j].getYPosition() == y)
+                    {
+                        mp = cells[i][j];
+                    }
+                }
+            }
+            return mp;
+        }
     }
 }

@@ -37,7 +37,7 @@ namespace Frontend
         private Int32 yPos;
         public delegate void AddListItem();
         public AddListItem myDelegate;
- 
+        public bool isLocked = false;
 
         public DefaultGui(IBackend backend) : base()
         {
@@ -54,13 +54,18 @@ namespace Frontend
             this.board.Paint += board_PaintMap;
             this.board.Paint += board_PaintEntities;
             this.chatInput.KeyPress += chat_KeyPress;
-            this.board.KeyPress += board_KeyPress;
+            this.board.KeyPress += board_KeyPress; 
 
             int map_XKoord = backend.getTilesOfMap()[0].Length;
             int map_YKoord = backend.getTilesOfMap().Length;
            
         }
 
+        public void setLock(bool locked)
+        {
+            this.isLocked = locked;
+
+        }
         protected override CreateParams CreateParams
         {
         	get 
@@ -87,7 +92,24 @@ namespace Frontend
             this.board.Refresh();
           
             
-        }        
+        }
+
+        private void Board_Click(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Size tileSize = this.getTileSize();
+                int x = e.Location.X / tileSize.Width;
+                int y = e.Location.Y / tileSize.Height;
+
+                ba.sendCommand("get:myid");
+
+                MapCell target = this.ba.getMapCell(x, y);
+                Console.WriteLine(target.isWalkable());
+                this.ba.pathfinder(this.ba.getMyPlayerPos(), target);
+                //this.ba.pathfinder(this.ba.getMapCell(2, 2), this.ba.getMapCell(5, 5));
+            }
+        } 
 
         private void chat_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
@@ -126,28 +148,35 @@ namespace Frontend
         /// <param name="e"></param>
         private void board_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
-            // fall-through-cases for capital letters
-            switch (e.KeyChar)
+            if (isLocked == false)
             {
-                case (char)Keys.Enter:
-                    this.chatInput.Focus();
-                    break;
-                case 'a':
-                case 'A':
-                    this.ba.moveLeft();
-                    break;
-                case 'd':
-                case 'D':
-                    this.ba.moveRight();
-                    break;
-                case 'w':
-                case 'W':
-                    this.ba.moveUp();
-                    break;
-                case 's':
-                case 'S':
-                    this.ba.moveDown();
-                    break;
+                // fall-through-cases for capital letters
+                switch (e.KeyChar)
+                {
+                    case (char)Keys.Enter:
+                        this.chatInput.Focus();
+                        break;
+                    case 'a':
+                    case 'A':
+                        this.ba.moveLeft();
+                        break;
+                    case 'd':
+                    case 'D':
+                        this.ba.moveRight();
+                        break;
+                    case 'w':
+                    case 'W':
+                        this.ba.moveUp();
+                        break;
+                    case 's':
+                    case 'S':
+                        this.ba.moveDown();
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Pathwalking is currently finding path");
             }
         }
 
