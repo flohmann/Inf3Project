@@ -153,6 +153,10 @@
       <Project>{6a88feb9-1027-45bf-8abe-9378322fc0be}</Project>
       <Name>Pathfinder</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UnitTestProject1\UnitTestProject1.csproj">
+      <Project>{8b1e846e-1c5a-44c7-b9de-2caf1e483efc}</Project>
+      <Name>UnitTestProject1</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
