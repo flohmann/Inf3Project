@@ -6,12 +6,13 @@ using System.Windows.Forms;
 using Frontend;
 using System.Threading;
 using Inf3Project;
+using Inf3Project.Observer;
 
 
 
 namespace Frontend
 {
-    public class GUIManager
+    public class GUIManager: IPlayerObserver
     {
         public DefaultGui gui;
         private IBackend ba;
@@ -71,6 +72,20 @@ namespace Frontend
         {
             gui.setLock(locked);
         }
-           
+
+
+        public void OnChangePoints(Player p, int point)
+        {
+        }
+
+        public void OnChangePosition(Player p, int x, int y)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnBusy(Player p, bool busy)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

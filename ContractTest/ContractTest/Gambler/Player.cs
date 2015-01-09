@@ -8,7 +8,7 @@ using Inf3Project.Observer;
 
 namespace Inf3Project
 {
-    public class Player : Entity
+    public class Player : Entity, IMyObservable<IPlayerObserver>
     {
         private int points;
 
@@ -27,6 +27,21 @@ namespace Inf3Project
         public void setPoints(int points)
         {
             this.points = points;
+        }
+
+        public void addPoint(int amount)
+        {
+        if(amount !=0){
+            this.points += amount;
+            foreach(IPlayerObserver po in getObservers()){
+
+            }
+        }
+        }
+
+        List<IObserver<IPlayerObserver>> getObservers()
+        {
+            return null;
         }
     }
 }

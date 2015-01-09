@@ -43,7 +43,7 @@ namespace Frontend
         //private bool mapSave=true;
         private Connector connector;
         private Pathwalker pathwalker;
-        
+
         public Backend(Connector con)
         {
             this.connector = con;
@@ -300,9 +300,9 @@ namespace Frontend
             walkableMap1D = new int[map.width * map.height];
             int counter = 0;
 
-            for (int i=0; i < map.width; i++)
+            for (int i = 0; i < map.width; i++)
             {
-                for (int j=0; j < map.height; j++)
+                for (int j = 0; j < map.height; j++)
                 {
                     if (map.getCells()[i][j].isWalkable())
                     {
@@ -315,8 +315,8 @@ namespace Frontend
                     counter++;
                 }
             }
-          //  MapCell[][] mc = map.getCells();
-          //  this.pathfinder(mc[2][2], mc[5][5]);
+            //  MapCell[][] mc = map.getCells();
+            //  this.pathfinder(mc[2][2], mc[5][5]);
         }
 
         public Boolean[][] getWalkableMap()
@@ -329,21 +329,21 @@ namespace Frontend
             return walkableMap1D;
         }
 
-       
-     /*   public void pathfinder(MapCell start, MapCell end)
-        {
 
-            Pathfinder.Tile[] bestPath = p.findPath(walkableMap, start.getXPosition(), start.getYPosition(), end.getXPosition(), end.getYPosition());
-            List<MapCell> cellList = new List<MapCell>();
-            if (bestPath != null)
-            {
-                for (int i = 0; i < bestPath.Length; i++)
-                {
-                    cellList.Add(this.getMap().getCells()[bestPath[i].x][bestPath[i].y]);
-                    // Console.WriteLine(„Pfad:: x:“ + bestPath[i].x + „ y:“ + bestPath[i].y);
-                }
-            }
-        }*/
+        /*   public void pathfinder(MapCell start, MapCell end)
+           {
+
+               Pathfinder.Tile[] bestPath = p.findPath(walkableMap, start.getXPosition(), start.getYPosition(), end.getXPosition(), end.getYPosition());
+               List<MapCell> cellList = new List<MapCell>();
+               if (bestPath != null)
+               {
+                   for (int i = 0; i < bestPath.Length; i++)
+                   {
+                       cellList.Add(this.getMap().getCells()[bestPath[i].x][bestPath[i].y]);
+                       // Console.WriteLine(„Pfad:: x:“ + bestPath[i].x + „ y:“ + bestPath[i].y);
+                   }
+               }
+           }*/
 
         /*
         * method to call "findPath" from dll 
@@ -357,7 +357,7 @@ namespace Frontend
 
             int size = 0;
             IntPtr ptr = findPath(begin, goal, getWalkable1dMap(), map.width, map.height, ref size);
-            
+
             int[] path = new int[size];
             Marshal.Copy(ptr, path, 0, size);
 
@@ -394,5 +394,4 @@ namespace Frontend
             return map.getCell(players[0].getXPosition(), players[0].getYPosition());
         }
     }
-
 }

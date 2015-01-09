@@ -108,7 +108,9 @@
     <Compile Include="Enum\eDragonhunt.cs" />
     <Compile Include="Enum\eStagehunt.cs" />
     <Compile Include="Enum\eSkirmish.cs" />
-    <Compile Include="Observer\Observable.cs" />
+    <Compile Include="Observer\IObserver.cs" />
+    <Compile Include="Observer\IPlayerObserver.cs" />
+    <Compile Include="Observer\IMyObservable.cs" />
     <Compile Include="Observer\Pathwalker.cs" />
     <Compile Include="TCP\Connector.cs" />
     <Compile Include="Game\DefaultGui.cs">
