@@ -10,10 +10,7 @@ namespace Inf3Project.Observer
     public interface IMyObservable <T> where T: IObserver // #where man kann T beschränken, LÖSCHEN
     {
         //List of listening Observers
-        public List<IObserver<T>> getObservers();
-            
-
-        
+        public List<IObserver<T>> getObservers();  
         
         }
     }
