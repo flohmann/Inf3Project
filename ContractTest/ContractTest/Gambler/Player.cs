@@ -39,6 +39,19 @@ namespace Inf3Project
         }
         }
 
+        public void positionChange(int i, int j)
+        {
+            if (this != null)
+            {
+                this.x = i;
+                this.y = j;
+                foreach (IPlayerObserver po in getObservers())
+                {
+                    po.OnChangePosition(this, this.x, this.y);
+                }
+            }
+        }
+
         List<IObserver<IPlayerObserver>> getObservers()
         {
             return null;

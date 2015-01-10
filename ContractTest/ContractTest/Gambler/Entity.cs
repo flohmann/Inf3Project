@@ -8,7 +8,7 @@ namespace Frontend
 {
     public class Entity : IPositionable
     {
-        private int x, y;
+        public int x, y;
         private int id;
         private String type;
         private String desc;
