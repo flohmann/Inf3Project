@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Frontend
+namespace Inf3Project
 {
     /// <summary>
     /// Interface that should be implemented by your class that represents one field in the grid.

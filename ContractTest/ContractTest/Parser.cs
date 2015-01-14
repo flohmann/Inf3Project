@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 using System.Collections;
 using Inf3Project;
-using Frontend;
+using Inf3Project;
 using System.Threading;
 
 namespace Inf3Project
