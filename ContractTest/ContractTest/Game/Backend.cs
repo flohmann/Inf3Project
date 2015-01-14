@@ -60,7 +60,7 @@ namespace Inf3Project
 
         public List<Player> quicksortIdSearch()
         {
-            return new Quicksort<Player>().sort(players, 0, (players.Count() - 1), (c1, c2) => c1.getId().CompareTo(c2.getId()));      
+            return new Quicksort<Player>().sort(players, 0, (players.Count() - 1), (c1, c2) => c1.getId().CompareTo(c2.getId()));
         }
 
 
@@ -404,6 +404,37 @@ namespace Inf3Project
             //}
             //return mp;
             return map.getCell(players[0].getXPosition(), players[0].getYPosition());
+        }
+
+
+
+
+        //Quicksort ID
+        public List<Player> quicksortId()
+        {
+            return new Quicksort<Player>().sort(players, 0, (players.Count() - 1), (c1, c2) => c1.getId().CompareTo(c2.getId()));
+        }
+
+        //Quicksort Name
+
+        public List<Player> quicksortName()
+        {
+            
+            return new Quicksort<Player>().sort(players, 0, (players.Count - 1), (c1, c2) => c1.getDesc().CompareTo(c2.getDesc()));
+        }
+
+        // LIEARSEARCH BUSY
+        public Player linearSearchBusy()
+        {
+            
+             return new LinearSearch<Player>().find(players, (i) => i.getBusy() == false); //!i.getBusy()ohne das false
+        }
+
+        // LIEARSEARCH NAME
+        public Player linearSearchName(String searchName)
+        {
+           
+            return new LinearSearch<Player>().find(players, (i) => i.getDesc().Equals(searchName));
         }
     }
 }
