@@ -7,8 +7,12 @@ using System.Diagnostics.Contracts;
 using System.Collections;
 using Inf3Project;
 using System.Threading;
-using System.Windows.Forms;using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using System.Runtime.InteropServices;
 using Inf3Project.Observer;
+using Inf3Project.Game;
+
+
 
 namespace Frontend
 {
@@ -52,6 +56,13 @@ namespace Frontend
             //this.m = new GUIManager(this);
             pathwalker = new Pathwalker();
         }
+
+        public List<Player> quicksortIdSearch()
+        {
+            return new Quicksort<Player>().sort(players, 0, (players.Count() - 1), (c1, c2) => c1.id.CompareTo(c2.id));      
+        }
+
+
 
         public void sendCommandToConnector(String command)
         {

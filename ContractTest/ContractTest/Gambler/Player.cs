@@ -11,6 +11,8 @@ namespace Inf3Project
     public class Player : Entity, IMyObservable<IPlayerObserver>
     {
         private int points;
+        private Boolean busy;
+        public int id;
 
         public Player(int id, int x, int y, String type, int points, String desc, Boolean isBusy)
             : base(id, x, y, type)
@@ -18,6 +20,15 @@ namespace Inf3Project
             setPoints(points);
             setBusy(isBusy);
             setDesc(desc);
+            setId(id);
+        }
+        public int getId()
+        {
+            return points;
+        }
+        public void setId(int id)
+        {
+            this.id = id;
         }
 
         public int getPoints()
@@ -34,7 +45,7 @@ namespace Inf3Project
         if(amount !=0){
             this.points += amount;
             foreach(IPlayerObserver po in getObservers()){
-
+                po.OnChangePoints(this, this.points);
             }
         }
         }
@@ -54,7 +65,19 @@ namespace Inf3Project
 
         List<IObserver<IPlayerObserver>> getObservers()
         {
-            return null;
+            List<IObserver<IPlayerObserver>> pl = new List<IObserver<IPlayerObserver>>();
+            return pl;
+        }
+
+        public void busyTest(bool busy)
+        {
+            if (busy)
+            {
+                foreach(IPlayerObserver po in getObservers())
+                {
+                    po.OnBusy(this, this.busy);
+                }
+            }
         }
     }
 }
