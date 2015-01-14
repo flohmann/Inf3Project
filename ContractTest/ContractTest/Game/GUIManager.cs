@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Frontend;
+using Inf3Project;
 using System.Threading;
 using Inf3Project;
 using Inf3Project.Observer;
 
 
 
-namespace Frontend
+namespace Inf3Project
 {
     public class GUIManager: IPlayerObserver
     {

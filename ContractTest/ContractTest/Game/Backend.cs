@@ -14,7 +14,8 @@ using Inf3Project.Game;
 
 
 
-namespace Frontend
+
+namespace Inf3Project
 {
     /// <summary>
     /// All classes in the test-directory are just classes to illustrate the concept of the frontend and its interfaces.
@@ -59,7 +60,7 @@ namespace Frontend
 
         public List<Player> quicksortIdSearch()
         {
-            return new Quicksort<Player>().sort(players, 0, (players.Count() - 1), (c1, c2) => c1.id.CompareTo(c2.id));      
+            return new Quicksort<Player>().sort(players, 0, (players.Count() - 1), (c1, c2) => c1.getId().CompareTo(c2.getId()));      
         }
 
 

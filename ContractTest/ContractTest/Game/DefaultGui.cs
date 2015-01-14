@@ -14,7 +14,7 @@ using System.Collections;
 using Inf3Project;
 using System.Threading;
 
-namespace Frontend
+namespace Inf3Project
 {
     /// <summary>
     /// This is a very, very basic GUI. It communicates with any IBackend, takes the map and existing entities and renders them in a generic fashion.

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 
-namespace Frontend
+namespace Inf3Project
 {
     /// <summary>
     /// Interface that should be implemented by the class that represents your backend.

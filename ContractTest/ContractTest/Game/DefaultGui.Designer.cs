@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace Frontend
+namespace Inf3Project
 {
     partial class DefaultGui
     {

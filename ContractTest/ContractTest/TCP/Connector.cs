@@ -9,7 +9,7 @@ using Inf3Project;
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
-using Frontend;
+using Inf3Project;
 
 namespace Inf3Project
 {

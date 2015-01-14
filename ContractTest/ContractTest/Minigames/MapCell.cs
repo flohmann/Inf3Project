@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Frontend
+namespace Inf3Project
 {
     public class MapCell : ITile
     {
