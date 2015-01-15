@@ -48,6 +48,7 @@ namespace Inf3Project
         //private bool mapSave=true;
         private Connector connector;
         private Pathwalker pathwalker;
+        private Player myPlayer;
 
         public Backend(Connector con)
         {
@@ -58,12 +59,8 @@ namespace Inf3Project
             pathwalker = new Pathwalker();
         }
 
-        public List<Player> quicksortIdSearch()
-        {
-            return new Quicksort<Player>().sort(players, 0, (players.Count() - 1), (c1, c2) => c1.getId().CompareTo(c2.getId()));
-        }
 
-
+        
 
         public void sendCommandToConnector(String command)
         {
@@ -406,35 +403,70 @@ namespace Inf3Project
             return map.getCell(players[0].getXPosition(), players[0].getYPosition());
         }
 
-
-
-
-        //Quicksort ID
+        //Quicksort id
         public List<Player> quicksortId()
         {
             return new Quicksort<Player>().sort(players, 0, (players.Count() - 1), (c1, c2) => c1.getId().CompareTo(c2.getId()));
         }
 
-        //Quicksort Name
+        //Quicksort name
 
         public List<Player> quicksortName()
         {
-            
-            return new Quicksort<Player>().sort(players, 0, (players.Count - 1), (c1, c2) => c1.getDesc().CompareTo(c2.getDesc()));
+            return new Quicksort<Player>().sort(players, 0, (players.Count() - 1), (c1, c2) => c1.getDesc().CompareTo(c2.getDesc()));
         }
 
-        // LIEARSEARCH BUSY
+        //Quicksort point
+        public List<Player> quicksortPoints()
+        {
+            return new Quicksort<Player>().sort(players,0,(players.Count()-1),(c1,c2) => c1.getPoints().CompareTo(c2.getPoints()));
+        }
+        // Linearsearch busy
         public Player linearSearchBusy()
         {
-            
-             return new LinearSearch<Player>().find(players, (i) => i.getBusy() == false); //!i.getBusy()ohne das false
+             return new LinearSearch<Player>().find(players, (i) => !i.getBusy());
         }
 
-        // LIEARSEARCH NAME
+        // Linearsearch name
         public Player linearSearchName(String searchName)
         {
-           
             return new LinearSearch<Player>().find(players, (i) => i.getDesc().Equals(searchName));
+        }
+
+        //Linearsearch distance
+        public Player distance(int distance)
+        {
+            List<Player> pl = new List<Player>(players);
+            for (int i = 0; i < pl.Count; i++)
+            {
+                if (pl[i].getId() == yourId)
+                {
+                   myPlayer = pl[i];
+                    pl.RemoveAt(i);
+                }
+            }
+            return new LinearSearch<Player>().find(pl, (i) =>(Math.Abs(myPlayer.x - i.x) - Math.Abs(myPlayer.y - i.y)) <= distance);
+
+        }
+
+        // Binarysearch id
+        public Player binarySearchId(int searchId)
+        {
+            players = quicksortId();
+            return new BinarySearch<Player>().find(players, (i) => i.getId().CompareTo(searchId));
+        }
+
+        //Binarysearch name
+        public Player binarySearchName(String searchName)
+        {
+          return new BinarySearch<Player>().find(players, (i) => i.getDesc().CompareTo(searchName));
+        }
+
+        //Binarysearch points
+        public Player binarySearchPoints(int searchPoints)
+        {
+          players = quicksortPoints();
+          return new BinarySearch<Player>().find(players, (i) => i.getPoints().CompareTo(searchPoints));
         }
     }
 }

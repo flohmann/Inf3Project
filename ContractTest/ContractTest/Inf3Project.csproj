@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buffer.cs" />
+    <Compile Include="Game\BinarySearch.cs" />
     <Compile Include="Game\LinearSearch.cs" />
     <Compile Include="Game\Quicksort.cs" />
     <Compile Include="Minigames\Challenge.cs" />

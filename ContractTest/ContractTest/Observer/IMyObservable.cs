@@ -7,7 +7,7 @@ using Inf3Project;
 
 namespace Inf3Project.Observer
 {
-    public interface IMyObservable <T> where T: IObserver // #where man kann T beschränken, LÖSCHEN
+    public interface IMyObservable <T> where T: IObserver
     {
         //List of listening Observers
         public List<IObserver<T>> getObservers();  
