@@ -436,16 +436,16 @@ namespace Inf3Project
         //Linearsearch distance
         public Player distance(int distance)
         {
-            List<Player> pl = new List<Player>(players);
-            for (int i = 0; i < pl.Count; i++)
+            List<Player> copyPlayers = new List<Player>(players);
+            for (int i = 0; i < copyPlayers.Count; i++)
             {
-                if (pl[i].getId() == yourId)
+                if (copyPlayers[i].getId() == yourId)
                 {
-                   myPlayer = pl[i];
-                    pl.RemoveAt(i);
+                   myPlayer = copyPlayers[i];
+                    copyPlayers.RemoveAt(i);
                 }
             }
-            return new LinearSearch<Player>().find(pl, (i) =>(Math.Abs(myPlayer.x - i.x) - Math.Abs(myPlayer.y - i.y)) <= distance);
+            return new LinearSearch<Player>().find(copyPlayers, (i) =>(Math.Abs(myPlayer.x - i.x) + Math.Abs(myPlayer.y - i.y)) <= distance);
 
         }
 
