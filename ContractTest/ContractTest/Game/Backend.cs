@@ -410,7 +410,6 @@ namespace Inf3Project
         }
 
         //Quicksort name
-
         public List<Player> quicksortName()
         {
             return new Quicksort<Player>().sort(players, 0, (players.Count() - 1), (c1, c2) => c1.getDesc().CompareTo(c2.getDesc()));
@@ -434,7 +433,7 @@ namespace Inf3Project
         }
 
         //Linearsearch distance
-        public Player distance(int distance)
+        public Player distance(int maxDistance)
         {
             List<Player> copyPlayers = new List<Player>(players);
             for (int i = 0; i < copyPlayers.Count; i++)
@@ -445,7 +444,7 @@ namespace Inf3Project
                     copyPlayers.RemoveAt(i);
                 }
             }
-            return new LinearSearch<Player>().find(copyPlayers, (i) =>(Math.Abs(myPlayer.x - i.x) + Math.Abs(myPlayer.y - i.y)) <= distance);
+            return new LinearSearch<Player>().find(copyPlayers, (i) =>(Math.Abs(myPlayer.x - i.x) + Math.Abs(myPlayer.y - i.y)) <= maxDistance);
 
         }
 
