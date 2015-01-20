@@ -7,17 +7,30 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Inf3Project.Game;
 
 
 namespace Inf3Project
 {
     class Program
     {
+        private static Login loginGui;
+        private static Thread GuiThread;
+
         static void Main(string[] args)
         {
-            Connector connector = new Connector("127.0.0.1", 666);            
+            loginGui = new Login();
+            GuiThread = new Thread(GUIThreadStarter);
+            GuiThread.Name = "GUI Thread";
+            GuiThread.Start();            
         }
 
+        public static void GUIThreadStarter()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(true);
+            Application.Run(loginGui);
+
+        }
     }
 }

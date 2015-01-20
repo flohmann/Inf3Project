@@ -27,6 +27,7 @@ namespace Inf3Project
 
         public void initGUI()
         {
+
             gui = new DefaultGui(ba);
             GuiThread = new Thread(GUIThreadStarter);
             GuiThread.Name = "GUI Thread";
