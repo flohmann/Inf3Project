@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using Inf3Project;
 using System.Threading;
-using Inf3Project;
+
 using Inf3Project.Observer;
 
 

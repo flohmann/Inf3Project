@@ -1,6 +1,4 @@
-﻿using Inf3Project;
-using Inf3Project;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
