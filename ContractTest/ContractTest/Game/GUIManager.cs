@@ -39,7 +39,6 @@ namespace Inf3Project
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(true);
             Application.Run(gui);
-
         }
 
         public String getCommand()
@@ -51,12 +50,6 @@ namespace Inf3Project
         {
             return ba.getChat();
         }
-
-        //public void sendChatMessage(String sender, String message)
-        //{
-        //    ba.setChatMsg(sender + ": " + message + "\r\n");
-        //    //gui.sendChatMessage();
-        //}
 
         public void repaint()
         {
@@ -72,7 +65,6 @@ namespace Inf3Project
         {
             gui.setLock(locked);
         }
-
 
         public void OnChangePoints(Player p, int point)
         {

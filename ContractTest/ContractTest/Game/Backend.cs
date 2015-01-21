@@ -10,9 +10,6 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using Inf3Project.Observer;
-using Inf3Project.Game;
-
-
 
 
 namespace Inf3Project
@@ -59,8 +56,6 @@ namespace Inf3Project
             pathwalker = new Pathwalker();
         }
 
-
-        
 
         public void sendCommandToConnector(String command)
         {
@@ -401,71 +396,6 @@ namespace Inf3Project
             //}
             //return mp;
             return map.getCell(players[0].getXPosition(), players[0].getYPosition());
-        }
-
-        //Quicksort id
-        public List<Player> quicksortId()
-        {
-            return new Quicksort<Player>().sort(players, 0, (players.Count() - 1), (c1, c2) => c1.getId().CompareTo(c2.getId()));
-        }
-
-        //Quicksort name
-        public List<Player> quicksortName()
-        {
-            return new Quicksort<Player>().sort(players, 0, (players.Count() - 1), (c1, c2) => c1.getDesc().CompareTo(c2.getDesc()));
-        }
-
-        //Quicksort point
-        public List<Player> quicksortPoints()
-        {
-            return new Quicksort<Player>().sort(players,0,(players.Count()-1),(c1,c2) => c1.getPoints().CompareTo(c2.getPoints()));
-        }
-        // Linearsearch busy
-        public Player linearSearchBusy()
-        {
-             return new LinearSearch<Player>().find(players, (i) => !i.getBusy());
-        }
-
-        // Linearsearch name
-        public Player linearSearchName(String searchName)
-        {
-            return new LinearSearch<Player>().find(players, (i) => i.getDesc().Equals(searchName));
-        }
-
-        //Linearsearch distance
-        public Player distance(int maxDistance)
-        {
-            List<Player> copyPlayers = new List<Player>(players);
-            for (int i = 0; i < copyPlayers.Count; i++)
-            {
-                if (copyPlayers[i].getId() == yourId)
-                {
-                   myPlayer = copyPlayers[i];
-                    copyPlayers.RemoveAt(i);
-                }
-            }
-            return new LinearSearch<Player>().find(copyPlayers, (i) =>(Math.Abs(myPlayer.x - i.x) + Math.Abs(myPlayer.y - i.y)) <= maxDistance);
-
-        }
-
-        // Binarysearch id
-        public Player binarySearchId(int searchId)
-        {
-            players = quicksortId();
-            return new BinarySearch<Player>().find(players, (i) => i.getId().CompareTo(searchId));
-        }
-
-        //Binarysearch name
-        public Player binarySearchName(String searchName)
-        {
-          return new BinarySearch<Player>().find(players, (i) => i.getDesc().CompareTo(searchName));
-        }
-
-        //Binarysearch points
-        public Player binarySearchPoints(int searchPoints)
-        {
-          players = quicksortPoints();
-          return new BinarySearch<Player>().find(players, (i) => i.getPoints().CompareTo(searchPoints));
         }
     }
 }

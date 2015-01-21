@@ -9,14 +9,39 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-
 namespace Inf3Project
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Connector connector = new Connector("127.0.0.1", 666);            
+            ServerData serverData = new ServerData();
+
+            serverData.ShowDialog();
+
+            //---- ogrady server ----
+            //ip:port 85.214.103.114:110
+
+            String ip = serverData.getIP();
+            int port = serverData.getPort();
+
+            if (ip != null && ip.Length >= 7)
+            {
+                if (port > 0 && port <= 65535)
+                {
+                    Connector connector = new Connector(ip, port);
+                }
+                else
+                {
+                    //error code here - port error
+                }
+            }
+            else
+            {
+                //error code here - ip error
+            }
+
+                      
         }
 
     }

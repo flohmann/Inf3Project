@@ -241,50 +241,45 @@ namespace Inf3Project
         /// <param name="height">height of the tile in pixels</param>
         protected void drawMapTile(Graphics g, ITile tile, int absX, int absY, int width, int height)
         {
-            //Color colour = Color.BurlyWood;
-            
-                TextureBrush tb;
+            TextureBrush tb;
     
-                if (tile.isForest())
+            if (tile.isForest())
+            {
+                if (tile.isHuntable())
                 {
-                    if (tile.isHuntable())
-                    {
-                        //colour = Color.YellowGreen;
-                        Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\grass.bmp");
-                        tb = new TextureBrush(myBitmap);
-                        g.FillRectangle(tb, absX, absY, width, height);
-                    }
-                    else
-                    {
-                        //colour = Color.Green;
-
-
-                        Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\forest.bmp");
-                        tb = new TextureBrush(myBitmap);
-                        g.FillRectangle(tb, absX, absY, width, height);
-                    }
-                }
-                else if (tile.isWater())
-                {
-                    //colour = Color.Blue;
-                    Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\water.bmp");
+                    Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\grass.bmp");
                     tb = new TextureBrush(myBitmap);
                     g.FillRectangle(tb, absX, absY, width, height);
                 }
-                else if (!tile.isWalkable())
+                else
                 {
-                    //colour = Color.DimGray;
-
-                    Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\cement.bmp");
+                    Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\forest.bmp");
                     tb = new TextureBrush(myBitmap);
                     g.FillRectangle(tb, absX, absY, width, height);
                 }
+            }
+            else if (tile.isWater())
+            {
+                Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\water.bmp");
+                tb = new TextureBrush(myBitmap);
+                g.FillRectangle(tb, absX, absY, width, height);
+            }
+            else if (!tile.isWalkable())
+            {
+                Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\cement.bmp");
+                tb = new TextureBrush(myBitmap);
+                g.FillRectangle(tb, absX, absY, width, height);
+            }
+            else
+            {
+                Bitmap myBitmap = new Bitmap(Application.StartupPath + @"\..\..\Resources\desert.bmp");
+                tb = new TextureBrush(myBitmap);
+                g.FillRectangle(tb, absX, absY, width, height);
+            }
 
-                //g.FillRectangle(new SolidBrush(colour), absX, absY, width, height);
-                g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), new Rectangle(absX, absY, width, height));
-
-          
+            g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), new Rectangle(absX, absY, width, height));
         }
+
         /// <summary>
         /// Draws a player on the graphics.
         /// By default, players will be represented by a centered dark-yellow rectangle that takes up half of the cells size.
