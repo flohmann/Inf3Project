@@ -30,9 +30,11 @@ namespace Inf3Project
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.chatInput = new System.Windows.Forms.TextBox();
             this.chatWindow = new System.Windows.Forms.RichTextBox();
             this.board = new System.Windows.Forms.Panel();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.SuspendLayout();
             // 
             // chatInput
@@ -61,6 +63,13 @@ namespace Inf3Project
             this.board.Name = "board";
             this.board.Size = new System.Drawing.Size(350, 350);
             this.board.TabIndex = 2;
+            this.board.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Board_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // DefaultGui
             // 
@@ -75,15 +84,12 @@ namespace Inf3Project
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
-            this.Name = "Spiel";
+            this.Name = "DefaultGui";
             this.ShowIcon = false;
             this.Text = "Spiel";
             this.ResumeLayout(false);
             this.PerformLayout();
-            // 
-            // Mouse Events
-            // 
-            this.board.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Board_Click);
+
         }
 
         #endregion
@@ -91,6 +97,7 @@ namespace Inf3Project
         private System.Windows.Forms.TextBox chatInput;
         private System.Windows.Forms.RichTextBox chatWindow;
         private System.Windows.Forms.Panel board;
+        private ContextMenuStrip contextMenuStrip1;
     }
 }
 

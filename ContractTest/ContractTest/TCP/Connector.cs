@@ -10,7 +10,6 @@ using System.IO;
 using System.Net.Sockets;
 using System.Threading;
 
-
 namespace Inf3Project
 {
     public class Connector
@@ -19,7 +18,7 @@ namespace Inf3Project
          * variables 
          */
         private String ip;
-        private int port = 666;
+        private int port = 110;
         private StreamWriter sw;
         private StreamReader sr;
         private TcpClient tcpClient;
