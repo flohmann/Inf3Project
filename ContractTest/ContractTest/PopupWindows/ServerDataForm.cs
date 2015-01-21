@@ -45,5 +45,17 @@ namespace Inf3Project
 
             this.Visible = false;
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ip = "85.214.103.114";
+            port = 110;
+            this.Visible = false;
+        }
     }
 }
