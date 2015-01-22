@@ -66,6 +66,7 @@ namespace Inf3Project
             this.isLocked = locked;
 
         }
+       
         protected override CreateParams CreateParams
         {
         	get 
@@ -76,7 +77,6 @@ namespace Inf3Project
 	        }
         }
         
-
         /// <summary>
         /// Handles keypresses the chatInput-field receives.
         /// Having ENTER pressed, causes the field to be emptied and have the trimmed text in the field sent to the backend.
@@ -105,9 +105,8 @@ namespace Inf3Project
                 ba.sendCommand("get:myid");
 
                 MapCell target = this.ba.getMapCell(x, y);
-                Console.WriteLine(target.isWalkable());
                 this.ba.pathfinder(this.ba.getMyPlayerPos(), target);
-                //this.ba.pathfinder(this.ba.getMapCell(2, 2), this.ba.getMapCell(5, 5));
+
             }
         } 
 

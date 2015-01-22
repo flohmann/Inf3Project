@@ -24,6 +24,7 @@ namespace Inf3Project
         {
             this.tcpClient = tcpClient;
             this.sw = sw;
+            sendMessageToServer("get:myid");
         }
 
         /*

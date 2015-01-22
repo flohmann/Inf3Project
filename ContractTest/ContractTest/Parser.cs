@@ -90,7 +90,6 @@ namespace Inf3Project
 
         private void removeFrame()
         {
-            Console.WriteLine("--> in removeFrame");
             //delete the begin:x and end:x frame
             String[] tmp = msg[0].Split(':');
             int value;
@@ -199,7 +198,7 @@ namespace Inf3Project
 
             }
 
-            else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("yourId"))))
+            else if ((tmp[0].Equals("begin")) && ((tmp[1].Equals("yourid"))))
             {
                 msg.RemoveAt(0);
                 msg.RemoveAt(msg.Count - 1);
@@ -506,23 +505,31 @@ namespace Inf3Project
 
         private void parseYourId()
         {
-            String[] tmp = msg[0].Split(':');
-
-            if (tmp[0].Equals("id"))
-            {
-                this.yourId = Int32.Parse(tmp[1]);
-                msg.RemoveAt(0);
-            } if ((tmp[0].Equals("end")) && ((tmp[1].Equals("challenge"))))
-            {
-                msg.RemoveAt(0);
-                backend.setYourId(this.yourId);
-                this.clearVars();
-            }
-            else
-            {
-                throw new Exception("There is no id");
-            }
+            //JoTiZ
+            this.yourId = Int32.Parse(msg[0]);
+            backend.setYourId(this.yourId);
+            this.clearVars();
         }
+
+        //private void parseYourId()
+        //{
+        //    String[] tmp = msg[0].Split(':');
+
+        //    if (tmp[0].Equals("id"))
+        //    {
+        //        this.yourId = Int32.Parse(tmp[1]);
+        //        msg.RemoveAt(0);
+        //    } if ((tmp[0].Equals("end")) && ((tmp[1].Equals("challenge"))))
+        //    {
+        //        msg.RemoveAt(0);
+        //        backend.setYourId(this.yourId);
+        //        this.clearVars();
+        //    }
+        //    else
+        //    {
+        //        throw new Exception("There is no id");
+        //    }
+        //}
 
         private void parseOnline()
         {

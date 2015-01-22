@@ -21,11 +21,10 @@ namespace Inf3Project
     /// </summary>
     public class Backend : IBackend
     {
-        [DllImport("Dijkstra", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void release_Array(IntPtr pArray);
-
-        [DllImport("Dijkstra", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr findPath(int from, int to, int[] map, int mapw, int maph, ref int pathlength);
+        [DllImport("PathFinder", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr findPath(int from, int to, int[] map, int mapw, int maph, int plength);
+        [DllImport("PathFinder", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void freeArray(IntPtr pointer);
 
         private bool firstTimeMap = true;
         private bool firstTimeBoard = true;
@@ -42,7 +41,6 @@ namespace Inf3Project
         private Map map;
         private bool[][] walkableMap;
         private int[] walkableMap1D;
-        //private bool mapSave=true;
         private Connector connector;
         private Pathwalker pathwalker;
         private Player myPlayer;
@@ -52,10 +50,8 @@ namespace Inf3Project
             this.connector = con;
             players = new List<Player>();
             dragons = new List<Dragon>();
-            //this.m = new GUIManager(this);
-            pathwalker = new Pathwalker();
+            pathwalker = new Pathwalker(this);
         }
-
 
         public void sendCommandToConnector(String command)
         {
@@ -66,6 +62,7 @@ namespace Inf3Project
         {
             this.map = map;
         }
+     
         public Map getMap()
         {
             return map;
@@ -112,7 +109,10 @@ namespace Inf3Project
                 {
                     players.RemoveAt(i);
                 }
-                else Console.WriteLine("Update");
+                else
+                {
+                    Console.WriteLine("Update");
+                }
             }
 
 
@@ -137,7 +137,10 @@ namespace Inf3Project
                 {
                     dragons.RemoveAt(i);
                 }
-                else Console.WriteLine("Update");
+                else
+                {
+                    Console.WriteLine("Update");
+                }
             }
 
         }
@@ -148,15 +151,11 @@ namespace Inf3Project
         {
             if (command != null || command.Length != 0)
             {
-
                 this.connector.getSender().sendMessageToServer(command);
-
             }
-            Console.WriteLine("received command " + command);
-
+            Console.WriteLine("'" + command + "'" + " SEND TO SERVER");
         }
 
-        // 
         public String getCommand()
         {
             return commandMsg;
@@ -186,7 +185,6 @@ namespace Inf3Project
         {
             return receivedMsg;
         }
-
 
         public void giveTime(DateTime time)
         {
@@ -241,7 +239,6 @@ namespace Inf3Project
             return challenges;
         }
 
-
         /* 
          * translate map into 2D ITile array and returns it
          * initalize Gui
@@ -274,7 +271,6 @@ namespace Inf3Project
             return mapMemory;
         }
 
-
         /* 
          * checks every cell of the map if its walkable (true, false) or not
          * fills the bool 2D array "walkable" with this data
@@ -302,25 +298,26 @@ namespace Inf3Project
         public void setWalkable1DMap()
         {
             walkableMap1D = new int[map.width * map.height];
-            int counter = 0;
-
-            for (int i = 0; i < map.width; i++)
+            if (map != null)
             {
-                for (int j = 0; j < map.height; j++)
+                int counter = 0;
+
+                for (int x = 0; x < map.width; x++)
                 {
-                    if (map.getCells()[i][j].isWalkable())
+                    for (int y = 0; y < map.height; y++)
                     {
-                        walkableMap1D[counter] = 1;
+                        if (map.getCells()[y][x].isWalkable())
+                        {
+                            walkableMap1D[counter] = 1;
+                        }
+                        else
+                        {
+                            walkableMap1D[counter] = 0;
+                        }
+                        counter++;
                     }
-                    else
-                    {
-                        walkableMap1D[counter] = 0;
-                    }
-                    counter++;
                 }
             }
-            //  MapCell[][] mc = map.getCells();
-            //  this.pathfinder(mc[2][2], mc[5][5]);
         }
 
         public Boolean[][] getWalkableMap()
@@ -333,50 +330,54 @@ namespace Inf3Project
             return walkableMap1D;
         }
 
+        public int coordinateToPoint(int row, int col)
+        {
+            return (row * map.width + col);
+        }
 
-        /*   public void pathfinder(MapCell start, MapCell end)
-           {
-
-               Pathfinder.Tile[] bestPath = p.findPath(walkableMap, start.getXPosition(), start.getYPosition(), end.getXPosition(), end.getYPosition());
-               List<MapCell> cellList = new List<MapCell>();
-               if (bestPath != null)
-               {
-                   for (int i = 0; i < bestPath.Length; i++)
-                   {
-                       cellList.Add(this.getMap().getCells()[bestPath[i].x][bestPath[i].y]);
-                       // Console.WriteLine(„Pfad:: x:“ + bestPath[i].x + „ y:“ + bestPath[i].y);
-                   }
-               }
-           }*/
-
-        /*
-        * method to call "findPath" from dll 
-        * finds the best Path from start cell to end cell, which were given as parameters
-       */
         public void pathfinder(MapCell start, MapCell end)
         {
-            m.setLock(true);
-            int begin = start.getYPosition() * map.width + start.getXPosition();
-            int goal = end.getYPosition() * map.width + end.getXPosition();
-
-            int size = 0;
-            IntPtr ptr = findPath(begin, goal, getWalkable1dMap(), map.width, map.height, ref size);
-
-            int[] path = new int[size];
-            Marshal.Copy(ptr, path, 0, size);
-
-            List<MapCell> cellList = new List<MapCell>();
-            foreach (int item in path)
+            //set myPlayer
+            foreach (Player p in players)
             {
-                Console.Write(item + " ");
-                cellList.Add(this.map.getCell(item % map.width, item / map.width));
+                if (yourId == p.getId())
+                {
+                    myPlayer = p;
+                }
             }
-            Console.WriteLine();
-            // HAS TO BE IN THE METHOD OF WALKING THE PATH (WHEN ITS FINISHED)
-            m.setLock(false);
-            release_Array(ptr);
+            m.setLock(true);
 
-            pathwalker.setCoordinates(cellList);
+            try
+            {
+                int from = coordinateToPoint(start.getYPosition(), start.getXPosition());
+                int to = coordinateToPoint(end.getYPosition(), end.getXPosition());
+
+                Console.WriteLine("START-COO (" +start.getXPosition() + " / " + start.getYPosition() + ")");
+                Console.WriteLine("END-COO (" + end.getXPosition() + " / " + end.getYPosition() + ")");
+                Console.WriteLine("START-NR X=" + from + "  END-NR Y=" + to);
+
+                int pathLength = map.width * map.height / 4;
+                int[] path = new int[pathLength];
+
+                IntPtr pointer = findPath(from, to, getWalkable1dMap(), map.width, map.height, path.Length);
+                Marshal.Copy(pointer, path, 0, path.Length);
+
+
+                List<MapCell> cellList = new List<MapCell>();
+                foreach (int item in path)
+                {
+                    cellList.Add(this.map.getCell(item % map.width, item / map.width));
+                }
+
+
+                m.setLock(false);
+                pathwalker.setCoordinates(cellList);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
         }
 
         public MapCell getMapCell(int x, int y)
@@ -386,15 +387,6 @@ namespace Inf3Project
 
         public MapCell getMyPlayerPos()
         {
-            //List<MapCellAttribute> attributes = new List<MapCellAttribute>();
-            //MapCell mp = new MapCell(-1, -1, attributes);
-            //foreach (Player p in players)
-            //{
-            //    if (p.getId() == getYourId()) {
-            //        mp = map.getCell(p.getXPosition(), p.getYPosition());
-            //    }
-            //}
-            //return mp;
             return map.getCell(players[0].getXPosition(), players[0].getYPosition());
         }
     }

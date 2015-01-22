@@ -11,8 +11,6 @@ namespace Inf3Project
     public class Player : Entity, IMyObservable<IPlayerObserver>
     {
         private int points;
-        
-        
 
         public Player(int id, int x, int y, String type, int points, String desc, Boolean isBusy)
             : base(id, x, y, type)
@@ -23,9 +21,6 @@ namespace Inf3Project
             setId(id);
         }
      
-
-      
-
         public int getPoints()
         {
             return points;
@@ -47,18 +42,18 @@ namespace Inf3Project
         //    }
         //}
 
-        //public void positionChange(int i, int j)
-        //{
-        //    if (this != null)
-        //    {
-        //        this.x = i;
-        //        this.y = j;
-        //        foreach (IPlayerObserver po in getObservers())
-        //        {
-        //            po.OnChangePosition(this, this.x, this.y);
-        //        }
-        //    }
-        //}
+        public void positionChange(int i, int j)
+        {
+            if (this != null)
+            {
+                this.x = i;
+                this.y = j;
+                //foreach (IPlayerObserver po in getObservers())
+                //{
+                //    po.OnChangePosition(this, this.x, this.y);
+                //}
+            }
+        }
 
         //List<IObserver<IPlayerObserver>> getObservers()
         //{

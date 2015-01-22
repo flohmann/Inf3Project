@@ -47,14 +47,14 @@ namespace Inf3Project
             {
                 if (bufferList.Count() < 15)
                 {    
-                    Console.WriteLine("## old count list -- " + this.bufferList.Count);
-                    Console.WriteLine("## add -- " + message);
+                    //Console.WriteLine("## old count list -- " + this.bufferList.Count);
+                    //Console.WriteLine("## add -- " + message);
                     bufferList.Add(message);
-                    Console.WriteLine("## new count list -- " + this.bufferList.Count);
+                    //Console.WriteLine("## new count list -- " + this.bufferList.Count);
                 }
                 else
                 {
-                    throw new Exception("Buffer Overflow");
+                    //throw new Exception("Buffer Overflow");
                 }
             }
         }
@@ -67,10 +67,10 @@ namespace Inf3Project
                 if (bufferHasContent())
                 {
                     tmp = bufferList.ElementAt(0);
-                    Console.WriteLine("## old count list -- " + this.bufferList.Count);
-                    Console.WriteLine("## remove -- " + tmp);
+                    //Console.WriteLine("## old count list -- " + this.bufferList.Count);
+                    //Console.WriteLine("## remove -- " + tmp);
                     bufferList.RemoveAt(0);
-                    Console.WriteLine("## new count list -- " + this.bufferList.Count);
+                    //Console.WriteLine("## new count list -- " + this.bufferList.Count);
                 }
             }
             return tmp;
