@@ -38,6 +38,8 @@ namespace Inf3Project
         public delegate void AddListItem();
         public AddListItem myDelegate;
         public bool isLocked = false;
+        delegate void setTextCallback(string text);
+        private String chatProcess = "";
 
         public DefaultGui(IBackend backend) : base()
         {
@@ -350,16 +352,26 @@ namespace Inf3Project
         //    this.Invoke(message);
         //    m.sendChatMessage();
         //}
-        
+
         public void appendChatMessage(String sender, String message)
         {
-            try
+            this.chatProcess += sender + ": " + message + "\n";
+            this.setChatText(chatProcess);
+        }
+
+        private void setChatText(string text)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (this.chatWindow.InvokeRequired)
             {
-                this.chatWindow.AppendText(this.ba.getChatMsg());
+                setTextCallback d = new setTextCallback(setChatText);
+                this.Invoke(d, new object[] { text });
             }
-            catch (Exception e)
+            else
             {
-                Console.WriteLine(e);
+                this.chatWindow.Text = text;
             }
         }
 
@@ -372,7 +384,24 @@ namespace Inf3Project
 
         }
 
-   
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string input = this.chatInput.Text.Trim();
+            this.chatInput.Text = "";
 
+            if (input != "")
+            {
+                if (input.StartsWith("/"))
+                {
+                    input = input.Substring(1, input.Length - 1);
+                    this.ba.sendCommand(input);
+                }
+                else
+                {
+                    this.ba.sendChat(input);
+                }
+            }
+            this.board.Focus();
+        }
     }
 }

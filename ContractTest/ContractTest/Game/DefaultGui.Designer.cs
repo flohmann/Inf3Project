@@ -35,15 +35,16 @@ namespace Inf3Project
             this.chatWindow = new System.Windows.Forms.RichTextBox();
             this.board = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.Btn_ChatSend = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // chatInput
             // 
             this.chatInput.BackColor = System.Drawing.SystemColors.Window;
-            this.chatInput.Location = new System.Drawing.Point(23, 455);
+            this.chatInput.Location = new System.Drawing.Point(113, 459);
             this.chatInput.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chatInput.Name = "chatInput";
-            this.chatInput.Size = new System.Drawing.Size(350, 20);
+            this.chatInput.Size = new System.Drawing.Size(413, 20);
             this.chatInput.TabIndex = 0;
             // 
             // chatWindow
@@ -52,7 +53,7 @@ namespace Inf3Project
             this.chatWindow.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chatWindow.Name = "chatWindow";
             this.chatWindow.ReadOnly = true;
-            this.chatWindow.Size = new System.Drawing.Size(350, 81);
+            this.chatWindow.Size = new System.Drawing.Size(503, 81);
             this.chatWindow.TabIndex = 1;
             this.chatWindow.Text = "";
             // 
@@ -71,12 +72,23 @@ namespace Inf3Project
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
+            // Btn_ChatSend
+            // 
+            this.Btn_ChatSend.Location = new System.Drawing.Point(23, 457);
+            this.Btn_ChatSend.Name = "Btn_ChatSend";
+            this.Btn_ChatSend.Size = new System.Drawing.Size(75, 23);
+            this.Btn_ChatSend.TabIndex = 3;
+            this.Btn_ChatSend.Text = "Senden";
+            this.Btn_ChatSend.UseVisualStyleBackColor = true;
+            this.Btn_ChatSend.Click += new System.EventHandler(this.button1_Click);
+            // 
             // DefaultGui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(398, 487);
+            this.ClientSize = new System.Drawing.Size(539, 495);
+            this.Controls.Add(this.Btn_ChatSend);
             this.Controls.Add(this.board);
             this.Controls.Add(this.chatWindow);
             this.Controls.Add(this.chatInput);
@@ -98,6 +110,7 @@ namespace Inf3Project
         private System.Windows.Forms.RichTextBox chatWindow;
         private System.Windows.Forms.Panel board;
         private ContextMenuStrip contextMenuStrip1;
+        private Button Btn_ChatSend;
     }
 }
 

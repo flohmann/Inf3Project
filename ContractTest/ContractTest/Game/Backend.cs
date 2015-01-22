@@ -51,12 +51,7 @@ namespace Inf3Project
             players = new List<Player>();
             dragons = new List<Dragon>();
             pathwalker = new Pathwalker(this);
-        }
-
-        public void sendCommandToConnector(String command)
-        {
-            //content here
-        }
+        } 
 
         public void setMap(Map map)
         {
@@ -166,9 +161,9 @@ namespace Inf3Project
         {
             if (message != null || message.Length != 0)
             {
-                this.connector.getSender().sendMessageToServer(message);
+                //changed something here
+                this.connector.getSender().sendMessageToServer("ask:say:"+message);
             }
-            Console.WriteLine("received chatmessage " + getChat());
         }
 
         public String getChat()

@@ -232,7 +232,7 @@ namespace Inf3Project
             {
                 msg.RemoveAt(0);
                 tmp = msg[0].Split(':');
-                if (tmp[0].Equals("scr"))
+                if (tmp[0].Equals("src"))
                 {
                     this.sender = tmp[1];
                     msg.RemoveAt(0);
@@ -242,13 +242,9 @@ namespace Inf3Project
                 {
                     this.mes = tmp[1];
                     msg.RemoveAt(0);
-                    tmp = msg[0].Split(':');
+                    
                 }
-                if ((tmp[0].Equals("end")) && ((tmp[1].Equals("mes"))))
-                {
-                    msg.RemoveAt(0);
-                    backend.setChatMsg(sender, mes);
-                }
+                backend.setChatMsg(sender, mes);
             }
         }
 
