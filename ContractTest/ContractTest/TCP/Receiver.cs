@@ -52,27 +52,34 @@ namespace Inf3Project
             int value;
             while (tcpClient.Connected)
             {
-                tmpMessage = sr.ReadLine().ToString();
-                String[] tmp = tmpMessage.Split(':');
-                if((tmp[0].Equals("begin")) && (Int32.TryParse(tmp[1], out value)))
-                {
-                    write = true;
-                    serverMessage += tmpMessage + "$";
-                    value = Int32.Parse(tmp[1]);
-                } 
-                else
-                {
-                    if((tmp[0].Equals("end")) && (Int32.TryParse(tmp[1], out value)))
+                try { 
+                    tmpMessage = sr.ReadLine().ToString();
+                    String[] tmp = tmpMessage.Split(':');
+                    if((tmp[0].Equals("begin")) && (Int32.TryParse(tmp[1], out value)))
                     {
-                        serverMessage += tmpMessage;
-                        buffer.addMessageToBuffer(serverMessage);
-                        write = false;
-                        serverMessage = "";
-                    }
-                    else if(write)
-                    {
+                        write = true;
                         serverMessage += tmpMessage + "$";
+                        value = Int32.Parse(tmp[1]);
+                    } 
+                    else
+                    {
+                        if((tmp[0].Equals("end")) && (Int32.TryParse(tmp[1], out value)))
+                        {
+                            serverMessage += tmpMessage;
+                            buffer.addMessageToBuffer(serverMessage);
+                            write = false;
+                            serverMessage = "";
+                        }
+                        else if(write)
+                        {
+                            serverMessage += tmpMessage + "$";
+                        }
                     }
+                }
+                catch (Exception e)
+                {
+                    tcpClient.Close();
+                    Console.WriteLine(e.Message);
                 }
             }
         }

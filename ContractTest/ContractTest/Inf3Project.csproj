@@ -175,13 +175,15 @@
     <Content Include="Dijkstra.dll" />
     <Content Include="Resources\cement.bmp" />
     <Content Include="Resources\desert.bmp" />
-    <Content Include="Resources\drache.gif" />
-    <Content Include="Resources\grass.bmp" />
+    <Content Include="Resources\dragon.bmp" />
+    <Content Include="Resources\dragon.gif" />
     <Content Include="Resources\forest.BMP" />
-    <Content Include="Resources\spieler_1.gif" />
-    <Content Include="Resources\Spieler_2.gif" />
-    <Content Include="Resources\spieler_3.gif" />
+    <Content Include="Resources\grass.bmp" />
+    <Content Include="Resources\player_1.gif" />
+    <Content Include="Resources\player_2.gif" />
+    <Content Include="Resources\player_3.gif" />
     <Content Include="Resources\water.bmp" />
+    <Content Include="Resources\you.bmp" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

@@ -50,7 +50,7 @@ namespace Inf3Project
             this.connector = con;
             players = new List<Player>();
             dragons = new List<Dragon>();
-            pathwalker = new Pathwalker(this);
+            pathwalker = new Pathwalker(this); 
         } 
 
         public void setMap(Map map)
@@ -61,6 +61,27 @@ namespace Inf3Project
         public Map getMap()
         {
             return map;
+        }
+
+        public int[] getMyPos()
+        {   
+            int[] result = new Int32[2];
+            result[0] = getMyPlayer().getXPosition();
+            result[1] = getMyPlayer().getYPosition();
+            return result;
+        }
+
+        public Player getMyPlayer()
+        {
+            //set myPlayer
+            foreach (Player p in players)
+            {
+                if (yourId == p.getId())
+                {
+                    myPlayer = p;
+                }
+            }
+            return myPlayer;
         }
 
         public void moveLeft()

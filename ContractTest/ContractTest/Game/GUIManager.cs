@@ -21,8 +21,6 @@ namespace Inf3Project
         public GUIManager(IBackend ba)
         {
             this.ba = ba;
-            //gui = new DefaultGui(ba);
-            //initGUI();
         }
 
         public void initGUI()

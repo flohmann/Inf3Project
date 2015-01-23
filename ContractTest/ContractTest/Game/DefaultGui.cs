@@ -66,7 +66,6 @@ namespace Inf3Project
         public void setLock(bool locked)
         {
             this.isLocked = locked;
-
         }
        
         protected override CreateParams CreateParams
@@ -92,8 +91,6 @@ namespace Inf3Project
         public void repaint()
         {
             this.board.Refresh();
-          
-            
         }
 
         private void Board_Click(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -108,7 +105,6 @@ namespace Inf3Project
 
                 MapCell target = this.ba.getMapCell(x, y);
                 this.ba.pathfinder(this.ba.getMyPlayerPos(), target);
-
             }
         } 
 
@@ -201,6 +197,12 @@ namespace Inf3Project
                         this.drawMapTile(buffer.Graphics, cells[x][y], x * tileSize.Width, y * tileSize.Height, tileSize.Width, tileSize.Height);
                     }
                 }
+                Player tmp = ba.getMyPlayer();
+                labelName.Text = tmp.getDesc().ToString();
+                labelPoints.Text = tmp.getPoints().ToString();
+                labelBusy.Text = tmp.getBusy().ToString();
+                labelX.Text = tmp.getXPosition().ToString();
+                labelY.Text = tmp.getYPosition().ToString();
                 buffer.Render(); 
         }
 
@@ -219,7 +221,7 @@ namespace Inf3Project
             List<IPositionable> players = this.ba.getPlayers();
             foreach (IPositionable player in players)
             {
-                this.drawPlayer(e.Graphics, player);
+                this.drawPlayer(e.Graphics, player);   
             }
           
         }
@@ -289,12 +291,22 @@ namespace Inf3Project
         /// <param name="player">the player to draw</param>
         protected void drawPlayer(Graphics g, IPositionable player)
         {
-            Size tileSize = this.getTileSize();
-            g.FillRectangle(new SolidBrush(Color.DarkGoldenrod),
-                player.getXPosition() * tileSize.Width + tileSize.Width / 2 - tileSize.Width / 4,
-                player.getYPosition() * tileSize.Height + tileSize.Height / 2 - tileSize.Height / 4, 
-                tileSize.Width/2, 
-                tileSize.Height/2);
+            int[] tmp = ba.getMyPos();
+            if(tmp[0] == player.getXPosition() && tmp[1] == player.getYPosition()){
+                Size tileSize = this.getTileSize();
+                g.FillRectangle(new SolidBrush(Color.DarkGoldenrod),
+                    player.getXPosition() * tileSize.Width + tileSize.Width / 2 - tileSize.Width / 4,
+                    player.getYPosition() * tileSize.Height + tileSize.Height / 2 - tileSize.Height / 4,
+                    tileSize.Width / 2,
+                    tileSize.Height / 2);
+            }else{
+                Size tileSize = this.getTileSize();
+                g.FillRectangle(new SolidBrush(Color.DarkCyan),
+                    player.getXPosition() * tileSize.Width + tileSize.Width / 2 - tileSize.Width / 4,
+                    player.getYPosition() * tileSize.Height + tileSize.Height / 2 - tileSize.Height / 4,
+                    tileSize.Width / 2,
+                    tileSize.Height / 2);
+            }
         }
 
         /// <summary>
@@ -402,6 +414,29 @@ namespace Inf3Project
                 }
             }
             this.board.Focus();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Player tmp = ba.getMyPlayer();
+            setChatText(tmp.getDesc().ToString() + " refuses the connection...  *QUIT");
+            ba.sendCommand("ask:bye");
+            
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

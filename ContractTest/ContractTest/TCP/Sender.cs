@@ -49,8 +49,15 @@ namespace Inf3Project
         }
         public void sendMessageToServer(String command)
         {
-            sw.WriteLine(command);
-            sw.Flush();
+            try
+            {
+                sw.WriteLine(command);
+                sw.Flush();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }

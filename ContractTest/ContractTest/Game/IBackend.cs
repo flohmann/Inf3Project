@@ -42,7 +42,8 @@ namespace Inf3Project
 
         String getCommand();
         String getChat();
-
+        int[] getMyPos();
+        Player getMyPlayer();
         void setChatMsg(String name, String text);
         String getChatMsg();
 
